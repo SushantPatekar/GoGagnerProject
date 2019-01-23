@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgColor">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="100">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="18"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgAvatar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:padding="@dimen/size_3"
+                android:src="@drawable/img_add_avatar" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+
+            android:layout_weight="82">
+
+            <custom.customEditTextView
+                android:id="@+id/edFirstName"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="@dimen/size_30"
+                android:layout_marginTop="@dimen/size_20"
+                android:layout_marginRight="@dimen/size_30"
+                android:background="@drawable/bg_edittext_icon"
+                android:drawableLeft="@drawable/first_last_name"
+                android:drawablePadding="@dimen/size_20"
+                android:inputType="textCapCharacters"
+                android:maxLines="1"
+                android:padding="12dp"
+                android:textAllCaps="true"
+                android:textColor="@color/white_txt"
+                android:textColorHint="@color/white_txt"
+                android:textSize="@dimen/text_size_12" />
+
+            <custom.customEditTextView
+                android:id="@+id/edLastName"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/edFirstName"
+                android:layout_marginLeft="@dimen/size_30"
+                android:layout_marginTop="@dimen/size_3"
+                android:layout_marginRight="@dimen/size_30"
+                android:background="@drawable/bg_edittext_icon"
+                android:drawableLeft="@drawable/first_last_name"
+                android:drawablePadding="@dimen/size_20"
+                android:inputType="textCapCharacters"
+                android:maxLines="1"
+                android:padding="12dp"
+                android:textAllCaps="true"
+                android:textColor="@color/white_txt"
+                android:textColorHint="@color/white_txt"
+                android:textSize="@dimen/text_size_12" />
+
+            <Spinner
+                android:id="@+id/spState"
+                style="@style/SpinnerTheme"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/edLastName"
+                android:layout_marginLeft="@dimen/size_30"
+                android:layout_marginTop="@dimen/size_3"
+                android:layout_marginRight="@dimen/size_30"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/size_40"
+                android:textAllCaps="true"
+                android:textColor="@color/white_txt"
+                android:textColorHint="@color/white_txt"
+                android:textSize="@dimen/text_size_12" />
+
+            <Spinner
+                android:id="@+id/spCity"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/spState"
+                android:layout_marginLeft="@dimen/size_30"
+                android:layout_marginTop="@dimen/size_3"
+                android:layout_marginRight="@dimen/size_30"
+                android:paddingLeft="@dimen/size_40"
+                style="@style/SpinnerTheme"
+                android:drawablePadding="@dimen/size_20"
+                android:maxLines="1"
+
+                android:textAllCaps="true"
+                android:textColor="@color/white_txt"
+                android:textColorHint="@color/white_txt"
+                android:textSize="@dimen/text_size_12" />
+
+            <Spinner
+                android:id="@+id/spCityArea"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/spCity"
+
+                android:layout_marginLeft="@dimen/size_30"
+                android:layout_marginTop="@dimen/size_3"
+                android:layout_marginRight="@dimen/size_30" android:paddingLeft="@dimen/size_40"
+                style="@style/SpinnerTheme"
+                android:drawablePadding="@dimen/size_20"
+                android:maxLines="1"
+                android:textAllCaps="true"
+                android:textColor="@color/white_txt"
+                android:textColorHint="@color/white_txt"
+                android:textSize="@dimen/text_size_12" />
+
+            <custom.customEditTextView
+                android:id="@+id/edEmail"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/spCityArea"
+                android:layout_marginLeft="@dimen/size_30"
+                android:layout_marginTop="@dimen/size_3"
+                android:layout_marginRight="@dimen/size_30"
+                android:background="@drawable/bg_edittext_icon"
+                android:drawableLeft="@drawable/email"
+                android:drawablePadding="@dimen/size_20"
+                android:inputType="textCapCharacters"
+                android:maxLines="1"
+                android:padding="12dp"
+                android:textAllCaps="true"
+                android:textColor="@color/white_txt"
+                android:textColorHint="@color/white_txt"
+                android:textSize="@dimen/text_size_12" />
+
+            <custom.customEditTextView
+                android:id="@+id/edMobileNumber"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/edEmail"
+                android:layout_marginLeft="@dimen/size_30"
+                android:layout_marginTop="@dimen/size_3"
+                android:layout_marginRight="@dimen/size_30"
+                android:background="@drawable/bg_edittext_icon"
+                android:drawableLeft="@drawable/mobile"
+                android:drawablePadding="@dimen/size_20"
+                android:inputType="number"
+                android:maxLines="1"
+                android:maxLength="10"
+                android:padding="12dp"
+                android:textAllCaps="true"
+                android:textColor="@color/white_txt"
+                android:textColorHint="@color/white_txt"
+                android:textSize="@dimen/text_size_12" />
+
+            <custom.customEditTextView
+                android:id="@+id/edPassword"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/edMobileNumber"
+                android:layout_marginLeft="@dimen/size_30"
+                android:layout_marginTop="@dimen/size_3"
+                android:layout_marginRight="@dimen/size_30"
+                android:background="@drawable/bg_edittext_icon"
+                android:drawableLeft="@drawable/password"
+                android:drawablePadding="@dimen/size_20"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:padding="12dp"
+                android:textAllCaps="true"
+                android:textColor="@color/white_txt"
+                android:textColorHint="@color/white_txt"
+                android:textSize="@dimen/text_size_12" />
+
+            <custom.customEditTextView
+                android:id="@+id/edConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/edPassword"
+                android:layout_marginLeft="@dimen/size_30"   android:inputType="textPassword"
+                android:layout_marginTop="@dimen/size_3"
+                android:layout_marginRight="@dimen/size_30"
+                android:background="@drawable/bg_edittext_icon"
+                android:drawableLeft="@drawable/password"
+                android:drawablePadding="@dimen/size_20"
+                android:maxLines="1"
+                android:padding="12dp"
+                android:textAllCaps="true"
+                android:textColor="@color/white_txt"
+                android:textColorHint="@color/white_txt"
+                android:textSize="@dimen/text_size_12" />
+
+
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="@dimen/text_size_12"
+                android:layout_height="@dimen/text_size_12"
+                android:layout_below="@id/edConfirmPassword"
+
+                android:padding="@dimen/size_5"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="@dimen/size_25"
+                android:layout_marginRight="@dimen/size_5"
+                android:button="@drawable/selector_checkbox"
+                android:gravity="center_vertical"
+
+                />
+
+            <custom.customTextView
+                android:id="@+id/tvIagree"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edConfirmPassword"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="@dimen/text_size_12"
+                android:layout_toRightOf="@id/checkbox"
+                android:gravity="center_vertical"
+                android:text="@string/lbl_iagree"
+                android:textColor="@color/white_txt"
+                android:textSize="9dp" />
+
+            <custom.customButton
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_below="@id/tvIagree"
+                android:layout_marginLeft="@dimen/text_size_30"
+                android:layout_marginTop="@dimen/size_3"
+                android:layout_marginRight="@dimen/text_size_30"
+                android:background="@drawable/custom_bg_login"
+                android:text="@string/btn_create_account"
+                android:textAllCaps="true"
+                android:textColor="@color/white_txt"
+                android:textSize="@dimen/text_size_12" />
+
+            <custom.customTextView
+                android:id="@+id/tvLogin"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/btnRegister"
+                android:layout_marginLeft="@dimen/text_size_30"
+                android:layout_marginTop="@dimen/size_10"
+                android:layout_marginRight="@dimen/text_size_30"
+                android:gravity="center_horizontal"
+                android:textColor="@color/white_txt"
+                android:textSize="@dimen/size_10" />
+
+            <!-- <custom.customTextView
+                 android:id="@+id/tvLogin"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/btnRegister"
+                android:layout_marginTop="@dimen/text_size_12"
+                 android:textColor="@color/white_txt"
+                 android:layout_marginBottom="@dimen/text_size_12"
+                 android:text="jfjfjf"
+                 android:textSize="@dimen/size_10" />-->
+
+
+            >
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">GoGaganer</string>
+
+    <string name="btn_login">Login</string>
+    <string name="btn_create_account">Create Account</string>
+    <string name="btn_forgot_pwd">Forgot Password</string>
+    <string name="lbl_powerd_by">Powered By</string>
+
+    <string name="lbl_first_name">First Name</string>
+    <string name="lbl_last_name">Last Name</string>
+    <string name="lbl_state">State</string>
+    <string name="lbl_city">City</string>
+    <string name="lbl_city_area">City Area</string>
+    <string name="lbl_email">Email</string>
+    <string name="lbl_mobile_number">Mobile Number</string>
+    <string name="lbl_password">Password</string>
+    <string name="lbl_cofirm_password">Confirm Password</string>
+    <string name="lbl_iagree">I have read <u>Terms &amp; Conditions </u>to use GoGagner &amp; I AGREE the same.</string>
+    <string name="lbl_create_account">Create Account</string>
+    <string name="lbl_forgot_pwd">Forgot your Password ?</string>
+    <string name="lbl_otp_reminder">OTP will recieve in  </string>
+    <string name="lbl_otp_verify">Verify OTP</string>
+    <string name="lbl_otp_resend">Havent recieved OTP ? Resend</string>
+    <string name="signup_success">You have sign up successfully</string>
+    <string name="signup_error">Unable to sign up, Please try again later.</string>
+    <string name="login_success">You have login successfully</string>
+    <string name="login_error">Unable to login, Please try again later.</string>
+
+    <string name="lbl_new_password">New Password</string>
+    <string name="lbl_confirm_password">Confirm Password</string>
+    <string name="lbl_reset_password">Reset Password</string>
+
+    <string name="lbl_register_otp">Registered Mobile Number or Email</string>
+    <string name="lbl_register_hint">OTP will be send to your registered mobile number or email.</string>
+    <string name="lbl_request_otp">Request OTP</string>
+
+    <string name="lbl_no_internet">No Internet Connection,please try again </string>
+
+    <string name="lbl_enter_valid_otp">Please enter OTP</string>
+    <string name="lbl_error_valid_otp">Please enter valid  OTP</string>
+    <array name="nav_drawer_labels">
+        <item>Reset Password</item>
+        <item>Log Out</item>
+
+        <!-- <item>Parking</item>-->
+    </array>
+    <string name="drawer_text_tag">drawer_text</string>
+    <string name="enter_mob_no">Please enter 10 digit mobile number</string>
+    <string name="enter_valid_email">Please enter valid email id</string>
+    <string name="enter_valid_pwd">Please enter valid pasword</string>
+    <string name="enter_valid_pwd_mismatch">Password mismatch.</string>
+    <string name="enter_valid_email_mobilenumber">Please enter valid mobile number/email id</string>
+    <string name="i_agree_error">You must agree to the terms and conditions before registering</string>
+
+
+    <string name="signup_first_error">Please enter first name.</string>
+    <string name="signup_last_error">Please enter last name.</string>
+    <string name="signup_pwd_error">Please enter valid password.</string>
+</resources>

@@ -141,7 +141,7 @@ public class VerifyOTPActivity extends Activity implements View.OnClickListener 
 
                                     @Override
                                     public void onFailure(final String err) {
-                                        Helper.showToast(VerifyOTPActivity.this, err);
+                                        Helper.showToast(VerifyOTPActivity.this, ""+Helper.getServerErroMessage(err));
                                     }
 
 

@@ -193,6 +193,57 @@ public class NetworkCommunicationHelper {
         }
     }
 
+
+
+    /// For Access Token API
+    public void sendPostAccessTokenRequest(final Application context, final String url, final String reqJson, final OnResponseReceived responseReceived) {
+        RequestQueue mRequestQueue = ((GoGagnerApplication) context).getRequestQueue();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                responseReceived.onSuccess(getSuccessResponseToken(response.toString()));
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("error",""+error.networkResponse.statusCode);
+                Log.e("error",""+error.networkResponse.data);
+                responseReceived.onFailure(getServerError(error));
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() {
+                try {
+                    return reqJson == null ? null : reqJson.getBytes("utf-8");
+                } catch (UnsupportedEncodingException uee) {
+                    uee.fillInStackTrace();
+                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", reqJson, "utf-8");
+
+                    return null;
+                }
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> header = new HashMap<>();
+
+                header.put(Constants.webAPI.header_content_type, Constants.webAPI.value_content_type);
+                header.put(Constants.webAPI.apitoken, Constants.webAPI.apitoken_val);
+                return header;
+            }
+        };
+
+        mRequestQueue.add(stringRequest);
+
+
+
+    }
+    ///
     private String[] parseError(Exception e) {
         String[] errorBuilder = new String[3];
         if (e.getCause() instanceof VolleyError) {
@@ -246,6 +297,23 @@ public class NetworkCommunicationHelper {
         }
 
         return trimmedString;
+    }
+
+    public String getSuccessResponseToken(String message){
+        String responseCode= null;
+        try{
+            JSONObject main,response,data,userDetails;
+            main = new JSONObject(message);
+            response = main.getJSONObject("response");
+            data = response.getJSONObject("data");
+            responseCode = response.getString("status");
+            userDetails = data.getJSONObject("userDetails");
+
+        }
+        catch (Exception e){
+
+        }
+        return responseCode;
     }
 
 public interface OnResponseReceived {

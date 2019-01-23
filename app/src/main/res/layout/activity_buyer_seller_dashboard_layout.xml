@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="100">
+        <fragment
+             android:name="gogagner.goldenbrainsithub.commanview.fragment.AddFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/fragment_1"
+            android:layout_weight="30"
+            android:orientation="horizontal"></fragment>
+        <fragment
+            android:id="@+id/fragment_2"
+            android:name="gogagner.goldenbrainsithub.commanview.fragment.CategoryFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:background="@color/bgColor"
+            android:layout_weight="70">
+
+        </fragment>
+    </LinearLayout>
+</RelativeLayout>

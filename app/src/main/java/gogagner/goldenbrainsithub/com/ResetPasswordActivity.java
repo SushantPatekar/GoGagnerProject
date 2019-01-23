@@ -93,7 +93,7 @@ public class ResetPasswordActivity  extends Activity implements View.OnClickList
 
                                 @Override
                                 public void onFailure(final String err) {
-                                    Helper.showToast(getApplication(), getResources().getString(R.string.lbl_error_valid_otp));
+                                    Helper.showToast(ResetPasswordActivity.this, ""+Helper.getServerErroMessage(err));
                                 }
 
 

@@ -77,7 +77,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                         String requestBody = generateLoginBody();
                         NetworkCommunicationHelper networkCommunicationHelper = new NetworkCommunicationHelper();
 
-                        networkCommunicationHelper.sendPostRequest(getApplication(), webAPI, requestBody,
+                        //For Access Token
+                        networkCommunicationHelper.sendPostAccessTokenRequest(getApplication(), webAPI, requestBody,
                                 new NetworkCommunicationHelper.OnResponseReceived() {
                                     @Override
                                     public void onSuccess(final String res) {

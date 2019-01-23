@@ -19,16 +19,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="gogagner.goldenbrainsithub.com.SplashActivity">
-
-        </activity>
-        <activity android:name="gogagner.goldenbrainsithub.com.LoginActivity" />
-        <activity android:name="gogagner.goldenbrainsithub.com.SignupActivity" />
-        <activity android:name="gogagner.goldenbrainsithub.com.BuyerSellerDashBoardActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name="gogagner.goldenbrainsithub.com.LoginActivity" />
+        <activity android:name="gogagner.goldenbrainsithub.com.SignupActivity" />
+        <activity android:name="gogagner.goldenbrainsithub.com.BuyerSellerDashBoardActivity" >
+
         </activity>
         <activity android:name="gogagner.goldenbrainsithub.com.VerifyOTPActivity" >
 

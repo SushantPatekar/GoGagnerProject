@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class AddFragment extends Fragment {
-    String[] strings = {"1", "2", "3", "4", "5", "6", "7"};
+    String[] strings = {"1", "2", "3", "4", "5", "6", "7","1", "2", "3", "4", "5", "6", "7","1", "2", "3", "4", "5", "6", "7","1", "2", "3", "4", "5", "6", "7","1", "2", "3", "4", "5", "6", "7","1", "2", "3", "4", "5", "6", "7"};
 
     public AddFragment() {}
 
@@ -44,6 +44,8 @@ public class AddFragment extends Fragment {
         @Override
         public void onBindViewHolder(SimpleViewHolder holder, int position) {
             holder.textView.setText(dataSource[position]);
+            holder.textView.setTextSize(20);
+
         }
 
         @Override

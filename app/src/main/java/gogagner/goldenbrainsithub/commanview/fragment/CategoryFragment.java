@@ -57,8 +57,8 @@ public class CategoryFragment extends Fragment {
 
         ArrayList<CategoryModel> categoryModelArrayList = prepareData();
         CategoryAdapter adapter = new CategoryAdapter(getActivity(),categoryModelArrayList);
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.size_3);
-        rv.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
+        //int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.size_3);
+        //rv.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
         rv.setAdapter(adapter);
 
         return rv;

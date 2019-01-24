@@ -14,6 +14,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import gogagner.goldenbrainsithub.adapter.CategoryAdapter;
+import gogagner.goldenbrainsithub.adapter.SpacesItemDecoration;
+import gogagner.goldenbrainsithub.com.R;
 import gogagner.goldenbrainsithub.model.CategoryModel;
 
 public class CategoryFragment extends Fragment {
@@ -55,6 +57,8 @@ public class CategoryFragment extends Fragment {
 
         ArrayList<CategoryModel> categoryModelArrayList = prepareData();
         CategoryAdapter adapter = new CategoryAdapter(getActivity(),categoryModelArrayList);
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.size_3);
+        rv.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
         rv.setAdapter(adapter);
 
         return rv;

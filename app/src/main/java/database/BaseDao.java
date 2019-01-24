@@ -12,6 +12,9 @@ public interface BaseDao<T> {
     @Insert
     long insert(T data);
 
+    @Insert
+     long[]insertAll(List<T> data);
+
     @Delete
     void delete(T data);
 

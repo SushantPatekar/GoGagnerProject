@@ -1,6 +1,7 @@
 package gogagner.goldenbrainsithub.com;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -8,13 +9,16 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -38,8 +42,11 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
+import dbModel.State;
+import dbModel.StateModel;
 import dbModel.User;
 import dbModel.UserModel;
 import utility.Constants;
@@ -169,7 +176,7 @@ ImageView imgAvatar;
             Helper.showToast(this, getString(R.string.enter_valid_email));
         }
         else if(edPassword.getText().toString().matches(edConifirmPass.getText().toString())){
-            Helper.showToast(this, getString(R.string.enter_valid_confirm_pwd));
+         //   Helper.showToast(this, getString(R.string.enter_valid_confirm_pwd));
 
         }
         else {
@@ -318,7 +325,7 @@ ImageView imgAvatar;
                     public void onSuccess(final String res) {
 
                    try{
-                       String responseString = Helper.fetchResponse(res);
+                       /*String responseString = Helper.fetchResponse(res);
                        Gson gson = new GsonBuilder()
                                .serializeNulls()
                                .create();
@@ -329,7 +336,7 @@ ImageView imgAvatar;
                        stateArrayAdapter = new ArrayAdapter<State>(getApplicationContext(), R.layout.simple_spinner_dropdown_item, states);
                        stateArrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
                        spCity.setAdapter(stateArrayAdapter);
-                       chnageLocality();
+                       chnageLocality();*/
                    }
                    catch (Exception e){
 
@@ -391,16 +398,34 @@ ImageView imgAvatar;
                            Gson gson = new GsonBuilder()
                                    .serializeNulls()
                                    .create();
-                           Type type = new TypeToken<ArrayList<State>>() {
+                         /*  Type type = new TypeToken<ArrayList<State>>() {
                            }.getType();
+                           states = gson.fromJson(responseString, type);*/
 
-                           states = gson.fromJson(responseString, type);
-                           stateArrayAdapter = new ArrayAdapter<State>(getApplicationContext(), R.layout.simple_spinner_dropdown_item, states);
+                           Type type = new TypeToken<List<dbModel.State>>() {
+                           }.getType();
+                           List<dbModel.State> statesList = gson.fromJson(responseString, type);
+
+                           dbModel.State firstStae = new dbModel.State();
+                           firstStae.setId(0);
+                           firstStae.setName("STATE");
+                           firstStae.setSlug("STATE");
+                           new StateModel().addState(getApplication(),firstStae);
+                           new StateModel().addAllState(getApplication(),
+                                   statesList);
+
+                           List<dbModel.State> stateList=new StateModel().getAllState(getApplication());
+                           spState.setAdapter(new StateAdapter(getApplicationContext(),
+                                   R.layout.simple_spinner_dropdown_item,stateList));
+                           //Add dummy state & Add Whole Object
+
+                         /*  stateArrayAdapter = new ArrayAdapter<dbModel.State>(getApplicationContext(),
+                                   R.layout.simple_spinner_dropdown_item, stateList);
                            stateArrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-                           spState.setAdapter(stateArrayAdapter);
+                           spState.setAdapter(stateArrayAdapter);*/
                        }
                        catch (Exception e){
-
+                        Log.e(TAG,""+e.getLocalizedMessage());
                        }
 
 
@@ -691,7 +716,49 @@ ImageView imgAvatar;
     }
 
 
+///// for State Adapter
 
+    public class StateAdapter extends ArrayAdapter<dbModel.State>{
+        List<dbModel.State> mList ;
+        public StateAdapter(@NonNull Context context, int resource, @NonNull List<dbModel.State> objects) {
+            super(context, resource, objects);
+            mList = objects;
+        }
+
+       /* public StateAdapter(Context context, int textViewResourceId,
+                               String[] objects) {
+            super(context, textViewResourceId, objects);
+            // TODO Auto-generated constructor stub
+        }*/
+
+        @Override
+        public View getDropDownView(int position, View convertView,
+                                    ViewGroup parent) {
+            // TODO Auto-generated method stub
+            return getCustomView(position, convertView, parent);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // TODO Auto-generated method stub
+            return getCustomView(position, convertView, parent);
+        }
+
+        public View getCustomView(int position, View convertView, ViewGroup parent) {
+            // TODO Auto-generated method stub
+            //return super.getView(position, convertView, parent);
+
+            LayoutInflater inflater=getLayoutInflater();
+            View row=inflater.inflate(R.layout.simple_spinner_dropdown_item, parent, false);
+            TextView label=(TextView)row.findViewById(R.id.idText);
+            label.setText(""+mList.get(position).getName());
+
+
+
+            return row;
+        }
+    }
+/////
 }
 
 

@@ -13,7 +13,6 @@ public class BuyerSellerDashBoardActivity extends BaseDrawerActivity implements 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buyer_seller_dashboard_layout);
-        //Helper.showToast(BuyerSellerDashBoardActivity.this,TAG);
         initView();
     }
 

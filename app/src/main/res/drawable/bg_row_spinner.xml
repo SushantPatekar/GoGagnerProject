@@ -6,20 +6,20 @@
         <layer-list>
 
 
-           <!-- <item>
-                <shape>
-                    <solid android:color="#282843" />
-                    <padding android:bottom="@dimen/size_2" android:right="@dimen/size_5" android:top="@dimen/size_2" />
+            <!-- <item>
+                 <shape>
+                     <solid android:color="#282843" />
+                     <padding android:bottom="@dimen/size_2" android:right="@dimen/size_5" android:top="@dimen/size_2" />
 
 
-                </shape>
-            </item>-->
+                 </shape>
+             </item>-->
             <item>
                 <shape>
                     <solid android:color="#282843" />
-                   <!-- <padding android:bottom="@dimen/size_2"
+                    <!-- <padding android:bottom="@dimen/size_2"
 
-                        android:top="@dimen/size_2" />-->
+                         android:top="@dimen/size_2" />-->
 
 
                 </shape>
@@ -29,7 +29,7 @@
             <item>
                 <shape>
                     <solid android:color="#282843" />
-                   <!-- <stroke android:width="3dp" android:color="#222338" />-->
+                    <!-- <stroke android:width="3dp" android:color="#222338" />-->
                     -->
                     <gradient android:angle="270" android:centerColor="#28283F" android:endColor="#28283F" android:startColor="#28283F" android:type="linear" />
 

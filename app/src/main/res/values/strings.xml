@@ -51,8 +51,8 @@
     <string name="enter_valid_pwd_mismatch">Password mismatch.</string>
     <string name="enter_valid_email_mobilenumber">Please Enter Valid Mobile Number Or Email Id</string>
     <string name="i_agree_error">You must agree to the terms and conditions before registering</string>
-    <string name="enter_valid_confirm_pwd">Password is missmatch</string>
-
+    <!--<string name="enter_valid_confirm_pwd">Password is missmatch</string>
+-->
     <string name="signup_first_error">Please enter first name.</string>
     <string name="signup_last_error">Please enter last name.</string>
     <string name="signup_pwd_error">Please enter valid password.</string>

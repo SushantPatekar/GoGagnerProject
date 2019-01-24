@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -155,8 +156,19 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         return gson.toJson(loginAccountModel, type);
     }
 
+
     public boolean validateUserPWD(){
-        if (edMobileNumber.getText().toString().matches("") ) {
+        if (TextUtils.isEmpty(edMobileNumber.getText().toString().trim())) {
+            Helper.showToast(this, getString(R.string.enter_valid_email_mobilenumber));
+            return false;
+        } else if (TextUtils.isEmpty(edPassword.getText().toString().trim())){
+            Helper.showToast(this, getString(R.string.enter_valid_pwd));
+            return false;
+        }
+        else
+            return true;
+
+       /* if (edMobileNumber.getText().toString().matches("") ) {
             Helper.showToast(this, getString(R.string.enter_valid_email_mobilenumber));
             return false;
         } else if (edPassword.getText().toString().matches("")){
@@ -164,6 +176,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             return false;
         } else {
             return true;
-        }
+        }*/
     }
 }

@@ -147,4 +147,10 @@ public class ResetPasswordActivity  extends Activity implements View.OnClickList
         return gson.toJson(loginAccountModel, type);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(getApplicationContext(), VerifyOTPActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        finish();
+    }
 }

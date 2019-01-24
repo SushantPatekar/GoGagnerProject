@@ -678,6 +678,13 @@ ImageView imgAvatar;
 //                .apply(RequestOptions.circleCropTransform())
                 .into(imgAvatar);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        finish();
+    }
 }
 
 

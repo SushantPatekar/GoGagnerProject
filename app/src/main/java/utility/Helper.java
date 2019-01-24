@@ -17,6 +17,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.regex.Pattern;
+
 import dbModel.User;
 import dbModel.UserModel;
 
@@ -66,19 +68,20 @@ public class Helper {
         Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
     }
 
-    public static void setFullScreen(Activity activity){
+    public static void setFullScreen(Activity activity) {
         activity.requestWindowFeature(Window.FEATURE_NO_TITLE);
         activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     }
 
-    public static  void hideKeyboard(Activity activity) {
+    public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null && activity.getCurrentFocus() != null) {
             imm.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
         }
     }
+
     public static String getVersion(Context activityContext) {
         String versionName = "";
         int versionCode = -1;
@@ -106,32 +109,58 @@ public class Helper {
         return data.toString();
     }
 
-    public static int getServerErroCode(String res){
-        int statusCode=0;
+    public static int getServerErroCode(String res) {
+        int statusCode = 0;
         try {
-           JSONObject main = new JSONObject(res);
-           statusCode  = main.getInt("status");
-        }
-        catch (Exception e){
+            JSONObject main = new JSONObject(res);
+            statusCode = main.getInt("status");
+        } catch (Exception e) {
 
         }
         return statusCode;
     }
 
-    public static String getServerErroMessage(String res){
-        String messages=null;
+    public static String getServerErroMessage(String res) {
+        String messages = null;
         try {
             JSONObject main = new JSONObject(res);
-            messages  = main.getString("messages");
-        }
-        catch (Exception e){
+            messages = main.getString("messages");
+        } catch (Exception e) {
 
         }
         return messages;
     }
-    public static void logOut(Application contex){
+
+    public static void logOut(Application contex) {
        /* new UserModel().deleteUser(contex,getSharedPrefValStr(contex,
                 Constants.sharedPref.userName));*/
-        updatedSharedPrefValBoolean(contex,Constants.login.isLoginSuccess,false);
+        updatedSharedPrefValBoolean(contex, Constants.login.isLoginSuccess, false);
     }
 }
+   /* private boolean isValidMobile(String phone) {
+        boolean check = false;
+        if (!Pattern.matches("[a-zA-Z]+", phone)) {
+            //if(phone.length() < 6 || phone.length() > 10) {
+            if (phone.length() != 10) {
+                check = false;
+            }
+            return check;
+        }
+
+        return check;
+    }*/
+
+
+   /* public static boolean checkValidation(String data)
+    {
+       // String input = yourEditText.getText().toString();
+        if(data.contains("@"))
+        {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(data).matches();
+        }
+        else
+        {
+            return android.util.Patterns.PHONE.matcher(data).matches();
+        }
+    }*/
+

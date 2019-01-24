@@ -19,11 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="gogagner.goldenbrainsithub.com.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name="gogagner.goldenbrainsithub.com.LoginActivity" />
         <activity android:name="gogagner.goldenbrainsithub.com.SignupActivity" />
@@ -31,11 +27,16 @@
 
         </activity>
         <activity android:name="gogagner.goldenbrainsithub.com.VerifyOTPActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name="gogagner.goldenbrainsithub.com.ResetPasswordActivity" />
         <activity android:name="gogagner.goldenbrainsithub.com.RequestOTP" />
+
 
         <receiver android:name="gogagner.goldenbrainsithub.com.IncomingSms">
         <intent-filter>

@@ -168,6 +168,10 @@ ImageView imgAvatar;
         else if (emailStr.equals("") || !emailStr.matches(Constants.UserDetails.EMAIL_REGEX)) {
             Helper.showToast(this, getString(R.string.enter_valid_email));
         }
+        else if(edPassword.getText().toString().matches(edConifirmPass.getText().toString())){
+            Helper.showToast(this, getString(R.string.enter_valid_confirm_pwd));
+
+        }
         else {
 
             //TODO register api integration
@@ -685,6 +689,9 @@ ImageView imgAvatar;
         startActivity(new Intent(getApplicationContext(), LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         finish();
     }
+
+
+
 }
 
 

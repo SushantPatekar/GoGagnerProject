@@ -94,4 +94,14 @@
         android:text="dfhsjhf"
         android:textColor="@color/white_txt"
         android:textSize="@dimen/size_10" />
+
+
+    <ImageView
+        android:id="@+id/bottomBanner"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:layout_marginBottom="@dimen/text_size_12"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/splash_screen_bottom_logo" />
 </RelativeLayout>

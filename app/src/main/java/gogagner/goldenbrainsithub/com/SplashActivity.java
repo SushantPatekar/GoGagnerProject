@@ -3,6 +3,7 @@ package gogagner.goldenbrainsithub.com;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import gogagner.goldenbrainsithub.com.R;
 
@@ -21,6 +22,7 @@ public class SplashActivity extends Activity {
         Helper.setFullScreen(SplashActivity.this);
         setContentView(R.layout.activity_main);
         startSplash();
+        Log.i(TAG, "Sample Test");
 
     }
 

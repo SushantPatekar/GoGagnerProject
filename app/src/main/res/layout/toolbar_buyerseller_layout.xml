@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgColor">
+
+    <Spinner
+        android:id="@+id/spState"
+        style="@style/lociation_SpinnerTheme"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="@dimen/size_5"
+        android:layout_marginTop="@dimen/size_3"
+        android:maxLines="1"
+        android:paddingLeft="@dimen/size_40"
+        android:textAllCaps="true"
+        android:textColor="@color/white_txt"
+        android:textColorHint="@color/white_txt"
+        android:textSize="@dimen/text_size_12" />
+    <TextView
+        android:id="@+id/tv_toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        />
+
+</RelativeLayout>

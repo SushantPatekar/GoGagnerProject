@@ -30,4 +30,6 @@ public class BuyerSellerDashBoardActivity extends BaseDrawerActivity implements 
     public void onDrawerProfileClick(View view) {
 
     }
+
+
 }

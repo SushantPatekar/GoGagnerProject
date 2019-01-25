@@ -24,10 +24,10 @@ public class CategoryFragment extends Fragment {
     }
 
     private final String android_version_names[] = {
-            "Donut",
-            "Eclair",
-            "Froyo",
-            "Gingerbread",
+            "Foods",
+            "Movies",
+            "Cloths",
+            "Grocery",
             "Honeycomb",
             "Ice Cream Sandwich",
             "Jelly Bean",
@@ -52,12 +52,9 @@ public class CategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RecyclerView rv = new RecyclerView(getActivity());
         rv.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-
         //TODO
         ArrayList<CategoryModel> categoryModelArrayList = prepareData();
         CategoryAdapter adapter = new CategoryAdapter(getActivity(), categoryModelArrayList);
-        //int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.size_3);
-        //rv.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
         rv.setAdapter(adapter);
 
         return rv;

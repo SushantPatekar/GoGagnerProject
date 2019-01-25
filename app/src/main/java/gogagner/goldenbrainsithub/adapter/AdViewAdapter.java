@@ -25,7 +25,7 @@ public class AdViewAdapter extends RecyclerView.Adapter<AdViewAdapter.ViewHolder
 
     @Override
     public AdViewAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_category_layout, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_adview_layout, viewGroup, false);
         return new AdViewAdapter.ViewHolder(view);
     }
 
@@ -37,6 +37,7 @@ public class AdViewAdapter extends RecyclerView.Adapter<AdViewAdapter.ViewHolder
                 .load(android.get(i).getAdd_image())
                 .placeholder(R.mipmap.go_ganer_app_icon)
                 .error(R.mipmap.go_ganer_app_icon)
+                .override(138, 138)
                 .centerCrop()
                 .into(viewHolder.img_android);
     }

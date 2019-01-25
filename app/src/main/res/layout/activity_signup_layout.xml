@@ -35,7 +35,7 @@
             <custom.customEditTextView
                 android:id="@+id/edFirstName"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="42dp"
                 android:layout_marginLeft="@dimen/size_30"
                 android:layout_marginTop="@dimen/size_20"
                 android:layout_marginRight="@dimen/size_30"
@@ -53,7 +53,7 @@
             <custom.customEditTextView
                 android:id="@+id/edLastName"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="42dp"
                 android:layout_below="@id/edFirstName"
                 android:layout_marginLeft="@dimen/size_30"
                 android:layout_marginTop="@dimen/size_3"
@@ -73,7 +73,7 @@
                 android:id="@+id/spState"
                 style="@style/SpinnerTheme"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="42dp"
                 android:layout_below="@id/edLastName"
                 android:layout_marginLeft="@dimen/size_30"
                 android:layout_marginTop="@dimen/size_3"
@@ -88,7 +88,7 @@
             <Spinner
                 android:id="@+id/spCity"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="42dp"
                 android:layout_below="@id/spState"
                 android:layout_marginLeft="@dimen/size_30"
                 android:layout_marginTop="@dimen/size_3"
@@ -106,7 +106,7 @@
             <Spinner
                 android:id="@+id/spCityArea"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="42dp"
                 android:layout_below="@id/spCity"
 
                 android:layout_marginLeft="@dimen/size_30"
@@ -123,7 +123,7 @@
             <custom.customEditTextView
                 android:id="@+id/edEmail"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="42dp"
                 android:layout_below="@id/spCityArea"
                 android:layout_marginLeft="@dimen/size_30"
                 android:layout_marginTop="@dimen/size_3"
@@ -142,7 +142,7 @@
             <custom.customEditTextView
                 android:id="@+id/edMobileNumber"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="42dp"
                 android:layout_below="@id/edEmail"
                 android:layout_marginLeft="@dimen/size_30"
                 android:layout_marginTop="@dimen/size_3"
@@ -162,7 +162,7 @@
             <custom.customEditTextView
                 android:id="@+id/edPassword"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="42dp"
                 android:layout_below="@id/edMobileNumber"
                 android:layout_marginLeft="@dimen/size_30"
                 android:layout_marginTop="@dimen/size_3"
@@ -181,7 +181,7 @@
             <custom.customEditTextView
                 android:id="@+id/edConfirmPassword"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="42dp"
                 android:layout_below="@id/edPassword"
                 android:layout_marginLeft="@dimen/size_30"   android:inputType="textPassword"
                 android:layout_marginTop="@dimen/size_3"
@@ -199,8 +199,8 @@
 
             <CheckBox
                 android:id="@+id/checkbox"
-                android:layout_width="@dimen/text_size_12"
-                android:layout_height="@dimen/text_size_12"
+                android:layout_width="@dimen/text_size_20"
+                android:layout_height="@dimen/text_size_20"
                 android:layout_below="@id/edConfirmPassword"
 
                 android:padding="@dimen/size_5"
@@ -223,12 +223,12 @@
                 android:gravity="center_vertical"
                 android:text="@string/lbl_iagree"
                 android:textColor="@color/white_txt"
-                android:textSize="9dp" />
+                android:textSize="12dp" />
 
             <custom.customButton
                 android:id="@+id/btnRegister"
                 android:layout_width="match_parent"
-                android:layout_height="32dp"
+                android:layout_height="38dp"
                 android:layout_below="@id/tvIagree"
                 android:layout_marginLeft="@dimen/text_size_30"
                 android:layout_marginTop="@dimen/size_3"
@@ -242,7 +242,7 @@
             <custom.customTextView
                 android:id="@+id/tvLogin"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="42dp"
                 android:layout_below="@id/btnRegister"
                 android:layout_marginLeft="@dimen/text_size_30"
                 android:layout_marginTop="@dimen/size_10"

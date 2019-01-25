@@ -1,6 +1,8 @@
 package dbModel;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import database.BaseDao;
@@ -16,5 +18,6 @@ public interface UserDao extends BaseDao<User> {
     @Query("SELECT * FROM user WHERE mobile =:username")
     User searchUserById(String username);
 
-
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    long insert(User user);
 }

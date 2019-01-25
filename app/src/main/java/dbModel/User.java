@@ -72,11 +72,11 @@ public class User implements Serializable {
         this.cityId = cityId;
     }
 
-    public String getStateId() {
+    public int getStateId() {
         return stateId;
     }
 
-    public void setStateId(String stateId) {
+    public void setStateId(int stateId) {
         this.stateId = stateId;
     }
 
@@ -106,7 +106,7 @@ public class User implements Serializable {
     public String password;
     public int localityId;
     public int cityId;
-    public String stateId;
+    public int stateId;
     public int countryId;
 
     public String getProfileURL() {

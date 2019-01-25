@@ -32,19 +32,15 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import dbModel.CityModel;
+import dbModel.LocalityModel;
 import dbModel.State;
 import dbModel.StateModel;
 import dbModel.User;
@@ -116,9 +112,7 @@ ImageView imgAvatar;
             spLocality = (Spinner) findViewById(R.id.spCityArea);
             spState = (Spinner) findViewById(R.id.spState);
 
-            localcities = new ArrayList<>();
             states = new ArrayList<>();
-            cities = new ArrayList<>();
 
             fetchStates();
 
@@ -175,8 +169,8 @@ ImageView imgAvatar;
         else if (emailStr.equals("") || !emailStr.matches(Constants.UserDetails.EMAIL_REGEX)) {
             Helper.showToast(this, getString(R.string.enter_valid_email));
         }
-        else if(edPassword.getText().toString().matches(edConifirmPass.getText().toString())){
-         //   Helper.showToast(this, getString(R.string.enter_valid_confirm_pwd));
+        else if(!edPassword.getText().toString().matches(edConifirmPass.getText().toString())){
+            Helper.showToast(this, getString(R.string.enter_valid_confirm_pwd));
 
         }
         else {
@@ -188,6 +182,8 @@ ImageView imgAvatar;
                             .concat(Constants.webAPI.apiRegister);
                     String requestBody = generateSignupBody();
                     Log.i(TAG,""+requestBody);
+
+
                     NetworkCommunicationHelper networkCommunicationHelper = new NetworkCommunicationHelper();
 
                     networkCommunicationHelper.sendPostRequest(getApplication(), webAPI, requestBody,
@@ -225,14 +221,14 @@ ImageView imgAvatar;
 
     public String generateSignupBody() {
         RegisterAccountModel registerAccountModel = new RegisterAccountModel();
-        registerAccountModel.setCityId(spCity.getSelectedItemPosition()+1);
-       registerAccountModel.setCountryId(1);
+        registerAccountModel.setCityId(mSelectedCityID);
+        registerAccountModel.setCountryId(1);
         registerAccountModel.setEmail(edEmail.getText().toString());
         registerAccountModel.setFirstName(edFirstName.getText().toString());
         registerAccountModel.setLastName(edLastName.getText().toString());
-        registerAccountModel.setLocalityId(spLocality.getSelectedItemPosition()+1);
+        registerAccountModel.setLocalityId(mSelectedLocalityID);
         registerAccountModel.setMobile(edMobileNumber.getText().toString());
-        registerAccountModel.setStateId(spState.getSelectedItemPosition()+1);
+        registerAccountModel.setStateId(mSelectedStateID);
         registerAccountModel.setUserType(1);
         registerAccountModel.setPassword(edPassword.getText().toString());
         registerAccountModel.setStatus(1);
@@ -246,28 +242,17 @@ ImageView imgAvatar;
     }
 
     private ArrayAdapter<State> stateArrayAdapter;
-    private ArrayAdapter<City> cityArrayAdapter;
-    private ArrayAdapter<LocalCity> locaCityArrayAdapter;
 
     private ArrayList<State> states;
-    private ArrayList<City> cities;
-    private ArrayList<LocalCity> localcities;
+    String mSelectedStateName;
+    int mSelectedStateID;
 
-    private AdapterView.OnItemSelectedListener state_listener = new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            //  if (position > 0) {
-            changeCityAdapter();
-            //}
+    String mSelectedCityName;
+    int mSelectedCityID;
 
-            chnageLocality();
-        }
+    String mSelectedLocalityName;
+    int mSelectedLocalityID;
 
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
-        }
-    };
 
     private void chnageLocality() {
 
@@ -286,15 +271,23 @@ ImageView imgAvatar;
                            Gson gson = new GsonBuilder()
                                    .serializeNulls()
                                    .create();
-                           Type type = new TypeToken<ArrayList<LocalCity>>() {
+                           Type type = new TypeToken<List<dbModel.Locality>>() {
                            }.getType();
+                           List<dbModel.Locality> _mLocalityyList = gson.fromJson(responseString, type);
 
-                           localcities = gson.fromJson(responseString, type);
+                           dbModel.Locality firstLocality = new dbModel.Locality();
+                           firstLocality.setId(0);
+                           firstLocality.setName(getResources().getString(R.string.locality));
+                           firstLocality.setSlug(getResources().getString(R.string.locality));
 
-                           locaCityArrayAdapter = new ArrayAdapter<LocalCity>(getApplicationContext(), R.layout.simple_spinner_dropdown_item
-                                   , localcities);
-                           locaCityArrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-                           spLocality.setAdapter(locaCityArrayAdapter);
+                           new LocalityModel().addLocality(getApplication(),firstLocality);
+                           new LocalityModel().addAllLocality(getApplication(),
+                                   _mLocalityyList);
+
+                           List<dbModel.Locality> mcityList=new LocalityModel().getAllLocality(getApplication());
+                           spLocality.setAdapter(new LocalityAdapter(getApplicationContext(),
+                                   R.layout.simple_spinner_dropdown_item,mcityList));
+
                        }
                        catch (Exception e){
 
@@ -308,9 +301,7 @@ ImageView imgAvatar;
                     }
                 });
 
-        cityArrayAdapter = new ArrayAdapter<City>(getApplicationContext(), R.layout.simple_spinner_dropdown_item, new ArrayList<City>());
-        cityArrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-        spLocality.setAdapter(cityArrayAdapter);
+
     }
 
     private void changeCityAdapter() {
@@ -325,25 +316,30 @@ ImageView imgAvatar;
                     public void onSuccess(final String res) {
 
                    try{
-                       /*String responseString = Helper.fetchResponse(res);
+                       String responseString = Helper.fetchResponse(res);
                        Gson gson = new GsonBuilder()
                                .serializeNulls()
                                .create();
-                       Type type = new TypeToken<ArrayList<State>>() {
+                       Type type = new TypeToken<List<dbModel.City>>() {
                        }.getType();
+                       List<dbModel.City> cityList = gson.fromJson(responseString, type);
 
-                       states = gson.fromJson(responseString, type);
-                       stateArrayAdapter = new ArrayAdapter<State>(getApplicationContext(), R.layout.simple_spinner_dropdown_item, states);
-                       stateArrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-                       spCity.setAdapter(stateArrayAdapter);
-                       chnageLocality();*/
+                       dbModel.City firstCity = new dbModel.City();
+                       firstCity.setId(0);
+                       firstCity.setName(getResources().getString(R.string.city));
+                       firstCity.setSlug(getResources().getString(R.string.city));
+
+                       new CityModel().addCity(getApplication(),firstCity);
+                       new CityModel().addAllCity(getApplication(),
+                                cityList);
+
+                       List<dbModel.City> mcityList=new CityModel().getAllCity(getApplication());
+                       spCity.setAdapter(new CityAdapter(getApplicationContext(),
+                               R.layout.simple_spinner_dropdown_item,mcityList));
                    }
                    catch (Exception e){
 
                    }
-
-
-
 
 
                     }
@@ -355,10 +351,34 @@ ImageView imgAvatar;
 
     }
 
-    private AdapterView.OnItemSelectedListener city_listener = new AdapterView.OnItemSelectedListener() {
+    private AdapterView.OnItemSelectedListener state_listener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             if (position > 0) {
+                dbModel.State _state=  new StateModel().getState(getApplication(),position);
+                mSelectedStateName = _state.getName();
+                mSelectedStateID = _state.getId();
+                changeCityAdapter();
+                chnageLocality();
+            }
+
+
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+    private AdapterView.OnItemSelectedListener city_listener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
+            if (position > 0) {
+                dbModel.City _city=  new CityModel().getCity(getApplication(),position);
+                mSelectedCityName = _city.getName();
+                mSelectedCityID = _city.getId();
                 chnageLocality();
             }
         }
@@ -372,7 +392,12 @@ ImageView imgAvatar;
     private AdapterView.OnItemSelectedListener localCity_listener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            if (position > 0) {
+                dbModel.Locality _locality=  new LocalityModel().getLocality(getApplication(),position);
+                mSelectedLocalityName = _locality.getName();
+                mSelectedLocalityID = _locality.getId();
 
+            }
         }
 
         @Override
@@ -398,9 +423,6 @@ ImageView imgAvatar;
                            Gson gson = new GsonBuilder()
                                    .serializeNulls()
                                    .create();
-                         /*  Type type = new TypeToken<ArrayList<State>>() {
-                           }.getType();
-                           states = gson.fromJson(responseString, type);*/
 
                            Type type = new TypeToken<List<dbModel.State>>() {
                            }.getType();
@@ -408,8 +430,8 @@ ImageView imgAvatar;
 
                            dbModel.State firstStae = new dbModel.State();
                            firstStae.setId(0);
-                           firstStae.setName("STATE");
-                           firstStae.setSlug("STATE");
+                           firstStae.setName(getResources().getString(R.string.state));
+                           firstStae.setSlug(getResources().getString(R.string.state));
                            new StateModel().addState(getApplication(),firstStae);
                            new StateModel().addAllState(getApplication(),
                                    statesList);
@@ -440,147 +462,8 @@ ImageView imgAvatar;
 
 
 
-    private class LocalCity implements Comparable<LocalCity> {
 
-        private int id;
-        private String name;
-        private String slug;
 
-        public LocalCity(int id, String name, String slug) {
-            this.id = id;
-            this.name = name;
-            this.slug = slug;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getSlug() {
-            return slug;
-        }
-
-        public void setSlug(String slug) {
-            this.slug = slug;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
-
-        @Override
-        public int compareTo(LocalCity another) {
-            return this.getId() - another.getId();//ascending order
-        }
-    }
-
-    private class State implements Comparable<State> {
-
-        private int id;
-        private String name;
-        private String slug;
-
-        public State(int id, String name, String slug) {
-            this.id = id;
-            this.name = name;
-            this.slug = slug;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getSlug() {
-            return slug;
-        }
-
-        public void setSlug(String slug) {
-            this.slug = slug;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
-
-        @Override
-        public int compareTo(State another) {
-            return this.id - another.getId();//ascending order
-//            return another.getCityID() - this.cityID;//descending order
-        }
-
-    }
-
-    private class City implements Comparable<City> {
-        private int id;
-        private String name;
-        private String slug;
-
-        public City(int id, String name, String slug) {
-            this.id = id;
-            this.name = name;
-            this.slug = slug;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getSlug() {
-            return slug;
-        }
-
-        public void setSlug(String slug) {
-            this.slug = slug;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
-
-        @Override
-        public int compareTo(City another) {
-            return this.id - another.getId();//ascending order
-        }
-    }
 
 
 
@@ -589,14 +472,14 @@ ImageView imgAvatar;
                 edMobileNumber.getText().toString());
         User user = new User();
         user.setId(UUID.randomUUID().toString());
-        user.setCityId(spCity.getSelectedItemPosition()+1);
+        user.setCityId(mSelectedCityID);
         user.setCountryId(1);
         user.setEmail(edEmail.getText().toString());
         user.setFirstName(edFirstName.getText().toString());
         user.setLastName(edLastName.getText().toString());
-        user.setLocalityId(spLocality.getSelectedItemPosition()+1);
+        user.setLocalityId(mSelectedLocalityID);
         user.setMobile(edMobileNumber.getText().toString());
-        user.setStateId(""+spState.getSelectedItem().toString());
+        user.setStateId(mSelectedStateID);
         user.setUserType(1);
         user.setPassword(edPassword.getText().toString());
         user.setProfileURL(profilePicPath);
@@ -758,6 +641,96 @@ ImageView imgAvatar;
             return row;
         }
     }
+/////
+
+/////
+    //City Adapter
+public class CityAdapter extends ArrayAdapter<dbModel.City>{
+    List<dbModel.City> mList ;
+    public CityAdapter(@NonNull Context context, int resource, @NonNull List<dbModel.City> objects) {
+        super(context, resource, objects);
+        mList = objects;
+    }
+
+       /* public StateAdapter(Context context, int textViewResourceId,
+                               String[] objects) {
+            super(context, textViewResourceId, objects);
+            // TODO Auto-generated constructor stub
+        }*/
+
+    @Override
+    public View getDropDownView(int position, View convertView,
+                                ViewGroup parent) {
+        // TODO Auto-generated method stub
+        return getCustomView(position, convertView, parent);
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        // TODO Auto-generated method stub
+        return getCustomView(position, convertView, parent);
+    }
+
+    public View getCustomView(int position, View convertView, ViewGroup parent) {
+        // TODO Auto-generated method stub
+        //return super.getView(position, convertView, parent);
+
+        LayoutInflater inflater=getLayoutInflater();
+        View row=inflater.inflate(R.layout.simple_spinner_dropdown_item, parent, false);
+        TextView label=(TextView)row.findViewById(R.id.idText);
+        label.setText(""+mList.get(position).getName());
+
+
+
+        return row;
+    }
+}
+
+/////
+
+
+    //Locality Adapter
+    public class LocalityAdapter extends ArrayAdapter<dbModel.Locality>{
+        List<dbModel.Locality> mList ;
+        public LocalityAdapter(@NonNull Context context, int resource, @NonNull List<dbModel.Locality> objects) {
+            super(context, resource, objects);
+            mList = objects;
+        }
+
+       /* public StateAdapter(Context context, int textViewResourceId,
+                               String[] objects) {
+            super(context, textViewResourceId, objects);
+            // TODO Auto-generated constructor stub
+        }*/
+
+        @Override
+        public View getDropDownView(int position, View convertView,
+                                    ViewGroup parent) {
+            // TODO Auto-generated method stub
+            return getCustomView(position, convertView, parent);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // TODO Auto-generated method stub
+            return getCustomView(position, convertView, parent);
+        }
+
+        public View getCustomView(int position, View convertView, ViewGroup parent) {
+            // TODO Auto-generated method stub
+            //return super.getView(position, convertView, parent);
+
+            LayoutInflater inflater=getLayoutInflater();
+            View row=inflater.inflate(R.layout.simple_spinner_dropdown_item, parent, false);
+            TextView label=(TextView)row.findViewById(R.id.idText);
+            label.setText(""+mList.get(position).getName());
+
+
+
+            return row;
+        }
+    }
+
 /////
 }
 

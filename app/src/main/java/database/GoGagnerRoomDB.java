@@ -5,6 +5,10 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 
+import dbModel.City;
+import dbModel.CityDao;
+import dbModel.Locality;
+import dbModel.LocalityDao;
 import dbModel.State;
 import dbModel.StateDao;
 import dbModel.User;
@@ -12,7 +16,9 @@ import dbModel.UserDao;
 import utility.Constants;
 
 @Database(entities = {User.class,
-        State.class
+        State.class,
+        City.class,
+        Locality.class
         },
         exportSchema = false,
         version = 1)
@@ -22,7 +28,9 @@ public abstract class GoGagnerRoomDB extends RoomDatabase {
 
     public abstract UserDao userDao();
 
-public abstract StateDao stateDao();
+    public abstract CityDao CityDao();
+    public abstract StateDao stateDao();
+    public abstract LocalityDao LocalityDao();
 
     public synchronized static GoGagnerRoomDB getInstance(Application context) {
         if (goGagnerRoomDB == null) {

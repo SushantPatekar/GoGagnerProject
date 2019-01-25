@@ -1,6 +1,5 @@
 package dbModel;
 
-import android.app.Application;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
@@ -9,21 +8,21 @@ import android.arch.persistence.room.Query;
 import java.util.List;
 
 import database.BaseDao;
-import database.GoGagnerRoomDB;
 
 @Dao
-public interface StateDao  extends BaseDao<State> {
+public interface LocalityDao extends BaseDao<Locality> {
 
-    @Query("SELECT *  FROM  State ORDER BY id ASC" )
-    List<State> getAllState();
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insert(State state);
+    @Query("SELECT *  FROM  Locality ORDER BY id ASC" )
+    List<Locality> getAllLocality();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long[] insertAll(List<State> stateList);
+    long insert(Locality Locality);
 
-    @Query("SELECT *  FROM  State WHERE id =:id" )
-    State getState(int id);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    long[] insertAll(List<Locality> LocalityList);
+
+
+    @Query("SELECT *  FROM  Locality WHERE id =:id" )
+    Locality getLocality(int id);
 
 }

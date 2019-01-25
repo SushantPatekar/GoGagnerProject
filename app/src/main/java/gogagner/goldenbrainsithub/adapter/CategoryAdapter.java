@@ -41,7 +41,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 .placeholder(R.mipmap.go_ganer_app_icon)
                 .error(R.mipmap.go_ganer_app_icon)
                 .centerCrop()
-                .override(200, 200)
+                .override(170, 170)
                 .into(viewHolder.img_android);
     }
 

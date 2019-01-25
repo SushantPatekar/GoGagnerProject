@@ -69,6 +69,8 @@ public abstract class BaseDrawerActivity extends AppCompatActivity implements Dr
         mToolbar.setContentInsetsAbsolute(32, 0);
         // setting up the listeners
         final LayoutInflater layoutInflater = LayoutInflater.from(this);
+
+
         View toolbarLayout = layoutInflater.inflate(R.layout.base_drawer_toolbar_layout, null);
         tvToolbarTitle = (TextView) toolbarLayout.findViewById(R.id.tv_toolbar_title);
         // tweaking action bar settings

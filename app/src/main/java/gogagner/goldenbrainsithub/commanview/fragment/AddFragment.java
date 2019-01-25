@@ -69,15 +69,25 @@ public class AddFragment extends Fragment {
     private class RemindTask extends TimerTask {
         @Override
         public void run() {
+            if(getActivity() == null)
+                return;
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (position == addModelArrayList.size()) {
-                        position = 0;
-                    } else {
-                        position++;
+                    try
+                    {
+                        if(addModelArrayList!=null ){
+                            if (position == addModelArrayList.size()) {
+                                position = 0;
+                            } else {
+                                position++;
+                            }
+                            rv.smoothScrollToPosition(position);
+                        }
                     }
-                    rv.smoothScrollToPosition(position);
+                    catch (Exception e){
+
+                    }
                 }
             });
         }

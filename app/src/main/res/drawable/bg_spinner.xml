@@ -5,19 +5,22 @@
 
         <layer-list>
 
+            <item>
+                <shape>
+                    <solid android:color="#282843" />
+                    <padding android:bottom="@dimen/size_2" android:left="@dimen/size_2" android:right="@dimen/size_2" android:top="@dimen/size_2" />
+
+
+                </shape>
+            </item>
+
 
             <item>
                 <shape>
-                    <gradient
-                        android:type="linear"
-                        android:startColor="#28275F"
-                        android:endColor="#28283F"
-                        android:centerColor="#9292b9"
-                        android:angle="270" />
                     <solid android:color="#282843" />
-                    <stroke android:width="3dp" android:color="#222338" />
+                    <stroke android:width="2dp" android:color="#222338" />
+                    <gradient android:angle="270" android:centerColor="#28283F" android:endColor="#28283F" android:startColor="#28283F" android:type="linear" />
 
-                    <padding android:bottom="3dp" android:left="5dp" android:right="3dp" android:top="3dp" />
                 </shape>
             </item>
 

@@ -50,14 +50,16 @@ public class CategoryFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        RecyclerView rv = new RecyclerView(getActivity());
+
+        View rootView = inflater.inflate(R.layout.layout_category_fragment, container, false);
+        RecyclerView rv = (RecyclerView) rootView.findViewById(R.id.recycler_category_fragment);
         rv.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        //TODO
         ArrayList<CategoryModel> categoryModelArrayList = prepareData();
         CategoryAdapter adapter = new CategoryAdapter(getActivity(), categoryModelArrayList);
         rv.setAdapter(adapter);
+        return rootView;
 
-        return rv;
+
     }
 
 

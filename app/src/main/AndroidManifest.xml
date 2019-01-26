@@ -21,11 +21,7 @@
         <activity
             android:name="gogagner.goldenbrainsithub.com.SplashActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="gogagner.goldenbrainsithub.com.LoginActivity"
@@ -35,21 +31,33 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="gogagner.goldenbrainsithub.com.BuyerSellerDashBoardActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
 
         <activity
             android:name="gogagner.goldenbrainsithub.com.VerifyOTPActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+
+        </activity>
 
 
         <activity
             android:name="gogagner.goldenbrainsithub.com.ResetPasswordActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+
+        </activity>
 
         <activity
             android:name="gogagner.goldenbrainsithub.com.RequestOTP"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+
+        </activity>
 
 
         <receiver android:name="gogagner.goldenbrainsithub.com.IncomingSms">

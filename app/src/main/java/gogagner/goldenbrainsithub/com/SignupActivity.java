@@ -702,11 +702,7 @@ public class CityAdapter extends ArrayAdapter<dbModel.City>{
         mList = objects;
     }
 
-       /* public StateAdapter(Context context, int textViewResourceId,
-                               String[] objects) {
-            super(context, textViewResourceId, objects);
-            // TODO Auto-generated constructor stub
-        }*/
+
 
     @Override
     public View getDropDownView(int position, View convertView,

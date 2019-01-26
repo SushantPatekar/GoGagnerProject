@@ -54,7 +54,7 @@
 
         android:id="@+id/btnRegisterOTP"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="38dp"
         android:layout_below="@id/edRegisterOTP"
         android:layout_marginLeft="@dimen/size_20"
         android:layout_marginTop="@dimen/text_size_15"

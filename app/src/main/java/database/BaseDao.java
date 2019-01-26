@@ -23,5 +23,7 @@ public interface BaseDao<T> {
 
     @Update
     int updateList(List<T> list);
+
+
 }
 

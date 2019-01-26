@@ -30,6 +30,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -39,7 +40,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import dbModel.City;
 import dbModel.CityModel;
+import dbModel.Locality;
 import dbModel.LocalityModel;
 import dbModel.State;
 import dbModel.StateModel;
@@ -114,7 +117,9 @@ ImageView imgAvatar;
 
             states = new ArrayList<>();
 
-            fetchStates();
+            fetchStates(Constants.webAPI.firstIndex);
+            changeCityAdapter(Constants.webAPI.firstIndex);
+            chnageLocality(Constants.webAPI.firstIndex);
 
             spState.setOnItemSelectedListener(state_listener);
             spCity.setOnItemSelectedListener(city_listener);
@@ -254,10 +259,10 @@ ImageView imgAvatar;
     int mSelectedLocalityID;
 
 
-    private void chnageLocality() {
-
+    private void chnageLocality(int mPosition) {
+        String getBody = "cityId="+mPosition;
         String webAPI = Helper.getSharedPrefValStr(SignupActivity.this, Constants.sharedPref.s_BASE_URL)
-                .concat(Constants.webAPI.apiLocality);
+                .concat(Constants.webAPI.apiLocality).concat(getBody);
 
         NetworkCommunicationHelper networkCommunicationHelper = new NetworkCommunicationHelper();
         networkCommunicationHelper.sendSynchronousGetRequest(getApplication(), webAPI,
@@ -275,18 +280,22 @@ ImageView imgAvatar;
                            }.getType();
                            List<dbModel.Locality> _mLocalityyList = gson.fromJson(responseString, type);
 
-                           dbModel.Locality firstLocality = new dbModel.Locality();
-                           firstLocality.setId(0);
-                           firstLocality.setName(getResources().getString(R.string.locality));
-                           firstLocality.setSlug(getResources().getString(R.string.locality));
+                           if(_mLocalityyList.size()>0){
+                               addFirstLocality();
+                               new LocalityModel().addAllLocality(getApplication(),
+                                       _mLocalityyList);
 
-                           new LocalityModel().addLocality(getApplication(),firstLocality);
-                           new LocalityModel().addAllLocality(getApplication(),
-                                   _mLocalityyList);
+                               List<dbModel.Locality> mcityList=new LocalityModel().getAllLocality(getApplication());
+                               setLocalityAdapter(mcityList);
+                           }
+                           else {
+                               List<dbModel.Locality> mcityList=new LocalityModel().getAllLocality(getApplication());
+                               new LocalityModel().deleteAllLocality(getApplication(),mcityList);
+                               addFirstLocality();
+                                mcityList=new LocalityModel().getAllLocality(getApplication());
+                               setLocalityAdapter(mcityList);
+                           }
 
-                           List<dbModel.Locality> mcityList=new LocalityModel().getAllLocality(getApplication());
-                           spLocality.setAdapter(new LocalityAdapter(getApplicationContext(),
-                                   R.layout.simple_spinner_dropdown_item,mcityList));
 
                        }
                        catch (Exception e){
@@ -304,10 +313,24 @@ ImageView imgAvatar;
 
     }
 
-    private void changeCityAdapter() {
+    private void setLocalityAdapter(List<Locality> mcityList) {
+        spLocality.setAdapter(new LocalityAdapter(getApplicationContext(),
+                R.layout.simple_spinner_dropdown_item,mcityList));
+    }
 
+    private void addFirstLocality() {
+        dbModel.Locality firstLocality = new dbModel.Locality();
+        firstLocality.setId(0);
+        firstLocality.setName(getResources().getString(R.string.locality));
+        firstLocality.setSlug(getResources().getString(R.string.locality));
+
+        new LocalityModel().addLocality(getApplication(),firstLocality);
+    }
+
+    private void changeCityAdapter(int mPosition) {
+        String getBody = "stateId="+mPosition;
         String webAPI = Helper.getSharedPrefValStr(SignupActivity.this, Constants.sharedPref.s_BASE_URL)
-                .concat(Constants.webAPI.apiCity);
+                .concat(Constants.webAPI.apiCity).concat(getBody);
 
         NetworkCommunicationHelper networkCommunicationHelper = new NetworkCommunicationHelper();
         networkCommunicationHelper.sendSynchronousGetRequest(getApplication(), webAPI,
@@ -323,19 +346,24 @@ ImageView imgAvatar;
                        Type type = new TypeToken<List<dbModel.City>>() {
                        }.getType();
                        List<dbModel.City> cityList = gson.fromJson(responseString, type);
+                       List<dbModel.City> mcityList;
+if(cityList.size()>0){
+    addFirstCity();
+    new CityModel().addAllCity(getApplication(),
+            cityList);
+     mcityList=new CityModel().getAllCity(getApplication());
+    setCityAdpater(mcityList);
 
-                       dbModel.City firstCity = new dbModel.City();
-                       firstCity.setId(0);
-                       firstCity.setName(getResources().getString(R.string.city));
-                       firstCity.setSlug(getResources().getString(R.string.city));
+}
+else {
+    mcityList=new CityModel().getAllCity(getApplication());
+    new CityModel().deleteAllCity(getApplication(),mcityList);
+    addFirstCity();
+    mcityList = new CityModel().getAllCity(getApplication());
+    setCityAdpater(mcityList);
 
-                       new CityModel().addCity(getApplication(),firstCity);
-                       new CityModel().addAllCity(getApplication(),
-                                cityList);
+}
 
-                       List<dbModel.City> mcityList=new CityModel().getAllCity(getApplication());
-                       spCity.setAdapter(new CityAdapter(getApplicationContext(),
-                               R.layout.simple_spinner_dropdown_item,mcityList));
                    }
                    catch (Exception e){
 
@@ -351,6 +379,19 @@ ImageView imgAvatar;
 
     }
 
+    private void setCityAdpater(List<City> mcityList) {
+        spCity.setAdapter(new CityAdapter(getApplicationContext(),
+                R.layout.simple_spinner_dropdown_item,mcityList));
+    }
+
+    private void addFirstCity() {
+        dbModel.City firstCity = new dbModel.City();
+        firstCity.setId(0);
+        firstCity.setName(getResources().getString(R.string.city));
+        firstCity.setSlug(getResources().getString(R.string.city));
+        new CityModel().addCity(getApplication(),firstCity);
+    }
+
     private AdapterView.OnItemSelectedListener state_listener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -358,8 +399,8 @@ ImageView imgAvatar;
                 dbModel.State _state=  new StateModel().getState(getApplication(),position);
                 mSelectedStateName = _state.getName();
                 mSelectedStateID = _state.getId();
-                changeCityAdapter();
-                chnageLocality();
+                changeCityAdapter(position);
+                chnageLocality(position);
             }
 
 
@@ -379,7 +420,7 @@ ImageView imgAvatar;
                 dbModel.City _city=  new CityModel().getCity(getApplication(),position);
                 mSelectedCityName = _city.getName();
                 mSelectedCityID = _city.getId();
-                chnageLocality();
+                chnageLocality(position);
             }
         }
 
@@ -406,10 +447,11 @@ ImageView imgAvatar;
         }
     };
 
-    private void fetchStates() {
+    private void fetchStates(int mPosition) {
 
+        String getBody = "countryId="+mPosition;
         String webAPI = Helper.getSharedPrefValStr(SignupActivity.this, Constants.sharedPref.s_BASE_URL)
-                .concat(Constants.webAPI.apiState);
+                .concat(Constants.webAPI.apiState).concat(getBody);
 
         NetworkCommunicationHelper networkCommunicationHelper = new NetworkCommunicationHelper();
         networkCommunicationHelper.sendSynchronousGetRequest(getApplication(), webAPI,
@@ -428,23 +470,24 @@ ImageView imgAvatar;
                            }.getType();
                            List<dbModel.State> statesList = gson.fromJson(responseString, type);
 
-                           dbModel.State firstStae = new dbModel.State();
-                           firstStae.setId(0);
-                           firstStae.setName(getResources().getString(R.string.state));
-                           firstStae.setSlug(getResources().getString(R.string.state));
-                           new StateModel().addState(getApplication(),firstStae);
-                           new StateModel().addAllState(getApplication(),
-                                   statesList);
+                           if(statesList.size()>0){
+                               addFirstState();
+                               new StateModel().addAllState(getApplication(),
+                                       statesList);
 
-                           List<dbModel.State> stateList=new StateModel().getAllState(getApplication());
-                           spState.setAdapter(new StateAdapter(getApplicationContext(),
-                                   R.layout.simple_spinner_dropdown_item,stateList));
-                           //Add dummy state & Add Whole Object
+                               List<dbModel.State> stateList=new StateModel().getAllState(getApplication());
+                               setStateAdapter(stateList);
+                           }
+                           else {
 
-                         /*  stateArrayAdapter = new ArrayAdapter<dbModel.State>(getApplicationContext(),
-                                   R.layout.simple_spinner_dropdown_item, stateList);
-                           stateArrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-                           spState.setAdapter(stateArrayAdapter);*/
+                               new StateModel().deleteAll(getApplication());
+                               addFirstState();
+                               List<dbModel.State> stateList=new StateModel().getAllState(getApplication());
+                               setStateAdapter(stateList);
+
+                           }
+
+
                        }
                        catch (Exception e){
                         Log.e(TAG,""+e.getLocalizedMessage());
@@ -460,11 +503,18 @@ ImageView imgAvatar;
 
     }
 
+    private void setStateAdapter(List<State> stateList) {
+        spState.setAdapter(new StateAdapter(getApplicationContext(),
+                R.layout.simple_spinner_dropdown_item,stateList));
+    }
 
-
-
-
-
+    private void addFirstState() {
+        State firstStae = new State();
+        firstStae.setId(0);
+        firstStae.setName(getResources().getString(R.string.state));
+        firstStae.setSlug(getResources().getString(R.string.state));
+        new StateModel().addState(getApplication(),firstStae);
+    }
 
 
     public void addUserInDB(){
@@ -585,9 +635,9 @@ ImageView imgAvatar;
 
 
     private void showImage(String imagePath) {
-//        ivProfilePic.setBackground(null);
+        imgAvatar.setBackground(null);
         Glide.with(this).load(imagePath)
-//                .apply(RequestOptions.circleCropTransform())
+                .apply(RequestOptions.circleCropTransform())
                 .into(imgAvatar);
     }
 

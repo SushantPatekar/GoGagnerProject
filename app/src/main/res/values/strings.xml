@@ -59,4 +59,7 @@
     <string name="state">STATE</string>
     <string name="city">CITY</string>
     <string name="locality">LOCALITY</string>
+    <array name="city_array">
+    <item>CITY</item>
+    </array>
 </resources>

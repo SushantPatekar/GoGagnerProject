@@ -10,16 +10,16 @@
         android:layout_width="180dp"
         android:layout_height="180dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="50dp"
         android:src="@drawable/splash_screen_upper_logo" />
 
     <custom.customEditTextView
         android:id="@+id/edMobileNumber"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="40dp"
         android:layout_below="@id/aboverBanner"
         android:layout_marginLeft="@dimen/size_20"
-        android:layout_marginTop="@dimen/size_40"
+        android:layout_marginTop="@dimen/size_30"
         android:layout_marginRight="@dimen/size_20"
         android:background="@drawable/bg_edittext_icon"
         android:drawableLeft="@drawable/mobile"
@@ -30,12 +30,12 @@
         android:textAllCaps="true"
         android:textColor="@color/white_txt"
         android:textColorHint="@color/white_txt"
-        android:textSize="@dimen/text_size_15" />
+        android:textSize="@dimen/text_size_12" />
 
     <custom.customEditTextView
         android:id="@+id/edPassword"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="40dp"
         android:layout_below="@id/edMobileNumber"
         android:layout_marginLeft="@dimen/size_20"
         android:layout_marginTop="8dp"
@@ -50,7 +50,7 @@
         android:textAllCaps="true"
         android:textColor="@color/white_txt"
         android:textColorHint="@color/white_txt"
-        android:textSize="@dimen/text_size_15" />
+        android:textSize="@dimen/text_size_12" />
 
     <custom.customTextView
         android:id="@+id/tvForgotPwd"
@@ -78,7 +78,7 @@
         android:layout_marginRight="@dimen/size_20"
         android:background="@drawable/custom_bg_login"
         android:text="@string/btn_login"
-        android:textSize="@dimen/text_size_15"
+        android:textSize="@dimen/text_size_12"
 
         android:textAllCaps="true"
         android:textColor="@color/white_txt" />
@@ -95,6 +95,19 @@
         android:textColor="@color/white_txt"
         android:textSize="@dimen/text_size_12" />
 
+
+    <!--  -->
+    <custom.customBoldTextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:text="@string/lbl_powerd_by"
+        android:textSize="10dp"
+        android:textAllCaps="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white_txt"
+        android:layout_marginBottom="50dp"
+        />
 
     <ImageView
         android:id="@+id/bottomBanner"

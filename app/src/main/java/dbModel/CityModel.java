@@ -22,4 +22,7 @@ public class CityModel {
     public City getCity(Application context,int _id ){
         return GoGagnerRoomDB.getInstance(context).CityDao().getCity(_id);
     }
+    public void deleteAllCity(Application context,List<City> mList){
+        GoGagnerRoomDB.getInstance(context).CityDao().deleteAll();
+    }
 }

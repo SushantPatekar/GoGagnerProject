@@ -25,4 +25,8 @@ public interface CityDao extends BaseDao<City> {
     @Query("SELECT *  FROM  City WHERE id =:id" )
     City getCity(int id);
 
+    @Query("Delete FROM City" )
+    void deleteAll();
+
+
 }

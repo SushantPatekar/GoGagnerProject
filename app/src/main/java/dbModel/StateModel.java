@@ -9,9 +9,11 @@ import java.util.List;
 import database.GoGagnerRoomDB;
 
 public class StateModel {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void addState(Application context, State state) {
         long longs = GoGagnerRoomDB.getInstance(context).stateDao().insert(state);
     }
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void addAllState(Application context, List<State> stateList){
         long []silongs = GoGagnerRoomDB.getInstance(context).stateDao().insertAll(stateList);
     }
@@ -22,5 +24,9 @@ public class StateModel {
 
     public State getState(Application context,int _id ){
         return GoGagnerRoomDB.getInstance(context).stateDao().getState(_id);
+    }
+
+    public void deleteAll(Application context){
+         GoGagnerRoomDB.getInstance(context).stateDao().deleteAll();
     }
 }

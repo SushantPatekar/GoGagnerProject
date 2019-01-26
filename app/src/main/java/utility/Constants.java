@@ -25,17 +25,18 @@ public interface Constants {
         String apitoken = "apitoken";
         String apitoken_val = "dde4f4c184c845fab2dbc6e65820814c";
         String apiRegister = "/api/users/register";
-        String apiCity = "/api/city";
+        String apiCity = "/api/city?";
         String resendOTP = "/api/users/resendOtp";
         String verifyOTP = "/api/users/verifyOtp";
         String apiLogin = "/api/users/login";
-        String apiState = "/api/state";
-        String apiLocality = "/api/locality";
+        String apiState = "/api/state?";
+        String apiLocality = "/api/locality?";
         String apiResetPWD = "/api/users/resetPassword";
         String forgotPassword = "/api/users/forgotPassword";
         String signFlag = "signup";
         String forgotPWDFlag= "forgotpassword";
         String SMSTAG = "HNSHIL";
+        int firstIndex = 1;
         //api names
 
     }

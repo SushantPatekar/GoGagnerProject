@@ -18,30 +18,44 @@
         android:roundIcon="@mipmap/go_ganer_app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="gogagner.goldenbrainsithub.com.SplashActivity">
+        <activity
+            android:name="gogagner.goldenbrainsithub.com.SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="gogagner.goldenbrainsithub.com.LoginActivity" />
-        <activity android:name="gogagner.goldenbrainsithub.com.SignupActivity" />
-        <activity android:name="gogagner.goldenbrainsithub.com.BuyerSellerDashBoardActivity" >
+        <activity
+            android:name="gogagner.goldenbrainsithub.com.LoginActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="gogagner.goldenbrainsithub.com.SignupActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="gogagner.goldenbrainsithub.com.BuyerSellerDashBoardActivity"
+            android:screenOrientation="portrait"></activity>
 
-        </activity>
-        <activity android:name="gogagner.goldenbrainsithub.com.VerifyOTPActivity" >
 
-        </activity>
+        <activity
+            android:name="gogagner.goldenbrainsithub.com.VerifyOTPActivity"
+            android:screenOrientation="portrait"></activity>
 
-        <activity android:name="gogagner.goldenbrainsithub.com.ResetPasswordActivity" />
-        <activity android:name="gogagner.goldenbrainsithub.com.RequestOTP" />
+
+        <activity
+            android:name="gogagner.goldenbrainsithub.com.ResetPasswordActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name="gogagner.goldenbrainsithub.com.RequestOTP"
+            android:screenOrientation="portrait"></activity>
 
 
         <receiver android:name="gogagner.goldenbrainsithub.com.IncomingSms">
-        <intent-filter>
-            <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-        </intent-filter>
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
         </receiver>
     </application>
 

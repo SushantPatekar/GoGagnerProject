@@ -12,6 +12,16 @@ public class Locality {
     private String name;
     private String slug;
 
+    public String getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(String cityId) {
+        this.cityId = cityId;
+    }
+
+    private String cityId;
+
 
     public int getId() {
         return id;

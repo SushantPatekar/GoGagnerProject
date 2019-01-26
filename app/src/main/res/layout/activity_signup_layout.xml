@@ -35,7 +35,7 @@
             <custom.customEditTextView
                 android:id="@+id/edFirstName"
                 android:layout_width="match_parent"
-                android:layout_height="42dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="@dimen/size_30"
                 android:layout_marginTop="@dimen/size_20"
                 android:layout_marginRight="@dimen/size_30"
@@ -53,7 +53,7 @@
             <custom.customEditTextView
                 android:id="@+id/edLastName"
                 android:layout_width="match_parent"
-                android:layout_height="42dp"
+                android:layout_height="40dp"
                 android:layout_below="@id/edFirstName"
                 android:layout_marginLeft="@dimen/size_30"
                 android:layout_marginTop="@dimen/size_3"
@@ -73,7 +73,7 @@
                 android:id="@+id/spState"
                 style="@style/SpinnerTheme"
                 android:layout_width="match_parent"
-                android:layout_height="42dp"
+                android:layout_height="40dp"
                 android:layout_below="@id/edLastName"
                 android:layout_marginLeft="@dimen/size_30"
                 android:layout_marginTop="@dimen/size_3"
@@ -88,16 +88,16 @@
             <Spinner
                 android:id="@+id/spCity"
                 android:layout_width="match_parent"
-                android:layout_height="42dp"
+                android:layout_height="40dp"
                 android:layout_below="@id/spState"
                 android:layout_marginLeft="@dimen/size_30"
                 android:layout_marginTop="@dimen/size_3"
+                style="@style/SpinnerTheme"
                 android:layout_marginRight="@dimen/size_30"
                 android:paddingLeft="@dimen/size_40"
-                style="@style/SpinnerTheme"
+
                 android:drawablePadding="@dimen/size_20"
                 android:maxLines="1"
-
                 android:textAllCaps="true"
                 android:textColor="@color/white_txt"
                 android:textColorHint="@color/white_txt"
@@ -106,12 +106,13 @@
             <Spinner
                 android:id="@+id/spCityArea"
                 android:layout_width="match_parent"
-                android:layout_height="42dp"
+                android:layout_height="40dp"
                 android:layout_below="@id/spCity"
-
+                android:text="@string/locality"
                 android:layout_marginLeft="@dimen/size_30"
                 android:layout_marginTop="@dimen/size_3"
-                android:layout_marginRight="@dimen/size_30" android:paddingLeft="@dimen/size_40"
+                android:layout_marginRight="@dimen/size_30"
+                android:paddingLeft="@dimen/size_40"
                 style="@style/SpinnerTheme"
                 android:drawablePadding="@dimen/size_20"
                 android:maxLines="1"
@@ -123,7 +124,7 @@
             <custom.customEditTextView
                 android:id="@+id/edEmail"
                 android:layout_width="match_parent"
-                android:layout_height="42dp"
+                android:layout_height="40dp"
                 android:layout_below="@id/spCityArea"
                 android:layout_marginLeft="@dimen/size_30"
                 android:layout_marginTop="@dimen/size_3"
@@ -142,7 +143,7 @@
             <custom.customEditTextView
                 android:id="@+id/edMobileNumber"
                 android:layout_width="match_parent"
-                android:layout_height="42dp"
+                android:layout_height="40dp"
                 android:layout_below="@id/edEmail"
                 android:layout_marginLeft="@dimen/size_30"
                 android:layout_marginTop="@dimen/size_3"
@@ -162,7 +163,7 @@
             <custom.customEditTextView
                 android:id="@+id/edPassword"
                 android:layout_width="match_parent"
-                android:layout_height="42dp"
+                android:layout_height="40dp"
                 android:layout_below="@id/edMobileNumber"
                 android:layout_marginLeft="@dimen/size_30"
                 android:layout_marginTop="@dimen/size_3"
@@ -181,7 +182,7 @@
             <custom.customEditTextView
                 android:id="@+id/edConfirmPassword"
                 android:layout_width="match_parent"
-                android:layout_height="42dp"
+                android:layout_height="40dp"
                 android:layout_below="@id/edPassword"
                 android:layout_marginLeft="@dimen/size_30"   android:inputType="textPassword"
                 android:layout_marginTop="@dimen/size_3"
@@ -217,13 +218,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/edConfirmPassword"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/size_20"
                 android:layout_marginBottom="@dimen/text_size_12"
                 android:layout_toRightOf="@id/checkbox"
                 android:gravity="center_vertical"
                 android:text="@string/lbl_iagree"
                 android:textColor="@color/white_txt"
-                android:textSize="12dp" />
+                android:textSize="@dimen/text_size_12" />
 
             <custom.customButton
                 android:id="@+id/btnRegister"
@@ -242,14 +243,15 @@
             <custom.customTextView
                 android:id="@+id/tvLogin"
                 android:layout_width="match_parent"
-                android:layout_height="42dp"
+                android:layout_height="40dp"
                 android:layout_below="@id/btnRegister"
                 android:layout_marginLeft="@dimen/text_size_30"
                 android:layout_marginTop="@dimen/size_10"
                 android:layout_marginRight="@dimen/text_size_30"
                 android:gravity="center_horizontal"
                 android:textColor="@color/white_txt"
-                android:textSize="@dimen/size_10" />
+                android:layout_marginBottom="@dimen/size_10"
+                android:textSize="@dimen/text_size_12" />
 
             <!-- <custom.customTextView
                  android:id="@+id/tvLogin"

@@ -26,4 +26,9 @@ public interface StateDao  extends BaseDao<State> {
     @Query("SELECT *  FROM  State WHERE id =:id" )
     State getState(int id);
 
+
+    @Query("Delete FROM State" )
+    void deleteAll();
+
+
 }

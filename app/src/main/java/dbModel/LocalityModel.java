@@ -21,4 +21,9 @@ public class LocalityModel {
     public Locality getLocality(Application context,int _id ){
         return GoGagnerRoomDB.getInstance(context).LocalityDao().getLocality(_id);
     }
+
+    public void deleteAllLocality(Application context,List<Locality> mList){
+        GoGagnerRoomDB.getInstance(context).LocalityDao().deleteAll();
+    }
+
 }

@@ -5,9 +5,9 @@
     android:id="@+id/idText"
     style="@style/customSpinnerStyle"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
-    android:height="48dp"
-    android:ellipsize="marquee"
+    android:layout_height="40dp"
+    android:height="40dp"
+
     android:minHeight="48dp"
     android:singleLine="true"
     android:textAllCaps="true"

@@ -15,6 +15,7 @@ import java.util.TimerTask;
 
 import gogagner.goldenbrainsithub.adapter.AdViewAdapter;
 import gogagner.goldenbrainsithub.adapter.CategoryAdapter;
+import gogagner.goldenbrainsithub.com.R;
 import gogagner.goldenbrainsithub.model.AddModel;
 import gogagner.goldenbrainsithub.model.CategoryModel;
 
@@ -55,7 +56,11 @@ public class AddFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rv = new RecyclerView(getActivity());
+
+        View rootView = inflater.inflate(R.layout.layout_add_fragement, container, false);
+         rv = (RecyclerView) rootView.findViewById(R.id.recycler_add_fragment);
+
+         addModelArrayList = new ArrayList<AddModel>();
         rv.setLayoutManager(new LinearLayoutManager(getActivity(), 0, false));
         addModelArrayList = prepareData();
         final AdViewAdapter adapter = new AdViewAdapter(getActivity(), addModelArrayList);
@@ -63,7 +68,10 @@ public class AddFragment extends Fragment {
 
         timer = new Timer();
         timer.scheduleAtFixedRate(new RemindTask(), 0, 2000);
-        return rv;
+
+        return rootView;
+
+
     }
 
     private class RemindTask extends TimerTask {

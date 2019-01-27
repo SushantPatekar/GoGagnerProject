@@ -1,29 +1,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="140dp"
-    android:layout_height="140dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:layout_width="138dp"
-        android:layout_height="138dp"
-        android:layout_centerInParent="true"
-
-        >
 
         <ImageView
-            android:id="@+id/img_android"
-            android:layout_width="138dp"
-            android:layout_height="138dp" />
-
-        <custom.customTextView
-            android:visibility="gone"
-            android:id="@+id/tv_android"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:text="This is Text"
-            android:textColor="@color/white"
-            android:textSize="@dimen/size_16" />
-    </FrameLayout>
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/size_3"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="@dimen/size_3"
+            android:scaleType="fitXY"
+            android:id="@+id/img_android"
+            android:minHeight="135dp"
+            android:maxHeight="150dp"
+            android:maxWidth="150dp"
+            android:minWidth="135dp" />
+
+
+    <!--</FrameLayout>-->
 </RelativeLayout>

@@ -14,7 +14,7 @@
             android:name="gogagner.goldenbrainsithub.commanview.fragment.AddFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="30"
+            android:layout_weight="25"
             android:orientation="horizontal"></fragment>
 
         <fragment
@@ -22,7 +22,7 @@
             android:name="gogagner.goldenbrainsithub.commanview.fragment.CategoryFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="70"
+            android:layout_weight="75"
             android:background="@color/bgColor"
             android:orientation="vertical">
 

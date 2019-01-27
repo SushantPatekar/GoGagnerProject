@@ -32,12 +32,11 @@ public class AdViewAdapter extends RecyclerView.Adapter<AdViewAdapter.ViewHolder
     @Override
     public void onBindViewHolder(AdViewAdapter.ViewHolder viewHolder, int i) {
 
-        viewHolder.tv_android.setText(android.get(i).getAdd_name());
         GlideApp.with(context)
                 .load(android.get(i).getAdd_image())
                 .placeholder(R.mipmap.go_ganer_app_icon)
                 .error(R.mipmap.go_ganer_app_icon)
-                .override(138, 138)
+                //.override(138, 138)
                 .centerCrop()
                 .into(viewHolder.img_android);
     }
@@ -53,7 +52,7 @@ public class AdViewAdapter extends RecyclerView.Adapter<AdViewAdapter.ViewHolder
         public ViewHolder(View view) {
             super(view);
 
-            tv_android = (TextView)view.findViewById(R.id.tv_android);
+            //tv_android = (TextView)view.findViewById(R.id.tv_android);
             img_android = (ImageView) view.findViewById(R.id.img_android);
         }
     }

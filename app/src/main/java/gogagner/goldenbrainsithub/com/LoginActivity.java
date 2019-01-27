@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Html;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -177,5 +178,15 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         } else {
             return true;
         }*/
+
+
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Helper.exitPopUp(LoginActivity.this);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -12,24 +12,92 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <RelativeLayout
+
+                android:id="@+id/abovelayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_40"
+                android:background="@color/bgColor">
+
+                <Spinner
+                    android:id="@+id/spLocation"
+                    android:layout_width="150dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="@dimen/text_size_18"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="@dimen/size_5"
+                    android:background="@drawable/bg_dashboard_location_spinner"
+                    android:dropDownVerticalOffset="50dp"
+                    android:maxLines="1"
+                    android:overlapAnchor="false"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="@dimen/size_30"
+                    android:spinnerMode="dropdown"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white_txt"
+                    android:textColorHint="@color/white_txt"
+                    android:textSize="@dimen/text_size_12" />
+
+                <custom.customTextView
+                    android:id="@+id/tvWhatsNew"
+                    android:layout_width="100dp"
+                    android:layout_height="@dimen/size_40"
+
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/spLocation"
+                    android:background="@drawable/white_whats_new"
+                    android:gravity="center"
+                    android:text="@string/whats_new"
+
+                    android:textColor="@color/inner_red"
+                    android:textSize="@dimen/text_size_12"
+                    android:textStyle="bold" />
+
+
+                <ImageView
+                    android:id="@+id/ivFavrioute"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/size_2"
+                    android:layout_toRightOf="@id/tvWhatsNew"
+                    android:src="@drawable/favourite" />
+
+                <ImageView
+                    android:id="@+id/ivnotification"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/size_2"
+                    android:layout_toRightOf="@id/ivFavrioute"
+                    android:src="@drawable/notification" />
+            </RelativeLayout>
+
             <android.support.design.widget.AppBarLayout
                 android:id="@+id/appBar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_below="@id/abovelayout"
+                app:elevation="0dp">
 
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/main_activity_toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
+                    android:layout_height="@dimen/size_50"
                     android:background="@color/bgColor"
                     android:gravity="center"
                     android:minHeight="56dp"
+                    app:contentInsetEnd="0dp"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetRight="0dp"
+                    app:contentInsetStart="0dp"
+                    app:contentInsetStartWithNavigation="0dp"
                     app:layout_scrollFlags="scroll|enterAlways"
                     app:theme="@style/DrawerArrowStyle" />
 
@@ -38,11 +106,13 @@
             <FrameLayout
                 android:id="@+id/fl_drawer_activity_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="90dp" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <fragment
+
             android:id="@+id/fragment_navigation_drawer"
             android:name="slidermenu.DrawerFragment"
             android:layout_width="300dp"

@@ -56,10 +56,12 @@
     <string name="signup_last_error">Please enter last name.</string>
     <string name="signup_pwd_error">Please enter valid password.</string>
 
+    <string name="search_hint">Search Product/Buisness/Category</string>
     <string name="state">STATE</string>
     <string name="city">CITY</string>
     <string name="locality">LOCALITY</string>
     <array name="city_array">
     <item>CITY</item>
     </array>
+    <string name="whats_new">What\'s new</string>
 </resources>

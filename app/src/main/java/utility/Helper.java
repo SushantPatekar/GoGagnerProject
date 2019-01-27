@@ -1,8 +1,10 @@
 package utility;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -136,6 +138,30 @@ public class Helper {
                 Constants.sharedPref.userName));*/
         updatedSharedPrefValBoolean(contex, Constants.login.isLoginSuccess, false);
     }
+    static AlertDialog alertbox;
+    public static void exitPopUp(final Activity context){
+        alertbox = new AlertDialog.Builder(context)
+                .setMessage("Do you want to exit application?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                    // do something when the button is clicked
+                    public void onClick(DialogInterface arg0, int arg1) {
+
+                        alertbox.dismiss();
+                        context.finish();
+
+
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+                    // do something when the button is clicked
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        alertbox.dismiss();
+                    }
+                })
+                .show();
+        }
 }
    /* private boolean isValidMobile(String phone) {
         boolean check = false;

@@ -53,10 +53,7 @@
         <item name="android:paddingRight">@dimen/size_40</item>
 
     </style>
-    <style name="lociation_SpinnerTheme" parent="android:Widget.Spinner">
-        <item name="android:background">@drawable/bg_spinner</item>
-        <item name="android:textColor">@color/white</item>
-    </style>
+
 
     <style name="custom_no_border" parent="@android:style/Theme.Holo">
         <item name="android:dropDownListViewStyle">@style/custom_no_row_border</item>
@@ -70,4 +67,10 @@
         <item name="android:paddingRight">@dimen/size_40</item>
     </style>
 
+
+    <style name="locationSpinnerTheme" parent="android:Widget.Spinner">
+        <item name="android:background">@drawable/bg_dashboard_location_spinner</item>
+        <item name="android:textColor">@color/white</item>
+
+    </style>
 </resources>

@@ -1,23 +1,34 @@
 package slidermenu;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 
+import java.util.List;
+
+import dbModel.Locality;
+import dbModel.LocalityModel;
 import dbModel.User;
 import dbModel.UserModel;
 import gogagner.goldenbrainsithub.com.LoginActivity;
 import gogagner.goldenbrainsithub.com.R;
 import gogagner.goldenbrainsithub.com.ResetPasswordActivity;
+import gogagner.goldenbrainsithub.com.SignupActivity;
 import utility.Constants;
 import utility.Helper;
 
@@ -46,16 +57,16 @@ public abstract class BaseDrawerActivity extends AppCompatActivity implements Dr
 
 
 
-//    static {
-//        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-//    }
-
+private Spinner SpinnerLocation;
+private User user;
+private EditText medsearch;
 
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(R.layout.activity_base_drawer);
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.fl_drawer_activity_container);
         getLayoutInflater().inflate(layoutResID, frameLayout, true);
+        user =fetchUser();
         configureToolBar();
 
         setNavigationDrawer();
@@ -71,16 +82,23 @@ public abstract class BaseDrawerActivity extends AppCompatActivity implements Dr
         final LayoutInflater layoutInflater = LayoutInflater.from(this);
 
 
-        View toolbarLayout = layoutInflater.inflate(R.layout.base_drawer_toolbar_layout, null);
-        tvToolbarTitle = (TextView) toolbarLayout.findViewById(R.id.tv_toolbar_title);
+        //View toolbarLayout = layoutInflater.inflate(R.layout.base_drawer_toolbar_layout, null);
+        View toolbarLayout = layoutInflater.inflate(R.layout.custom_base_drawer_toolbar_layout, null);
+
+       // tvToolbarTitle = (TextView) toolbarLayout.findViewById(R.id.tv_toolbar_title);
+        medsearch = (EditText) toolbarLayout.findViewById(R.id.edsearch);
+
+        SpinnerLocation = (Spinner) findViewById(R.id.spLocation);
+        updateSpinnerLocation(SpinnerLocation,user);
         // tweaking action bar settings
         if (getSupportActionBar() != null) {
+
             getSupportActionBar().setDisplayShowHomeEnabled(false);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayShowCustomEnabled(true);
             getSupportActionBar().setCustomView(toolbarLayout);
         }
-        setTitleTextView(getString(R.string.app_name));
+      //  setTitleTextView(getString(R.string.app_name));
     }
 
     public void setTitleTextView(String title) {
@@ -272,4 +290,57 @@ public abstract class BaseDrawerActivity extends AppCompatActivity implements Dr
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(profileUpdateReceiver,
                 new IntentFilter(Constants.Actions.UPDATE_PROFILE_ACTION));
     }*/
+
+   private void updateSpinnerLocation(Spinner mSpinner,User mUser){
+       //Fetch Locality  & update user
+       List<Locality> mcityList=new LocalityModel().getAllLocality(getApplication());
+       mSpinner.setAdapter(new LocalityAdapter(getApplicationContext(),
+               R.layout.simple_spinner_dropdown_item,mcityList));
+       //mSpinner.setSelection(5);
+
+   }
+
+   private User fetchUser(){
+       User mUser=null;
+       String mUsrname =Helper.getSharedPrefValStr(getApplication(),Constants.sharedPref.userName);
+       mUser = new UserModel().getUserbyID(getApplication(),mUsrname);
+       return mUser;
+   }
+
+    public class LocalityAdapter extends ArrayAdapter<Locality> {
+        List<dbModel.Locality> mList ;
+        public LocalityAdapter(@NonNull Context context, int resource, @NonNull List<dbModel.Locality> objects) {
+            super(context, resource, objects);
+            mList = objects;
+        }
+
+
+
+        @Override
+        public View getDropDownView(int position, View convertView,
+                                    ViewGroup parent) {
+            // TODO Auto-generated method stub
+            return getCustomView(position, convertView, parent);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // TODO Auto-generated method stub
+            return getCustomView(position, convertView, parent);
+        }
+
+        public View getCustomView(int position, View convertView, ViewGroup parent) {
+            // TODO Auto-generated method stub
+            //return super.getView(position, convertView, parent);
+
+            LayoutInflater inflater=getLayoutInflater();
+            View row=inflater.inflate(R.layout.simple_location_spinner_dropdown, parent, false);
+            TextView label=(TextView)row.findViewById(R.id.idText);
+            label.setText(""+mList.get(position).getName());
+
+
+
+            return row;
+        }
+    }
 }

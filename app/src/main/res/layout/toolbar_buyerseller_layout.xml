@@ -6,7 +6,7 @@
 
     <Spinner
         android:id="@+id/spState"
-        style="@style/lociation_SpinnerTheme"
+        style="@style/locationSpinnerTheme"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_marginLeft="@dimen/size_5"

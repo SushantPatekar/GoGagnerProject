@@ -8,10 +8,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginTop="1.5dp"
-        android:layout_marginLeft="@dimen/size_3"
-        android:layout_marginRight="@dimen/size_3"
-        android:layout_marginBottom="3dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="2dp"
         >
 
         <ImageView

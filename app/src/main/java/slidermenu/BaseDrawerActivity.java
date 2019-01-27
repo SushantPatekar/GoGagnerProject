@@ -284,19 +284,17 @@ private EditText medsearch;
         //LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(profileUpdateReceiver);
     }
 
-   /* @Override
-    protected void onResume() {
-        super.onResume();
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(profileUpdateReceiver,
-                new IntentFilter(Constants.Actions.UPDATE_PROFILE_ACTION));
-    }*/
+
 
    private void updateSpinnerLocation(Spinner mSpinner,User mUser){
        //Fetch Locality  & update user
        List<Locality> mcityList=new LocalityModel().getAllLocality(getApplication());
        mSpinner.setAdapter(new LocalityAdapter(getApplicationContext(),
                R.layout.simple_spinner_dropdown_item,mcityList));
-       //mSpinner.setSelection(5);
+       if(mUser!=null){
+           mSpinner.setSelection(mUser.getLocalityId());
+       }
+       //
 
    }
 

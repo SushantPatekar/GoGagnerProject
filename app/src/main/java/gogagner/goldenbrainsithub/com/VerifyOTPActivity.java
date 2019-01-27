@@ -17,6 +17,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 
 import dbModel.User;
@@ -235,10 +237,31 @@ int size = 1;
                                       //TODO check for correct OTP
                                      /* Helper.updatedSharedPrefValBoolean(VerifyOTPActivity.this,
                                               Constants.login.isLoginSuccess, true);*/
-                                      startActivity(new Intent(
-                                              VerifyOTPActivity.this,
-                                              ResetPasswordActivity.class
-                                      ));
+                                      //userDetails
+                                      try {
+                                          JSONObject main = new JSONObject(res);
+                                          JSONObject j_response = main.getJSONObject("response");
+                                          String messages = j_response.getString("messages");
+                                          if(j_response.has("userDetails")){
+                                         // if(messages.matches("OTP verified sucessfully.")){
+                                              startActivity(new Intent(
+                                                      VerifyOTPActivity.this,
+                                                      LoginActivity.class
+                                              ));
+                                          }
+                                          else {
+                                              startActivity(new Intent(
+                                                      VerifyOTPActivity.this,
+                                                      ResetPasswordActivity.class
+                                              ));
+                                          }
+
+                                      }
+                                      catch (Exception e){
+
+                                      }
+
+
                                       finish();
 
                                   }

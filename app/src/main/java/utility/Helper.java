@@ -23,6 +23,7 @@ import java.util.regex.Pattern;
 
 import dbModel.User;
 import dbModel.UserModel;
+import gogagner.goldenbrainsithub.com.R;
 
 public class Helper {
 
@@ -162,6 +163,66 @@ public class Helper {
                 })
                 .show();
         }
+
+
+        public static boolean isMobileOREmail(String input,Activity mAct){
+        boolean isMobile=false;
+
+        if(!isMobile(input, isMobile,mAct)){
+
+            //showToast((Context) mAct,mAct.getResources().getString(R.string.enter_mob_no));
+            isMobile =false;
+        }
+else {
+    isMobile = true;
+        }
+
+       /* else if(!input.matches(Constants.UserDetails.EMAIL_REGEX)){
+
+            showToast((Context) mAct,mAct.getResources().getString(R.string.enter_valid_email));
+            isMobile= false;
+        }
+        else {
+            isMobile = true;
+
+        }*/
+            return isMobile;
+        //isMobile = isMobile(input, isMobile);
+
+            //return isMobile;
+        }
+
+    private static  boolean isMobile(String input, boolean isMobile,Activity mAct) {
+        try{
+            int yourNumber = Integer.parseInt(input);
+
+            if(input.trim().length()>10 ||input.trim().length()<10){
+                showToast((Context) mAct,mAct.getResources().getString(R.string.enter_mob_no));
+                isMobile = false;
+                return isMobile ;
+
+            }
+            isMobile = true;
+        }catch (NumberFormatException ex) {
+            //handle exception here
+            if(input.trim().length()>10){
+                showToast((Context) mAct,mAct.getResources().getString(R.string.enter_mob_no));
+                isMobile = false;
+                return isMobile ;
+
+            }
+                  else  if(!input.matches(Constants.UserDetails.EMAIL_REGEX)){
+
+                       showToast((Context) mAct,mAct.getResources().getString(R.string.enter_valid_email));
+                       isMobile = false;
+                   }
+                   else {
+                       isMobile = true;
+                   }
+           // isMobile = false;
+        }
+        return isMobile;
+    }
 }
    /* private boolean isValidMobile(String phone) {
         boolean check = false;

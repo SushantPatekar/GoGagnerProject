@@ -17,16 +17,17 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
-
+            <LinearLayout
+android:orientation="horizontal"
                 android:id="@+id/abovelayout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_40"
-                android:background="@color/bgColor">
+                android:background="@color/bgColor"
+                android:weightSum="100">
 
                 <Spinner
                     android:id="@+id/spLocation"
-                    android:layout_width="150dp"
+                    android:layout_width="0dp"
                     android:layout_height="35dp"
                     android:layout_marginLeft="@dimen/text_size_18"
                     android:layout_marginTop="5dp"
@@ -38,6 +39,8 @@
                     android:paddingLeft="30dp"
                     android:paddingRight="@dimen/size_30"
                     android:spinnerMode="dropdown"
+                    android:layout_weight="50"
+                    android:layout_marginBottom="5dp"
                     android:textAllCaps="true"
                     android:textColor="@color/white_txt"
                     android:textColorHint="@color/white_txt"
@@ -45,9 +48,9 @@
 
                 <custom.customTextView
                     android:id="@+id/tvWhatsNew"
-                    android:layout_width="100dp"
-                    android:layout_height="@dimen/size_40"
-
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+android:layout_weight="30" android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@id/spLocation"
                     android:background="@drawable/white_whats_new"
@@ -61,8 +64,9 @@
 
                 <ImageView
                     android:id="@+id/ivFavrioute"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp" android:layout_marginTop="5dp"
+                    android:layout_weight="10"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/size_2"
                     android:layout_toRightOf="@id/tvWhatsNew"
@@ -70,13 +74,15 @@
 
                 <ImageView
                     android:id="@+id/ivnotification"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="10" android:layout_marginTop="5dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/size_2"
                     android:layout_toRightOf="@id/ivFavrioute"
                     android:src="@drawable/notification" />
-            </RelativeLayout>
+
+            </LinearLayout>
 
             <android.support.design.widget.AppBarLayout
                 android:id="@+id/appBar"

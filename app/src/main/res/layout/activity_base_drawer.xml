@@ -18,11 +18,11 @@
             android:orientation="vertical">
 
             <LinearLayout
-android:orientation="horizontal"
                 android:id="@+id/abovelayout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_40"
                 android:background="@color/bgColor"
+                android:orientation="horizontal"
                 android:weightSum="100">
 
                 <Spinner
@@ -32,6 +32,8 @@ android:orientation="horizontal"
                     android:layout_marginLeft="@dimen/text_size_18"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="@dimen/size_5"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="50"
                     android:background="@drawable/bg_dashboard_location_spinner"
                     android:dropDownVerticalOffset="50dp"
                     android:maxLines="1"
@@ -39,8 +41,6 @@ android:orientation="horizontal"
                     android:paddingLeft="30dp"
                     android:paddingRight="@dimen/size_30"
                     android:spinnerMode="dropdown"
-                    android:layout_weight="50"
-                    android:layout_marginBottom="5dp"
                     android:textAllCaps="true"
                     android:textColor="@color/white_txt"
                     android:textColorHint="@color/white_txt"
@@ -50,9 +50,10 @@ android:orientation="horizontal"
                     android:id="@+id/tvWhatsNew"
                     android:layout_width="0dp"
                     android:layout_height="35dp"
-android:layout_weight="30" android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_toRightOf="@id/spLocation"
+                    android:layout_weight="30"
                     android:background="@drawable/white_whats_new"
                     android:gravity="center"
                     android:text="@string/whats_new"
@@ -65,21 +66,23 @@ android:layout_weight="30" android:layout_marginBottom="5dp"
                 <ImageView
                     android:id="@+id/ivFavrioute"
                     android:layout_width="0dp"
-                    android:layout_height="35dp" android:layout_marginTop="5dp"
-                    android:layout_weight="10"
+                    android:layout_height="35dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/size_2"
+                    android:layout_marginTop="5dp"
                     android:layout_toRightOf="@id/tvWhatsNew"
+                    android:layout_weight="10"
                     android:src="@drawable/favourite" />
 
                 <ImageView
                     android:id="@+id/ivnotification"
                     android:layout_width="0dp"
                     android:layout_height="35dp"
-                    android:layout_weight="10" android:layout_marginTop="5dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/size_2"
+                    android:layout_marginTop="5dp"
                     android:layout_toRightOf="@id/ivFavrioute"
+                    android:layout_weight="10"
                     android:src="@drawable/notification" />
 
             </LinearLayout>

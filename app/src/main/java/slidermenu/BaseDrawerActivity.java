@@ -67,8 +67,9 @@ private EditText medsearch;
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.fl_drawer_activity_container);
         getLayoutInflater().inflate(layoutResID, frameLayout, true);
         user =fetchUser();
+        //clear
         configureToolBar();
-
+        //clear
         setNavigationDrawer();
     }
 

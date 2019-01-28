@@ -83,7 +83,7 @@ public class DrawerFragment extends Fragment implements View.OnClickListener {
         titles = new ArrayList<>(Arrays.asList(getActivity().getResources().getStringArray(R.array.nav_drawer_labels)));
     }
 
-
+    //TODO 1) Initialize Expandable ListView
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -157,6 +157,7 @@ public class DrawerFragment extends Fragment implements View.OnClickListener {
         ivUserProfile.setOnClickListener(this);
     }
 
+    //todo 2) implement touch click
     private void setAdapter() {
         adapter = new NavigationDrawerAdapter(getActivity(), getData());
         recyclerView.setAdapter(adapter);

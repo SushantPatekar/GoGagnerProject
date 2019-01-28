@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS"></uses-permission>
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS"></uses-permission>
-B
+
     <application
         android:name=".GoGagnerApplication"
         android:allowBackup="true"
@@ -61,6 +61,11 @@ B
         </activity>
 
 
+        <activity android:name="sample.RecylerViewDaemo"/>
+
+        <activity android:name="sample.NavigationViewActivity">
+
+        </activity>
         <receiver android:name="gogagner.goldenbrainsithub.com.IncomingSms">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />

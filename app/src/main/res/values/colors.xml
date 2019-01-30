@@ -13,4 +13,5 @@
     <color name="outer_red">#f40000</color>
     <color name="inner_red">#ff3333</color>
     <color name="snow">#eee9e9</color>
+    <color name="bg_slider">#32324E</color>
 </resources>

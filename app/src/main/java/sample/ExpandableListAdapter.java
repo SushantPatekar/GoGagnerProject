@@ -39,12 +39,19 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        int childCount = 0;
-        if (groupPosition != 2) {
+        /*int childCount = 0;
+        //if (groupPosition != 2) {
+        if (groupPosition != mListDataHeader.size()-1) {
             childCount = this.mListDataChild.get(this.mListDataHeader.get(groupPosition))
                     .size();
         }
-        return childCount;
+        return childCount;*/
+
+        List childList = mListDataChild.get(mListDataHeader.get(groupPosition));
+        if (childList != null && ! childList.isEmpty()) {
+            return childList.size();
+        }
+        return 1;
     }
 
     @Override
@@ -58,6 +65,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 .get(childPosition).toString());
         return this.mListDataChild.get(this.mListDataHeader.get(groupPosition))
                 .get(childPosition);
+     // return 1;
+
     }
 
     @Override
@@ -91,7 +100,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         ImageView arrowicon = (ImageView) convertView
                 .findViewById(R.id.arrowicon);
 
-        if (getChildrenCount(groupPosition)==0) {
+       /* if (getChildrenCount(groupPosition)==0) {
             arrowicon.setVisibility(View.GONE);
         }
         else {
@@ -99,10 +108,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }
         int imageResourceId = isExpanded ? R.drawable.ic_img_avatar
                 : R.drawable.ic_category_search;
-        arrowicon.setImageResource(imageResourceId);
+        arrowicon.setImageResource(imageResourceId);*/
 
         ImageView headerIcon = (ImageView) convertView.findViewById(R.id.iconimage);
-        lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle.getIconName());
         headerIcon.setImageResource(headerTitle.getIconImg());
         return convertView;
@@ -110,8 +118,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        final String childText = (String) getChild(groupPosition, childPosition);
+       // final String childText = (String) getChild(groupPosition, childPosition);
 
+        final  String childText = "This";
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -130,4 +139,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
+
+
+
 }

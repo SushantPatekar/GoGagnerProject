@@ -1,8 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#ffffff"
     android:clickable="true"
     android:orientation="vertical">
 
@@ -10,100 +9,153 @@
         android:id="@+id/ll_app_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bgColor"
+        android:background="@color/bg_slider"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:paddingTop="@dimen/size_30"
-        android:paddingBottom="@dimen/size_20"
-        android:gravity="center_horizontal">
+        android:paddingTop="@dimen/size_5"
+        android:paddingBottom="@dimen/size_20">
 
         <ImageView
             android:id="@+id/ivAvatar"
-            android:layout_width="95dp"
-            android:layout_height="95dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/size_20"
             android:layout_gravity="center|left"
-            android:src="@drawable/ic_launcher_background"
-            />
-
-        <ImageButton
-            android:id="@+id/iv_coins"
-            android:layout_width="70dp"
-            android:layout_alignParentRight="true"
-            android:layout_height="@dimen/size_70"
-            android:layout_marginRight="@dimen/size_20"
-            android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/size_20"
+         />
+
+        <ImageView
+            android:id="@+id/iv_coins"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:padding="3dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_gravity="center|right"
-            android:src="@drawable/ic_launcher_background"
-            />
+            android:layout_marginLeft="@dimen/size_20"
+            android:layout_marginRight="@dimen/size_20"
+            android:background="@drawable/video" />
+
         <custom.customBoldTextView
             android:id="@+id/tv_userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size_18"
-           android:paddingLeft="120dp"
             android:layout_marginLeft="@dimen/size_30"
-            android:text="Hello,Meera "
-            android:layout_marginTop="@dimen/size_5"
+            android:layout_marginTop="@dimen/size_25"
             android:layout_toLeftOf="@id/iv_coins"
-            android:textColor="@color/white"/>
+            android:text="Hello,Meera "
+            android:textColor="@color/white"
+            android:textSize="14dp" />
 
         <custom.customBoldTextView
-            android:layout_below="@id/tv_userName"
             android:id="@+id/tv_coinCount"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/size_25"
-            android:textSize="@dimen/size_16"
-            android:text="2000"
-            android:layout_marginTop="@dimen/size_10"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+android:drawableLeft="@drawable/front_coin_png"
             android:layout_toLeftOf="@id/iv_coins"
-            android:textColor="@color/white"/>
+            android:text="2000"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
 
         <custom.customTextView
-            android:layout_below="@id/tv_coinCount"
             android:id="@+id/tv_userLevel"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/size_40"
-            android:textSize="14dp"
-            android:text="Level 1"
-            android:layout_marginTop="@dimen/size_5"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_coinCount"
+
             android:layout_toLeftOf="@id/iv_coins"
-            android:textColor="@color/white"/>
+            android:text="Level 1"
+            android:textColor="@color/white"
+            android:textSize="10dp" />
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/drawerList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
 
+    <ExpandableListView
+        android:id="@+id/expnadableList"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottomBanner"
         android:layout_below="@+id/ll_app_name"
-        android:layout_above="@+id/tvAppVersion"
-        />
+        android:background="#222338"
+        android:groupIndicator="@null" />
 
 
+    <RelativeLayout
 
-    <custom.customTextView
-        android:id="@+id/tvAppVersion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:id="@+id/bottomBanner"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_above="@+id/imgLogo"
-        android:textColor="@color/darkGray"
         android:layout_alignParentBottom="true"
-        android:textSize="@dimen/text_size_15"
-        android:text="version"/>
+        android:background="@color/bg_slider">
 
 
-    <ImageView
-        android:id="@+id/imgLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:visibility="invisible"
-        android:src="@drawable/ic_launcher_background"
-        android:layout_margin="@dimen/size_10"/>
+        <custom.customTextView
+            android:id="@+id/tvAppVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/imgLogo"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="version"
+            android:layout_marginTop="@dimen/size_5"
+            android:paddingBottom="@dimen/size_5"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_12" />
+
+        <ImageView
+            android:id="@+id/ivTwitter"
+            android:src="@drawable/twitter"
+            android:layout_centerHorizontal="true"
+           android:layout_marginTop="8dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_width="@dimen/size_20"
+            android:layout_height="@dimen/size_20" />
+
+        <ImageView
+            android:id="@+id/ivInsta"
+            android:src="@drawable/ic_menu_instagram"
+            android:layout_centerHorizontal="true"
+            android:layout_toLeftOf="@id/ivTwitter"
+            android:layout_marginTop="8dp"  android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="@dimen/size_20"
+            android:layout_height="@dimen/size_20" />
+
+        <ImageView
+            android:id="@+id/ivYouTube"
+            android:src="@drawable/ic_menu_youtube"
+            android:layout_toRightOf="@id/ivTwitter"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"  android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="@dimen/size_20"
+            android:layout_height="@dimen/size_20" />
+
+        <ImageView
+            android:id="@+id/ivFaceBook"
+            android:src="@drawable/ic_menu_facebook"
+            android:layout_centerHorizontal="true"
+            android:layout_toLeftOf="@id/ivInsta"  android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="8dp"
+            android:layout_width="@dimen/size_20"
+            android:layout_height="@dimen/size_20" />
+
+        <ImageView
+            android:id="@+id/ivGooglePlus"
+            android:src="@drawable/ic_menu_googleplus"
+            android:layout_toRightOf="@id/ivYouTube"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"  android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="@dimen/size_20"
+            android:layout_height="@dimen/size_20" />
+    </RelativeLayout>
+
 
 </RelativeLayout>

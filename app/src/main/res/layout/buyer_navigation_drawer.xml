@@ -35,7 +35,8 @@
             android:layout_gravity="center|right"
             android:layout_marginLeft="@dimen/size_20"
             android:layout_marginRight="@dimen/size_20"
-            android:background="@drawable/video" />
+            android:background="@drawable/coin_background"
+            android:src="@drawable/video" />
 
         <custom.customBoldTextView
             android:id="@+id/tv_userName"

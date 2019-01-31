@@ -310,7 +310,7 @@ public class DrawerFragment extends Fragment implements View.OnClickListener {
 
 
 
-       // listDataChild.put(listDataHeader.get(0), heading1);
-        listDataChild.put(listDataHeader.get(2), heading1);
+        listDataChild.put(listDataHeader.get(0), heading1);
+        listDataChild.put(listDataHeader.get(2), heading2);
     }
 }

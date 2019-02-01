@@ -102,4 +102,5 @@
         <item>Jewelry</item>
         <item>Pharmacy</item>
     </string-array>
+    <string name="lbl_free_coins">Free Coins</string>
 </resources>

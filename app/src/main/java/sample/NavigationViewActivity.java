@@ -77,9 +77,9 @@ public class NavigationViewActivity extends AppCompatActivity {
         heading2.add("Submenu of item 2");
         heading2.add("Submenu of item 2");
 
-        //listDataChild.put(listDataHeader.get(0), heading1);// Header, Child data
+        listDataChild.put(listDataHeader.get(0), heading1);// Header, Child data
         listDataChild.put(listDataHeader.get(1), heading2);
-
+        //listDataChild.put(listDataHeader.get(2), heading2);
     }
 
 

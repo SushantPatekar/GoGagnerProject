@@ -6,26 +6,34 @@
         <layer-list>
 
 
-            <item>
-                <shape>
+       <!--     <item>
+               &lt;!&ndash; <shape>
                     <solid android:color="@color/bg_slider" />
-                   <!-- <padding android:bottom="0.5dp"
+                   &lt;!&ndash; <padding android:bottom="0.5dp"
 
                         android:top="0.5dp" />
+&ndash;&gt;
+
+                </shape>&ndash;&gt;
+            </item>
 -->
 
+            <item>
+                <shape>
+                  <!--  <solid android:color="#282843" />-->
+                 <!--   <stroke android:width="2dp" android:color="@color/bg_slider" />
+                    <gradient android:angle="270" android:centerColor="#28283F"
+                        android:endColor="#28283F" android:startColor="#28283F"
+                        android:type="linear" />-->
+
+
+                   <!-- <stroke android:width="0.2dp" android:color="#28283F"
+                    android:dashGap="@dimen/size_10"/>-->
+                    <gradient android:angle="270" android:centerColor="@color/bg_slider"
+                        android:endColor="@color/bg_slider" android:startColor="@color/bg_slider"
+                        android:type="linear" />
                 </shape>
             </item>
-
-
-            <!--<item>
-                <shape>
-                    <solid android:color="#282843" />
-                    <stroke android:width="2dp" android:color="#222338" />
-                    <gradient android:angle="270" android:centerColor="#28283F" android:endColor="#28283F" android:startColor="#28283F" android:type="linear" />
-
-                </shape>
-            </item>-->
 
 
         </layer-list>

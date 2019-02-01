@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+
+        <layer-list>
+
+
+        <!--    <item>
+                <shape>
+                    <solid android:color="#282843" />
+
+
+                </shape>
+            </item>-->
+
+          <!--  <item>
+                <shape>
+                    <solid android:color="#282843" />
+                    <padding android:bottom="@dimen/size_2" android:left="@dimen/size_2" android:right="@dimen/size_2" android:top="@dimen/size_2" />
+
+
+                </shape>
+            </item>-->
+
+
+            <item>
+                <shape>
+                    <solid android:color="#282843" />
+                    <stroke android:width="2dp" android:color="#222338" />
+                    <gradient android:angle="270" android:centerColor="#28283F" android:endColor="#28283F" android:startColor="#28283F" android:type="linear" />
+
+                </shape>
+            </item>
+
+            <item   android:top="1dp" android:bottom="1dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/bgColor" />
+                    <gradient android:angle="270"
+                        android:centerColor="#3c3c5d"
+                        android:endColor="@color/bg_slider"
+                        android:startColor="@color/bg_slider"
+                        android:type="linear" />
+                </shape>
+            </item>
+
+
+            <item>
+
+                <shape>
+                 <!--   <solid android:color="#282843" />-->
+                    <stroke android:color="@color/bg_slider" android:dashWidth="@dimen/size_40" android:dashGap="@dimen/size_20"></stroke>
+
+                  <!--  <gradient android:angle="270"
+                        android:centerColor="@color/bg_slider"
+                        android:endColor="#3f3f62"
+                        android:startColor="#3f3f62"
+                        android:type="linear" />-->
+                </shape>
+            </item>
+
+        </layer-list>
+
+    </item>
+
+</selector>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="2dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
@@ -10,7 +10,7 @@
         android:layout_marginTop="0.1dp"
         android:layout_marginBottom="0.1dp"
         android:layout_weight="100"
-        android:background="@drawable/bg_sliding_group_row"
+        android:background="@drawable/selector_row_buyer_menu"
         android:orientation="horizontal">
 
         <ImageView
@@ -34,16 +34,17 @@
             android:textSize="14dp" />
 
         <ImageView
-            android:visibility="gone"
+
             android:id="@+id/arrowicon"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/text_size_12"
+            android:layout_height="@dimen/text_size_12"
             android:layout_weight="5"
             android:paddingLeft="10dp"
+            android:layout_marginRight="@dimen/size_5"
+android:layout_gravity="center_vertical"
 
-            android:paddingTop="10dp"
 
-            android:paddingBottom="10dp" />
+         />
     </LinearLayout>
 
 </LinearLayout>

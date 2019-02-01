@@ -22,21 +22,41 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center|left"
-            android:layout_marginLeft="@dimen/size_20"
-         />
+            android:layout_marginLeft="@dimen/size_20" />
 
-        <ImageView
-            android:id="@+id/iv_coins"
-            android:layout_width="@dimen/size_50"
-            android:layout_height="@dimen/size_50"
-            android:padding="3dp"
+        <RelativeLayout
+            android:id="@+id/layCoinView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center|right"
             android:layout_marginLeft="@dimen/size_20"
             android:layout_marginRight="@dimen/size_20"
-            android:background="@drawable/coin_background"
-            android:src="@drawable/video" />
+            android:background="@drawable/coin_background">
+            <ImageView
+                android:id="@+id/iv_coins"
+                android:layout_width="@dimen/size_40"
+                android:layout_height="@dimen/size_40"
+                android:layout_margin="10dp"
+
+                android:layout_gravity="center"
+                android:background="@drawable/video" />
+            <custom.customTextView
+                android:textColor="@color/white"
+                android:text="@string/lbl_free_coins"
+                app:textAllCaps="true"
+                android:layout_marginBottom="@dimen/size_3"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="7dp"
+                android:gravity="center_horizontal"
+                android:singleLine="true"
+                />
+        </RelativeLayout>
+
+        <!-- -->
 
         <custom.customBoldTextView
             android:id="@+id/tv_userName"
@@ -44,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/size_30"
             android:layout_marginTop="@dimen/size_25"
-            android:layout_toLeftOf="@id/iv_coins"
+            android:layout_toLeftOf="@id/layCoinView"
             android:text="Hello,Meera "
             android:textColor="@color/white"
             android:textSize="14dp" />
@@ -54,8 +74,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="44dp"
-android:drawableLeft="@drawable/front_coin_png"
-            android:layout_toLeftOf="@id/iv_coins"
+            android:layout_toLeftOf="@id/layCoinView"
+            android:drawableLeft="@drawable/front_coin_png"
             android:text="2000"
             android:textColor="@color/white"
             android:textSize="14dp" />
@@ -67,7 +87,7 @@ android:drawableLeft="@drawable/front_coin_png"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_coinCount"
 
-            android:layout_toLeftOf="@id/iv_coins"
+            android:layout_toLeftOf="@id/layCoinView"
             android:text="Level 1"
             android:textColor="@color/white"
             android:textSize="10dp" />
@@ -78,9 +98,11 @@ android:drawableLeft="@drawable/front_coin_png"
         android:id="@+id/expnadableList"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:dividerHeight="0.2dp"
+        android:divider="#50507c"
         android:layout_above="@+id/bottomBanner"
         android:layout_below="@+id/ll_app_name"
-        android:background="#222338"
+        android:background="@color/bgColor"
         android:groupIndicator="@null" />
 
 
@@ -101,61 +123,65 @@ android:drawableLeft="@drawable/front_coin_png"
             android:layout_above="@+id/imgLogo"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:text="version"
             android:layout_marginTop="@dimen/size_5"
             android:paddingBottom="@dimen/size_5"
+            android:text="version"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_12" />
 
         <ImageView
             android:id="@+id/ivTwitter"
-            android:src="@drawable/twitter"
-            android:layout_centerHorizontal="true"
-           android:layout_marginTop="8dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
             android:layout_width="@dimen/size_20"
-            android:layout_height="@dimen/size_20" />
+            android:layout_height="@dimen/size_20"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/twitter" />
 
         <ImageView
             android:id="@+id/ivInsta"
-            android:src="@drawable/ic_menu_instagram"
-            android:layout_centerHorizontal="true"
-            android:layout_toLeftOf="@id/ivTwitter"
-            android:layout_marginTop="8dp"  android:layout_marginRight="15dp"
-            android:layout_marginLeft="15dp"
             android:layout_width="@dimen/size_20"
-            android:layout_height="@dimen/size_20" />
+            android:layout_height="@dimen/size_20"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@id/ivTwitter"
+            android:src="@drawable/ic_menu_instagram" />
 
         <ImageView
             android:id="@+id/ivYouTube"
-            android:src="@drawable/ic_menu_youtube"
-            android:layout_toRightOf="@id/ivTwitter"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp"  android:layout_marginRight="15dp"
-            android:layout_marginLeft="15dp"
             android:layout_width="@dimen/size_20"
-            android:layout_height="@dimen/size_20" />
+            android:layout_height="@dimen/size_20"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="15dp"
+            android:layout_toRightOf="@id/ivTwitter"
+            android:src="@drawable/ic_menu_youtube" />
 
         <ImageView
             android:id="@+id/ivFaceBook"
-            android:src="@drawable/ic_menu_facebook"
+            android:layout_width="@dimen/size_20"
+            android:layout_height="@dimen/size_20"
             android:layout_centerHorizontal="true"
-            android:layout_toLeftOf="@id/ivInsta"  android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="8dp"
-            android:layout_width="@dimen/size_20"
-            android:layout_height="@dimen/size_20" />
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@id/ivInsta"
+            android:src="@drawable/ic_menu_facebook" />
 
         <ImageView
             android:id="@+id/ivGooglePlus"
-            android:src="@drawable/ic_menu_googleplus"
-            android:layout_toRightOf="@id/ivYouTube"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp"  android:layout_marginRight="15dp"
-            android:layout_marginLeft="15dp"
             android:layout_width="@dimen/size_20"
-            android:layout_height="@dimen/size_20" />
+            android:layout_height="@dimen/size_20"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="15dp"
+            android:layout_toRightOf="@id/ivYouTube"
+            android:src="@drawable/ic_menu_googleplus" />
     </RelativeLayout>
 
 

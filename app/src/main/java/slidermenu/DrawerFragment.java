@@ -297,9 +297,9 @@ public class DrawerFragment extends Fragment implements View.OnClickListener {
         heading1.add("Submenu of item 1");
 
         List<String> heading2 = new ArrayList<String>();
-        heading2.add("Submenu of item 2");
-        heading2.add("Submenu of item 2");
-        heading2.add("Submenu of item 2");
+        heading2.add("Category 1");
+        heading2.add("Category 2");
+        heading2.add("Category 3");
 
         for (int i = 0; i < Buyertitles.size(); i++) {
             ExpandedMenuModel item = new ExpandedMenuModel();
@@ -310,7 +310,7 @@ public class DrawerFragment extends Fragment implements View.OnClickListener {
 
 
 
-        listDataChild.put(listDataHeader.get(0), heading1);
-        listDataChild.put(listDataHeader.get(2), heading2);
+        //listDataChild.put(listDataHeader.get(0), heading1);
+        listDataChild.put(listDataHeader.get(1), heading2);
     }
 }

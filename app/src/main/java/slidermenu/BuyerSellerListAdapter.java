@@ -41,12 +41,24 @@ public class BuyerSellerListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        int childCount = 0;
+    /*    int childCount = 0;
         if (groupPosition != 2) {
             childCount = this.mListDataChild.get(this.mListDataHeader.get(groupPosition))
                     .size();
         }
-        return childCount;
+        return childCount;*/
+   /* if( mListDataChild.get(groupPosition)==null){
+        return  0;
+    }
+    else
+        return this.mListDataChild.get(this.mListDataChild.get(groupPosition))
+                .size();
+    }*/
+    List childList = mListDataChild.get(mListDataHeader.get(groupPosition));
+        if (childList != null && ! childList.isEmpty()) {
+            return childList.size();
+        }
+        return 0;
     }
 
     @Override
@@ -93,14 +105,14 @@ public class BuyerSellerListAdapter extends BaseExpandableListAdapter {
         ImageView arrowicon = (ImageView) convertView
                 .findViewById(R.id.arrowicon);
 
-       /* if (getChildrenCount(groupPosition) == 0) {
+        if (getChildrenCount(groupPosition) == 0) {
             arrowicon.setVisibility(View.GONE);
         } else {
             arrowicon.setVisibility(View.VISIBLE);
-        }*/
+        }
 
-        int imageResourceId = isExpanded ? R.drawable.ic_img_avatar
-                : R.drawable.ic_category_search;
+        int imageResourceId = isExpanded ? R.drawable.arrow_down
+                : R.drawable.arrow_up;
         arrowicon.setImageResource(imageResourceId);
 
         ImageView headerIcon = (ImageView) convertView.findViewById(R.id.iconimage);
@@ -112,19 +124,30 @@ public class BuyerSellerListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-       // final String childText = (String) getChild(groupPosition, childPosition);
-        final String childText = "Test";
-        if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this.mContext
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.sample_list_submenu, null);
+
+      //  final String childText = "Test";
+
+        if (getChildrenCount(groupPosition)==0) {
+            if (convertView == null) {
+                LayoutInflater infalInflater = (LayoutInflater) this.mContext
+                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = infalInflater.inflate(R.layout.sample_list_submenu, null);
+            }
+            //convertView.setVisibility(View.GONE);
         }
+        else {
+            final String childText = (String) getChild(groupPosition, childPosition);
+            if (convertView == null) {
+                LayoutInflater infalInflater = (LayoutInflater) this.mContext
+                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = infalInflater.inflate(R.layout.sample_list_submenu, null);
+            }
 
-        TextView txtListChild = (TextView) convertView
-                .findViewById(R.id.submenu);
+            TextView txtListChild = (TextView) convertView
+                    .findViewById(R.id.submenu);
 
-        txtListChild.setText(childText);
-
+            txtListChild.setText(childText);
+        }
         return convertView;
     }
 

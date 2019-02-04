@@ -45,7 +45,8 @@ public class CategoryFragment extends Fragment {
             "http://api.learn2crack.com/android/images/jellybean.png",
             "http://api.learn2crack.com/android/images/kitkat.png",
             "http://api.learn2crack.com/android/images/lollipop.png",
-            "http://api.learn2crack.com/android/images/marshmallow.png"
+           // "http://api.learn2crack.com/android/images/marshmallow.png"
+            " R.drawable.ic_img_avatar"
     };
 
     @Override
@@ -67,6 +68,7 @@ public class CategoryFragment extends Fragment {
 
         ArrayList<CategoryModel> android_version = new ArrayList<>();
         for (int i = 0; i < android_version_names.length; i++) {
+
             CategoryModel CategoryModel = new CategoryModel();
             CategoryModel.setCategory_name(android_version_names[i]);
             CategoryModel.setCategory_image(android_image_urls[i]);

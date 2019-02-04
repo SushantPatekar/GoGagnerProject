@@ -15,4 +15,5 @@
     <color name="snow">#eee9e9</color>
     <color name="bg_slider">#32324E</color>
     <color name="bg_expandable_list">#28283E</color>
+    <color name="black_txt">#000000 </color>
 </resources>

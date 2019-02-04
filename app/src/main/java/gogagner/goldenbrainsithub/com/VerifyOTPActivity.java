@@ -20,6 +20,7 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.util.concurrent.TimeUnit;
 
 import dbModel.User;
 import dbModel.UserModel;
@@ -204,9 +205,20 @@ int size = 1;
 
 
     public void startTimer() {
-        new CountDownTimer(60000, 1000) {
+        new CountDownTimer(120000, 1000) {
             public void onTick(long millisUntilFinished) {
-                tvOtpTimer.setText(getResources().getString(R.string.lbl_otp_reminder) + " " + millisUntilFinished / 1000);
+
+               // tvOtpTimer.setText(getResources().getString(R.string.lbl_otp_reminder) + " " + millisUntilFinished / 1000);
+                tvOtpTimer.setText(getResources().getString(R.string.lbl_otp_reminder) + " " + ""+String.format("%d:%d ",
+                        TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+
+              /*  tvOtpTimer.setText(""+String.format("%d min, %d sec",
+                        TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));*/
+
             }
 
             public void onFinish() {

@@ -8,7 +8,7 @@
 
             <item>
                 <shape>
-                    <solid android:color="#282843" />
+                    <solid android:color="#B1B1B1" />
                     <padding android:bottom="@dimen/size_2" android:left="@dimen/size_2" android:right="@dimen/size_2" android:top="@dimen/size_2" />
 
 
@@ -18,10 +18,10 @@
 
             <item>
                 <shape>
-                    <solid android:color="#282843" />
-                    <stroke android:width="2dp" android:color="#222338" />
-                    <gradient android:angle="270" android:centerColor="#28283F"
-                        android:endColor="#28283F" android:startColor="#28283F"
+                    <solid android:color="#B1B1B1" />
+                    <stroke android:width="3dp" android:color="#B1B1B1" />
+                    <gradient android:angle="270" android:centerColor="@color/white"
+                        android:endColor="@color/white" android:startColor="@color/white"
                         android:type="linear" />
 
                 </shape>

@@ -25,6 +25,8 @@ import dbModel.Locality;
 import dbModel.LocalityModel;
 import dbModel.User;
 import dbModel.UserModel;
+import gogagner.goldenbrainsithub.com.BuyerMyProfileActivity;
+import gogagner.goldenbrainsithub.com.BuyerSellerDashBoardActivity;
 import gogagner.goldenbrainsithub.com.LoginActivity;
 import gogagner.goldenbrainsithub.com.R;
 import gogagner.goldenbrainsithub.com.ResetPasswordActivity;
@@ -46,12 +48,12 @@ public abstract class BaseDrawerActivity extends AppCompatActivity implements Dr
     private ImageView ivToolbarAlertOrNotif;
     private int optionClickedPosition = -1;
 
-    private final int RESET_PWD = 0;
-    private final int LOG_OUT = 1;
+    private final int BUYER_HOME = 0;
+    private final int BUYER_MY_PROFILE = 5;
+    private final int LOG_OUT = 16;
     private final int E_PURSE = 2;
     private final int HELP = 3;
     private final int SETTINGS = 4;
-    private final int LOGOUT = 5;
     private static final int CHAT = 6;
     private static final int PARKING = 7;
 
@@ -144,17 +146,43 @@ private EditText medsearch;
         return mToolbar;
     }
 
+    @Override
+    public void onGroupItemSelected(View view, int groupPosition) {
+
+        switch (groupPosition){
+            case LOG_OUT:
+                Helper.logOut(getApplication());
+                startActivity(new Intent(this,LoginActivity.class));
+                finish();
+                break;
+
+            case BUYER_MY_PROFILE :
+                startActivity(new Intent(this, BuyerMyProfileActivity.class));
+                finish();
+                break;
+
+            case BUYER_HOME :
+                startActivity(new Intent(this, BuyerSellerDashBoardActivity.class));
+                finish();
+                break;
+                default:
+                    break;
+        }
+    }
 
     @Override
     public void onDrawerItemSelected(View view, int position) {
         switch (position) {
 
+
+
+/*
           case RESET_PWD:
              //   if (!(this instanceof ResetPasswordActivity)) {
                     //finish();
                  startActivity(new Intent(this,ResetPasswordActivity.class));
               //  }
-                break;
+                break;*/
 
             case LOG_OUT:
 

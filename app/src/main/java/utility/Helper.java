@@ -162,6 +162,7 @@ public class Helper {
                     }
                 })
                 .show();
+        alertbox.setCancelable(false);
         }
 
 

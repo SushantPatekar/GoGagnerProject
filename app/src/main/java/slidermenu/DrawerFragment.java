@@ -183,6 +183,24 @@ public class DrawerFragment extends Fragment implements View.OnClickListener {
         prepareListData();
         buyerSellerListAdapter = new BuyerSellerListAdapter(getActivity(), listDataHeader, listDataChild, expandableListView);
         expandableListView.setAdapter(buyerSellerListAdapter);
+        expandableListView.setOnGroupClickListener(new ExpandableListViewGroupClickListenr(getActivity(), expandableListView, new ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+//if(position!=2)
+                drawerListener.onGroupItemSelected(view,position);
+                //drawerListener.onDrawerItemSelected(view, position);
+               // mDrawerLayout.closeDrawer(containerView);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
+
+
 
     }
 
@@ -222,7 +240,6 @@ public class DrawerFragment extends Fragment implements View.OnClickListener {
 
     public interface ClickListener {
         void onClick(View view, int position);
-
         void onLongClick(View view, int position);
     }
 
@@ -231,7 +248,9 @@ public class DrawerFragment extends Fragment implements View.OnClickListener {
         private GestureDetector gestureDetector;
         private ClickListener clickListener;
 
-        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ClickListener clickListener) {
+        public RecyclerTouchListener(Context context,
+                                     final RecyclerView recyclerView,
+                                     final ClickListener clickListener) {
             this.clickListener = clickListener;
             gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
                 @Override
@@ -271,8 +290,28 @@ public class DrawerFragment extends Fragment implements View.OnClickListener {
 
     }
 
+
+    static class ExpandableListViewGroupClickListenr implements  ExpandableListView.OnGroupClickListener{
+        private ClickListener clickListener;
+        private ExpandableListView expandableListView;
+        public ExpandableListViewGroupClickListenr(Context context,
+                                                   final ExpandableListView expandableListView,
+                                                   final ClickListener clickListener) {
+
+          this.clickListener=clickListener;
+          this.expandableListView=expandableListView;
+        }
+
+        @Override
+        public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+            clickListener.onClick(view,i);
+            return true;
+        }
+    }
     public interface FragmentDrawerListener {
         void onDrawerItemSelected(View view, int position);
+
+        void onGroupItemSelected(View view,int groupPosition);
 
         void onDrawerProfileClick(View view);
     }

@@ -21,7 +21,11 @@
         <activity
             android:name="gogagner.goldenbrainsithub.com.SplashActivity"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="gogagner.goldenbrainsithub.com.LoginActivity"
@@ -33,11 +37,7 @@
             android:name="gogagner.goldenbrainsithub.com.BuyerSellerDashBoardActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
 
@@ -61,11 +61,18 @@
         </activity>
 
 
-        <activity android:name="sample.RecylerViewDaemo"/>
+        <activity android:name="sample.RecylerViewDaemo" />
 
         <activity android:name="sample.NavigationViewActivity">
 
         </activity>
+        <activity
+            android:name=".BuyerMyProfileActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing">
+
+        </activity>
+
         <receiver android:name="gogagner.goldenbrainsithub.com.IncomingSms">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />

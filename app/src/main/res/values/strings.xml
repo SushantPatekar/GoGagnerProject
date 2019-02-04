@@ -103,4 +103,8 @@
         <item>Pharmacy</item>
     </string-array>
     <string name="lbl_free_coins">Free Coins</string>
+    <string name="lbl_removeProfile">Remove Photo</string>
+    <string name="lbl_ChangeProfile">Change Profile</string>
+    <string name="lbl_ChangePwd">Change Password</string>
+    <string name="lbl_oldPwd">Old Password</string>
 </resources>

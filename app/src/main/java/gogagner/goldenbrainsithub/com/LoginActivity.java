@@ -18,16 +18,10 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 
-import dbModel.User;
-import dbModel.UserModel;
-import gogagner.goldenbrainsithub.com.R;
-
 import utility.Constants;
 import utility.Helper;
-import utility.NetworkCommunicationHelper;
-import webAPIModel.DummyModel;
+import networkcommunication.NetworkCommunicationHelper;
 import webAPIModel.LoginAccountModel;
-import webAPIModel.RegisterAccountModel;
 
 public class LoginActivity extends Activity implements View.OnClickListener{
     public static String TAG = LoginActivity.class.getSimpleName();
@@ -84,6 +78,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                                 new NetworkCommunicationHelper.OnResponseReceived() {
                                     @Override
                                     public void onSuccess(final String res) {
+
                                         Helper.updatedSharedPrefValBoolean(LoginActivity.this,
                                                 Constants.login.isLoginSuccess, true);
                                         Helper.updateSharedPrefValStr(LoginActivity.this,

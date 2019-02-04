@@ -1,4 +1,4 @@
-package utility;
+package networkcommunication;
 
 import android.app.Application;
 import android.util.Log;
@@ -21,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.net.SocketException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,12 +30,16 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import gogagner.goldenbrainsithub.com.GoGagnerApplication;
+import gogagner.goldenbrainsithub.com.R;
+import utility.Constants;
 
 public class NetworkCommunicationHelper {
 
     final int TIMEOUT = 1 * 60 * 1000;    //1min
-
-    //private static final Logger logger = LogManager.getLogger("NetworkCommunicationHelper");
+    private final int POST_REQ = 1;
+    private final int SYNC_POST_REQ = 2;
+    private final int GET_REQ = 3;
+    private final int SYNC_GET_REQ = 4;
 
     public void sendSynchronousGetRequest(final Application context, String url, final OnResponseReceived responseReceived) {
         RequestQueue mRequestQueue = ((GoGagnerApplication) context).getRequestQueue();
@@ -113,15 +118,81 @@ public class NetworkCommunicationHelper {
             }
         };
 
-      /*  stringRequest.setRetryPolicy(new DefaultRetryPolicy(TIMEOUT,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-*/
         mRequestQueue.add(stringRequest);
-
-
 
     }
 
+
+    //userLoginBased API
+    public void sendUserPostRequest(final Application context, final String url, final String reqJson, final OnResponseReceived responseReceived) {
+        RequestQueue mRequestQueue = ((GoGagnerApplication) context).getRequestQueue();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                responseReceived.onSuccess(response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+              /*  Log.e("error",""+error.networkResponse.statusCode);
+                Log.e("error",""+error.networkResponse.data);
+                responseReceived.onFailure(getServerError(error));*/
+              String serverError = null;
+                JSONObject jsonServerError =null;
+                String serverStatus = null;
+              try
+              {
+                serverError =  getServerError(error);
+                jsonServerError = new JSONObject(serverError);
+                serverStatus = jsonServerError.getString("status");
+
+              }
+              catch ( SecurityException e){
+                  if (serverStatus.matches(Constants.Session.TOKEN_EXPIRY_CODE)) {
+                      refreshRequest(context, url, SYNC_POST_REQ, reqJson, responseReceived);
+                  } else {
+                      responseReceived.onFailure(getServerError(error));
+                  }
+              } catch (JSONException e) {
+                  responseReceived.onFailure(getServerError(error));
+                  e.printStackTrace();
+              } catch (Exception e) {
+                  responseReceived.onFailure(getServerError(error));
+                  e.printStackTrace();
+              }
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() {
+                try {
+                    return reqJson == null ? null : reqJson.getBytes("utf-8");
+                } catch (UnsupportedEncodingException uee) {
+                    uee.fillInStackTrace();
+                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", reqJson, "utf-8");
+
+                    return null;
+                }
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> header = new HashMap<>();
+
+                header.put(Constants.webAPI.header_content_type, Constants.webAPI.value_content_type);
+                header.put(Constants.webAPI.apitoken, Constants.webAPI.apitoken_val);
+                header.put(Constants.webAPI.header_x_access_token, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI4LCJmaXJzdE5hbWUiOiJBc2h1IiwibGFzdE5hbWUiOiJuYWlyIiwibW9iaWxlIjoiOTg2NzQ0NTU0MSIsInVzZXJUeXBlIjowLCJpYXQiOjE1NDkxMzI5NzUsImV4cCI6MTU0OTEzMzg3NX0.1AYmdT-5vsVu99P_QtGdak10NOb2TjywKGgLOn0da0g");
+                return header;
+            }
+        };
+
+        mRequestQueue.add(stringRequest);
+
+    }
     public void sendGetRequest(final Application context, final String url, final OnResponseReceived responseReceived) {
         RequestQueue mRequestQueue = ((GoGagnerApplication) context).getRequestQueue();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
@@ -316,7 +387,102 @@ public class NetworkCommunicationHelper {
         return responseCode;
     }
 
-public interface OnResponseReceived {
+
+    private void refreshRequest(final Application context, String url, final int type, Object body, final OnResponseReceived responseReceived) {
+        String BaseURL= url;
+        SessionManager.setPendingRequest(url, type, body, responseReceived);
+
+        if (type == GET_REQ || type == POST_REQ) {
+            SessionManager.sendRefreshTokenReq(context, new SessionManager.OnSessionResponseReceived() {
+                @Override
+                public void onSuccess(String res) {
+                    PendingRequest pendingRequest = SessionManager.getPendingRequest();
+                    if (pendingRequest != null) {
+                        if (type == GET_REQ) {
+                            sendGetRequest(context, pendingRequest.getUrl(), pendingRequest.getResponseReceived());
+                        } else {
+                            sendPostRequest(context, pendingRequest.getUrl(), (String) pendingRequest.getBody(), pendingRequest.getResponseReceived());
+                        }
+                    } else {
+                        responseReceived.onFailure("Pending request null");
+                    }
+                }
+
+                @Override
+                public void onError(String err) {
+                    responseReceived.onFailure(context.getString(R.string.session_refresh_fail));
+                }
+            });
+        } else {
+           /* SessionManager.sendSyncRefreshTokenReq(context, new SessionManager.OnSessionResponseReceived() {
+                @Override
+                public void onSuccess(String res) {
+                    PendingRequest pendingRequest = SessionManager.getPendingRequest();
+                    if (pendingRequest != null) {
+                        if (type == SYNC_POST_REQ) {
+                            sendSynchronousPostRequest(context, pendingRequest.getUrl(), (String) pendingRequest.getBody(), pendingRequest.getResponseReceived());
+                        } else if (type == SYNC_GET_REQ) {
+                            sendSynchronousGetRequest(context, pendingRequest.getUrl(), pendingRequest.getResponseReceived());
+                        } else if (type == SYNC_POST_JSON_ARRAY_REQ) {
+                            sendSynchronousPostJSONArrayRequest(context, pendingRequest.getUrl(), (JSONArray) pendingRequest.getBody(), pendingRequest.getResponseReceived());
+                        }
+                    } else {
+                        responseReceived.onFailure("Pending request null");
+                    }
+                }
+
+                @Override
+                public void onError(String err) {
+                    responseReceived.onFailure(context.getString(R.string.session_refresh_fail));
+                }
+            });*/
+        }
+    }
+
+//TODO
+   /* public void sendTokenReq(final Application context, String url, final Map<String, String> dataMap, final OnResponseReceived responseReceived) {
+        String BaseURL= url;
+        RequestQueue mRequestQueue = ((MainApp) context).getRequestQueue();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                responseReceived.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError e) {
+                String[] error = parseError(e);
+                if (error != null
+                        && error[2] != null && error[2].contains(Constants.Session.INVALID_GRANT_MSG)
+                        && error[1] != null && error[1].equals(Constants.Session.INVALID_GRANT_CODE)) {
+                    PendingRequest pendingRequest = SessionManager.getPendingRequest();
+                    if (pendingRequest != null) {
+                        accessTokenRequest(context, pendingRequest.getUrl(), pendingRequest.getType(), pendingRequest.getBody(), pendingRequest.getResponseReceived());
+                    }
+                    responseReceived.onFailure("Pending request null");
+                } else {
+                    responseReceived.onFailure(Arrays.toString(parseError(e)));
+                }
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                return dataMap;
+            }
+        };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(TIMEOUT,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        mRequestQueue.add(stringRequest);
+    }*/
+
+    public interface OnResponseReceived {
         void onSuccess(String res);
 
         void onFailure(String err);

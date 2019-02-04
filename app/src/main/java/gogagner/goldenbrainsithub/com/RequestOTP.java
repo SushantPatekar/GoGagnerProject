@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -19,8 +18,7 @@ import java.lang.reflect.Type;
 
 import utility.Constants;
 import utility.Helper;
-import utility.NetworkCommunicationHelper;
-import webAPIModel.LoginAccountModel;
+import networkcommunication.NetworkCommunicationHelper;
 import webAPIModel.ResendOTPModel;
 
 public class RequestOTP extends Activity implements View.OnClickListener{

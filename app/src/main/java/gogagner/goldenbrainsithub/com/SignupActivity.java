@@ -50,7 +50,7 @@ import dbModel.User;
 import dbModel.UserModel;
 import utility.Constants;
 import utility.Helper;
-import utility.NetworkCommunicationHelper;
+import networkcommunication.NetworkCommunicationHelper;
 import utility.UriHelper;
 import webAPIModel.RegisterAccountModel;
 

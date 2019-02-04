@@ -3,11 +3,22 @@ package gogagner.goldenbrainsithub.com;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+
 import slidermenu.BaseDrawerActivity;
+import utility.Constants;
+import utility.Helper;
+import networkcommunication.NetworkCommunicationHelper;
+import webAPIModel.ChangePWDModel;
 
 public class BuyerMyProfileActivity  extends BaseDrawerActivity implements View.OnClickListener{
 
@@ -15,6 +26,8 @@ public class BuyerMyProfileActivity  extends BaseDrawerActivity implements View.
     ImageView imline_one,imline_two,imline_three;
     EditText edOldPWD,edNewPWD,edCOnfirmPWD;
 RelativeLayout editProfileChangePwd,editProfilChangeImg;
+//
+    Button btnResetPwd ;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +72,10 @@ RelativeLayout editProfileChangePwd,editProfilChangeImg;
         imvPannel_one.setOnClickListener(this);
         imvPannel_two.setOnClickListener(this);
         imvPannel_three.setOnClickListener(this);
+
+        //Event related
+        btnResetPwd = (Button) findViewById(R.id.btnResetPwd);
+        btnResetPwd.setOnClickListener(this);
     }
 
     @Override
@@ -100,6 +117,95 @@ RelativeLayout editProfileChangePwd,editProfilChangeImg;
                 imline_two.setVisibility(View.INVISIBLE);
                 imline_three.setVisibility(View.VISIBLE);
                 break;
+
+            case R.id.btnResetPwd:
+                fun_ChnagePWD();
+                break;
         }
+    }
+
+    private void fun_ChnagePWD(){
+        try {
+            if(changePWDValidate())
+            {
+               fun_webAPIforChangePWD();
+            }
+        }
+        catch (Exception e){
+
+        }
+    }
+
+    private boolean changePWDValidate(){
+        boolean isValid = false;
+        String oldPWD = edOldPWD.getText().toString().trim();
+        String newPWD = edNewPWD.getText().toString().trim();
+        String confirmPWD = edCOnfirmPWD.getText().toString().trim();
+          if (oldPWD.matches("")) {
+            isValid = false;
+            Helper.showToast(this, getString(R.string.lbl_empty_oldPwd));
+        }
+        else if (newPWD.matches("")) {
+              isValid = false;
+            Helper.showToast(this, getString(R.string.lbl_empty_newPwd));
+        }
+          else if (confirmPWD.matches("")) {
+              isValid = false;
+              Helper.showToast(this, getString(R.string.lbl_empty_newPwd));
+          }
+        else if(!newPWD.matches(confirmPWD)){
+              isValid = false;
+              Helper.showToast(this, getString(R.string.lbl_pwd_mismatch));
+
+          }
+        else if(newPWD.matches(oldPWD) || oldPWD.matches(confirmPWD)){
+              Helper.showToast(this, getString(R.string.lbl_old_newPwd));
+            return false;
+          }
+        else {
+              isValid = true;
+        }
+        return  isValid;
+    }
+    
+    private void fun_webAPIforChangePWD(){
+        if(new Helper().isNetworkAvailable(getApplication()))   {
+
+            String webAPI = Helper.getSharedPrefValStr(BuyerMyProfileActivity.this, Constants.sharedPref.s_BASE_URL)
+                    .concat(Constants.webAPI.changePassword);
+            String requestBody = resetPWDBody();
+            NetworkCommunicationHelper networkCommunicationHelper = new NetworkCommunicationHelper();
+
+            networkCommunicationHelper.sendUserPostRequest(getApplication(), webAPI, requestBody,
+                    new NetworkCommunicationHelper.OnResponseReceived() {
+                        @Override
+                        public void onSuccess(final String res) {
+
+
+                        }
+
+                        @Override
+                        public void onFailure(final String err) {
+                            Helper.showToast(BuyerMyProfileActivity.this, ""+Helper.getServerErroMessage(err));
+                        }
+
+
+                    });
+        }
+        else {
+            Helper.showToast(BuyerMyProfileActivity.this,getResources().getString(R.string.lbl_no_internet));
+        }
+    }
+
+    public String resetPWDBody(){
+        ChangePWDModel changePWDModel = new ChangePWDModel();
+        changePWDModel.setOldPassword(edOldPWD.getText().toString());
+        changePWDModel.setPassword(edNewPWD.getText().toString());
+        Gson gson = new GsonBuilder()
+                .serializeNulls()
+                .create();
+        Type type = new TypeToken<ChangePWDModel>() {
+        }.getType();
+        return gson.toJson( changePWDModel, type);
     }
 }

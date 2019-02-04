@@ -14,13 +14,9 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 
-import dbModel.User;
-import dbModel.UserModel;
-import gogagner.goldenbrainsithub.com.R;
-
 import utility.Constants;
 import utility.Helper;
-import utility.NetworkCommunicationHelper;
+import networkcommunication.NetworkCommunicationHelper;
 import webAPIModel.LoginAccountModel;
 
 public class ResetPasswordActivity  extends Activity implements View.OnClickListener{

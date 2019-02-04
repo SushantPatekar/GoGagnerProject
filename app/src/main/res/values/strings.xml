@@ -107,4 +107,12 @@
     <string name="lbl_ChangeProfile">Change Profile</string>
     <string name="lbl_ChangePwd">Change Password</string>
     <string name="lbl_oldPwd">Old Password</string>
+
+    <string name="lbl_empty_oldPwd">Kindly enter old password</string>
+    <string name="lbl_empty_newPwd">Kindly enter new Password</string>
+
+    <string name="lbl_old_newPwd">New password is not same as old password</string>
+    <string name="lbl_pwd_mismatch">Password Missmatch</string>
+    <string name="session_refresh_ongoing">Session is refreshing please try in some time</string>
+    <string name="session_refresh_fail">Session refresh failed</string>
 </resources>

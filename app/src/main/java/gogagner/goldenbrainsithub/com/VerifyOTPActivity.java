@@ -22,12 +22,9 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.concurrent.TimeUnit;
 
-import dbModel.User;
-import dbModel.UserModel;
 import utility.Constants;
 import utility.Helper;
-import utility.NetworkCommunicationHelper;
-import webAPIModel.LoginAccountModel;
+import networkcommunication.NetworkCommunicationHelper;
 import webAPIModel.VerifyOTPModel;
 
 public class VerifyOTPActivity extends Activity implements View.OnClickListener {

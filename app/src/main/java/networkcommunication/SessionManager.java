@@ -38,26 +38,25 @@ public class SessionManager {
 
     public static void sendRefreshTokenReq(final Application context, final OnSessionResponseReceived responseReceived) {
         try {
-            User user = new UserModel().getUserbyID(context, Helper.getSharedPrefValStr(context,
-                    Constants.UserDetails.UserName));
-            Map<String, String> params = new HashMap<>();
-            params.put("refreshToken", user.getRefreshToken());
-            params.put("userId", user.getId());
-            params.put("firstName", user.getFirstName());
-            params.put("lastName", user.getLastName());
-            params.put("mobile", user.getMobile());
-            params.put("userType", ""+user.getUserType());
-
-            String url = Constants.webAPI.BASE_URL + Constants.webAPI.refreshToken;
+            final  User user =new UserModel().getUserbyID(context,Helper.getSharedPrefValStr(context,
+                    Constants.sharedPref.userName));
+            String webAPI = Helper.getSharedPrefValStr(context, Constants.sharedPref.s_BASE_URL)
+                    .concat(Constants.webAPI.refreshToken);
+            String requestBody = new Helper().generateRefreshTokenObject(user);
 //TODO
-           /* NetworkCommunicationHelper networkHelper = new NetworkCommunicationHelper();
-            networkHelper.sendTokenReq(context, url, params, new NetworkCommunicationHelper.OnResponseReceived() {
+            NetworkCommunicationHelper networkHelper = new NetworkCommunicationHelper();
+            networkHelper.FetchAccessTokenRequest(context, webAPI, requestBody, new NetworkCommunicationHelper.OnResponseReceived() {
                 @Override
                 public void onSuccess(String res) {
-                    logger.info("refresh token response: " + res);
-                    SessionData sessionData = addSessionDetail(context, res);
+                    try{
+                        JSONObject jRes= new JSONObject(res);
+                        String accessToken = jRes.getString("token");
+                        new UserModel().updateUserAccessToken(context,accessToken,""+user.getId());
+                        responseReceived.onSuccess(res);
+                    }
+                    catch (Exception e){
 
-                    responseReceived.onSuccess(res);
+                    }
 
                 }
 
@@ -65,7 +64,7 @@ public class SessionManager {
                 public void onFailure(String err) {
                     responseReceived.onError(err);
                 }
-            });*/
+            });
         } catch (Exception e) {
             e.printStackTrace();
             responseReceived.onError(e.getMessage());

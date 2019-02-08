@@ -19,7 +19,8 @@
                 <shape>
                     <solid android:color="#282843" />
                     <stroke android:color="@color/bgColor" android:dashWidth="@dimen/size_40"></stroke>
-                    <gradient android:angle="270" android:centerColor="#28283e" android:endColor="#1e1e2f" android:startColor="#1e1e2f" android:type="linear" />
+                    <gradient android:angle="270" android:centerColor="#28283e" android:endColor="#1e1e2f"
+                        android:startColor="#1e1e2f" android:type="linear" />
 
                 </shape>
             </item>

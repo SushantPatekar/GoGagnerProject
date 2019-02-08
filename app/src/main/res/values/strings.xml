@@ -115,4 +115,9 @@
     <string name="lbl_pwd_mismatch">Password Missmatch</string>
     <string name="session_refresh_ongoing">Session is refreshing please try in some time</string>
     <string name="session_refresh_fail">Session refresh failed</string>
+    <string name="lbl_save_change">Save Changes</string>
+    <string name="lbl_dob">Date Of Birth </string>
+    <string name="lbl_aadhar_number">Aadhar Number </string>
+    <string name="dob_error">Please enter Date of Birth.</string>
+    <string name="adhar_error">Please enter Aadhar Card.</string>
 </resources>

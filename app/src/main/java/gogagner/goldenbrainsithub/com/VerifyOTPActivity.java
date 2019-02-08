@@ -238,7 +238,8 @@ int size = 1;
                       String requestBody = generateVerifyOTPBody();
                       NetworkCommunicationHelper networkCommunicationHelper = new NetworkCommunicationHelper();
 
-                      networkCommunicationHelper.sendPostRequest(getApplication(), webAPI, requestBody,
+                      //user Post API
+                      networkCommunicationHelper.sendUserPostRequest(getApplication(), webAPI, requestBody,
                               new NetworkCommunicationHelper.OnResponseReceived() {
                                   @Override
                                   public void onSuccess(final String res) {
@@ -277,7 +278,7 @@ int size = 1;
 
                                   @Override
                                   public void onFailure(final String err) {
-                                      Helper.showToast(VerifyOTPActivity.this, ""+Helper.getServerErroMessage(err));
+                                      Helper.showToast(VerifyOTPActivity.this, ""+Helper.getServerMessage(err));
 
                                   }
 
@@ -311,7 +312,7 @@ int size = 1;
 
                                     @Override
                                     public void onFailure(final String err) {
-                                        Helper.showToast(VerifyOTPActivity.this, ""+Helper.getServerErroMessage(err));
+                                        Helper.showToast(VerifyOTPActivity.this, ""+Helper.getServerMessage(err));
                                     }
 
 
@@ -333,7 +334,7 @@ int size = 1;
         VerifyOTPModel verifyOTPModel = new VerifyOTPModel();
         verifyOTPModel.setOtp(getOTP());
         verifyOTPModel.setPage(getIntent().getStringExtra(Intent.EXTRA_STREAM));
-        verifyOTPModel.setMobile(mobileNumber);
+       // verifyOTPModel.setMobile(mobileNumber);
 
         Gson gson = new GsonBuilder()
                 .serializeNulls()
@@ -348,7 +349,7 @@ int size = 1;
                 Constants.sharedPref.userName);
         VerifyOTPModel verifyOTPModel = new VerifyOTPModel();
         String username = Helper.getSharedPrefValStr(this, Constants.sharedPref.userName);
-        verifyOTPModel.setMobile(mobileNumber);
+       // verifyOTPModel.setMobile(mobileNumber);
 
         // verifyOTPModel.setMobile("7506938193");
         //getSavedNumberfromUserDATA

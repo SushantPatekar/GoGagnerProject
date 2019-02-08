@@ -78,11 +78,11 @@
         android:background="@color/white">
 
         <RelativeLayout
-            android:visibility="gone"
             android:id="@+id/editProfileChangePwd"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:visibility="gone">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -90,13 +90,12 @@
                 android:background="@color/white">
 
 
-
                 <custom.customEditTextView
-                    android:layout_marginTop="100dp"
                     android:id="@+id/edOldPassword"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginLeft="@dimen/size_20"
+                    android:layout_marginTop="100dp"
                     android:layout_marginRight="@dimen/size_20"
                     android:background="@drawable/bg_white_edittext"
                     android:drawableLeft="@drawable/black_password"
@@ -131,12 +130,12 @@
 
                 <custom.customEditTextView
 
-                    android:layout_below="@+id/edNewPassword"
-                    android:layout_marginTop="10dp"
                     android:id="@+id/edConfirmPassword"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    android:layout_below="@+id/edNewPassword"
                     android:layout_marginLeft="@dimen/size_20"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="@dimen/size_20"
                     android:background="@drawable/bg_white_edittext"
                     android:drawableLeft="@drawable/black_password"
@@ -150,7 +149,6 @@
                     android:textSize="@dimen/text_size_12" />
 
 
-
                 <custom.customButton
                     android:id="@+id/btnResetPwd"
                     android:layout_width="match_parent"
@@ -161,20 +159,21 @@
                     android:layout_marginRight="@dimen/size_20"
                     android:background="@drawable/custom_bg_login"
                     android:text="@string/lbl_ChangePwd"
-                    android:textSize="@dimen/text_size_12"
-
                     android:textAllCaps="true"
-                    android:textColor="@color/white_txt" />
+
+                    android:textColor="@color/white_txt"
+                    android:textSize="@dimen/text_size_12" />
 
 
             </RelativeLayout>
         </RelativeLayout>
+
         <RelativeLayout
-            android:visibility="gone"
             android:id="@+id/editProfilChangeImg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:visibility="gone">
 
             <RelativeLayout
 
@@ -226,6 +225,236 @@
                         android:textSize="8dp" />
                 </LinearLayout>
             </RelativeLayout>
+
         </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/editProfileDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:visibility="gone">
+
+            <ScrollView   android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <custom.customEditTextView
+                        android:id="@+id/edFirstName"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="@dimen/size_30"
+                        android:layout_marginTop="@dimen/size_20"
+                        android:layout_marginRight="@dimen/size_30"
+                        android:background="@drawable/bg_edittext_icon"
+                        android:drawableLeft="@drawable/first_last_name"
+                        android:drawablePadding="@dimen/size_20"
+                        android:inputType="textCapCharacters"
+                        android:maxLines="1"
+                        android:padding="12dp"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white_txt"
+                        android:textColorHint="@color/white_txt"
+                        android:textSize="@dimen/text_size_12" />
+
+                    <custom.customEditTextView
+                        android:id="@+id/edLastName"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/edFirstName"
+                        android:layout_marginLeft="@dimen/size_30"
+                        android:layout_marginTop="@dimen/size_3"
+                        android:layout_marginRight="@dimen/size_30"
+                        android:background="@drawable/bg_edittext_icon"
+                        android:drawableLeft="@drawable/first_last_name"
+                        android:drawablePadding="@dimen/size_20"
+                        android:inputType="textCapCharacters"
+                        android:maxLines="1"
+                        android:padding="12dp"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white_txt"
+                        android:textColorHint="@color/white_txt"
+                        android:textSize="@dimen/text_size_12" />
+
+                    <Spinner
+                        android:id="@+id/spState"
+                        style="@style/SpinnerTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/edLastName"
+                        android:layout_marginLeft="@dimen/size_30"
+                        android:layout_marginTop="@dimen/size_3"
+                        android:layout_marginRight="@dimen/size_30"
+                        android:maxLines="1"
+
+                        android:paddingLeft="@dimen/size_40"
+                        android:popupTheme="@style/customSpinnerStyle"
+                        android:spinnerMode="dialog"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white_txt"
+                        android:textColorHint="@color/white_txt"
+                        android:textSize="@dimen/text_size_12" />
+
+                    <Spinner
+                        android:id="@+id/spCity"
+                        style="@style/SpinnerTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/spState"
+                        android:layout_marginLeft="@dimen/size_30"
+                        android:layout_marginTop="@dimen/size_3"
+                        android:layout_marginRight="@dimen/size_30"
+                        android:drawablePadding="@dimen/size_20"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/size_40"
+                        android:popupTheme="@style/customSpinnerStyle"
+                        android:spinnerMode="dialog"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white_txt"
+                        android:textColorHint="@color/white_txt"
+                        android:textSize="@dimen/text_size_12" />
+
+                    <Spinner
+                        android:id="@+id/spCityArea"
+                        style="@style/SpinnerTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/spCity"
+                        android:layout_marginLeft="@dimen/size_30"
+                        android:layout_marginTop="@dimen/size_3"
+                        android:layout_marginRight="@dimen/size_30"
+                        android:drawablePadding="@dimen/size_20"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/size_40"
+                        android:popupTheme="@style/customSpinnerStyle"
+                        android:spinnerMode="dialog"
+                        android:text="@string/locality"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white_txt"
+                        android:textColorHint="@color/white_txt"
+                        android:textSize="@dimen/text_size_12" />
+
+                    <custom.customEditTextView
+                        android:id="@+id/edEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/spCityArea"
+                        android:layout_marginLeft="@dimen/size_30"
+                        android:layout_marginTop="@dimen/size_3"
+                        android:layout_marginRight="@dimen/size_30"
+                        android:background="@drawable/bg_edittext_icon"
+                        android:drawableLeft="@drawable/email"
+                        android:drawablePadding="@dimen/size_20"
+                        android:inputType="textCapCharacters"
+                        android:maxLines="1"
+                        android:padding="12dp"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white_txt"
+                        android:textColorHint="@color/white_txt"
+                        android:textSize="@dimen/text_size_12" />
+
+                    <custom.customEditTextView
+                        android:id="@+id/edMobileNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/edEmail"
+                        android:layout_marginLeft="@dimen/size_30"
+                        android:layout_marginTop="@dimen/size_3"
+                        android:layout_marginRight="@dimen/size_30"
+                        android:background="@drawable/bg_edittext_icon"
+                        android:drawableLeft="@drawable/mobile"
+                        android:drawablePadding="@dimen/size_20"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:maxLines="1"
+                        android:padding="12dp"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white_txt"
+                        android:textColorHint="@color/white_txt"
+                        android:textSize="@dimen/text_size_12" />
+
+                    <custom.customEditTextView
+                        android:id="@+id/edDOB"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/edMobileNumber"
+                        android:layout_marginLeft="@dimen/size_30"
+                        android:layout_marginTop="@dimen/size_3"
+                        android:layout_marginRight="@dimen/size_30"
+                        android:background="@drawable/bg_edittext_icon"
+                        android:drawableLeft="@drawable/password"
+                        android:drawablePadding="@dimen/size_20"
+                        android:maxLines="1"
+                        android:padding="12dp"
+                        android:focusable="false"
+                        android:inputType="none"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white_txt"
+                        android:textColorHint="@color/white_txt"
+                        android:textSize="@dimen/text_size_12" />
+
+                    <Spinner
+                        android:id="@+id/spOccupation"
+                        style="@style/SpinnerTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/edDOB"
+                        android:layout_marginLeft="@dimen/size_30"
+                        android:layout_marginTop="@dimen/size_3"
+                        android:layout_marginRight="@dimen/size_30"
+                        android:drawablePadding="@dimen/size_20"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/size_40"
+                        android:popupTheme="@style/customSpinnerStyle"
+                        android:spinnerMode="dialog"
+                        android:text="@string/locality"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white_txt"
+                        android:textColorHint="@color/white_txt"
+                        android:textSize="@dimen/text_size_12" />
+
+                    <custom.customEditTextView
+                        android:id="@+id/edAdharCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/spOccupation"
+                        android:layout_marginLeft="@dimen/size_30"
+                        android:layout_marginTop="@dimen/size_3"
+                        android:layout_marginRight="@dimen/size_30"
+                        android:background="@drawable/bg_edittext_icon"
+                        android:drawableLeft="@drawable/password"
+                        android:drawablePadding="@dimen/size_20"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:padding="12dp"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white_txt"
+                        android:textColorHint="@color/white_txt"
+                        android:textSize="@dimen/text_size_12" />
+
+                    <custom.customButton
+                        android:id="@+id/btnSaveChanges"
+                        android:layout_width="match_parent"
+                        android:layout_height="38dp"
+                        android:layout_below="@id/edAdharCard"
+                        android:layout_marginLeft="@dimen/size_30"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="@dimen/size_30"
+                        android:layout_marginRight="@dimen/size_30"
+                        android:background="@drawable/custom_bg_login"
+                        android:text="@string/lbl_save_change"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white_txt"
+                        android:textSize="@dimen/text_size_12" />
+
+                </RelativeLayout>
+            </ScrollView>
+        </RelativeLayout>
+
     </FrameLayout>
 </RelativeLayout>

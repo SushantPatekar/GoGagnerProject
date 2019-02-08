@@ -89,7 +89,7 @@ public class ResetPasswordActivity  extends Activity implements View.OnClickList
 
                                 @Override
                                 public void onFailure(final String err) {
-                                    Helper.showToast(ResetPasswordActivity.this, ""+Helper.getServerErroMessage(err));
+                                    Helper.showToast(ResetPasswordActivity.this, ""+Helper.getServerMessage(err));
                                 }
 
 

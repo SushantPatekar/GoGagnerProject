@@ -20,4 +20,7 @@ public interface UserDao extends BaseDao<User> {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(User user);
+
+    @Query("UPDATE User SET accessToken = :accessToke WHERE Id IN (:Id)")
+    void updateAccessToken(String accessToke,String Id);
 }

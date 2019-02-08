@@ -112,6 +112,13 @@ public class Helper {
         return data.toString();
     }
 
+
+    public static String fetchResponseasObject(String res) throws JSONException {
+        JSONObject main = new JSONObject(res);
+        JSONObject j_response = main.getJSONObject("response");
+        JSONObject data = j_response.getJSONObject("data");
+        return data.toString();
+    }
     public static int getServerErroCode(String res) {
         int statusCode = 0;
         try {
@@ -123,11 +130,23 @@ public class Helper {
         return statusCode;
     }
 
-    public static String getServerErroMessage(String res) {
+    public static String getServerMessage(String res) {
         String messages = null;
         try {
             JSONObject main = new JSONObject(res);
             messages = main.getString("messages");
+        } catch (Exception e) {
+
+        }
+        return messages;
+    }
+
+    public static String getServerSuccessMessage(String res) {
+        String messages = null;
+        try {
+            JSONObject main = new JSONObject(res);
+            JSONObject response = main.getJSONObject("response");
+            messages = response.getString("messages");
         } catch (Exception e) {
 
         }
@@ -224,6 +243,36 @@ else {
         }
         return isMobile;
     }
+
+    public static String getX_AccessToken(Application mContext){
+        String XAccessToken = null;
+        try {
+            XAccessToken = new UserModel().getUserbyID(mContext,getSharedPrefValStr(mContext,Constants.sharedPref.userName)).getAccessToken();
+        }
+        catch (Exception e){
+
+        }
+        return  XAccessToken;
+    }
+
+    public String generateRefreshTokenObject(User mUser){
+        JSONObject userJson = null;
+        try
+        {
+            userJson = new JSONObject();
+            userJson.put("refreshToken",mUser.getRefreshToken());
+            userJson.put("userId",mUser.getId());
+            userJson.put("firstName",mUser.getFirstName());
+            userJson.put("lastName",mUser.getLastName());
+            userJson.put("mobile",mUser.getMobile());
+            userJson.put("userType",mUser.getUserType());
+
+        }
+        catch (Exception e){
+
+        }
+        return userJson.toString();
+    }
 }
    /* private boolean isValidMobile(String phone) {
         boolean check = false;
@@ -251,4 +300,6 @@ else {
             return android.util.Patterns.PHONE.matcher(data).matches();
         }
     }*/
+
+
 

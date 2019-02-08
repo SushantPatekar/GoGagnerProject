@@ -8,6 +8,38 @@ import java.io.Serializable;
 
 @Entity
 public class User implements Serializable {
+
+    public String firstName;
+    public String lastName;
+    public String email;
+    public String mobile;
+    public int userType;
+    public int status;
+    public String password;
+    public int localityId;
+    public int cityId;
+    public int stateId;
+    public int countryId;
+  public String smallProfileURL;
+
+    public String getSmallProfileURL() {
+        return smallProfileURL;
+    }
+
+    public void setSmallProfileURL(String smallProfileURL) {
+        this.smallProfileURL = smallProfileURL;
+    }
+
+    public String getMediumProfileURL() {
+        return mediumProfileURL;
+    }
+
+    public void setMediumProfileURL(String mediumProfileURL) {
+        this.mediumProfileURL = mediumProfileURL;
+    }
+
+    public String mediumProfileURL;
+
     public String getFirstName() {
         return firstName;
     }
@@ -88,11 +120,7 @@ public class User implements Serializable {
         this.countryId = countryId;
     }
 
-    public String firstName;
-    public String lastName;
-    public String email;
-    public String mobile;
-    public int userType;
+
 
     public int getStatus() {
         return status;
@@ -102,12 +130,6 @@ public class User implements Serializable {
         this.status = status;
     }
 
-    public int status;
-    public String password;
-    public int localityId;
-    public int cityId;
-    public int stateId;
-    public int countryId;
 
     public String getProfileURL() {
         return profileURL;

@@ -46,6 +46,9 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             edPassword.setHint(getResources().getString(R.string.lbl_password).toUpperCase());
 
             btnLogin = (Button) findViewById(R.id.btnLogin);
+
+            edMobileNumber.setText("9867445541");
+            edPassword.setText("ashu@123");
             btnLogin.setOnClickListener(this);
 
             tvCreateAccount = (TextView) findViewById(R.id.tvCreateAccount);
@@ -78,7 +81,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                                 new NetworkCommunicationHelper.OnResponseReceived() {
                                     @Override
                                     public void onSuccess(final String res) {
-
                                         Helper.updatedSharedPrefValBoolean(LoginActivity.this,
                                                 Constants.login.isLoginSuccess, true);
                                         Helper.updateSharedPrefValStr(LoginActivity.this,
@@ -96,7 +98,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 
                                     @Override
                                     public void onFailure(final String err) {
-                                        Helper.showToast(LoginActivity.this, ""+Helper.getServerErroMessage(err));
+                                        Helper.showToast(LoginActivity.this, ""+Helper.getServerMessage(err));
 
                                         switch (Helper.getServerErroCode(err)) {
                                             case Constants.serverErroCode.code_406:

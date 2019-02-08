@@ -16,6 +16,7 @@ public interface Constants {
     interface  login{
         String isLoginSuccess = "isLoginSuccess";
         String isSignupSuccess = "isSignupSuccess";
+        String x_access_token = "x_access_token";
     }
 
     interface webAPI{
@@ -44,7 +45,9 @@ public interface Constants {
         String SMSTAG = "HNSHIL";
         int firstIndex = 1;
         String changePassword ="/api/users/changePassword";
-        String refreshToken = "api/users/token";
+        String refreshToken = "/api/users/token";
+        String saveChanges= "/api/users/editProfile";
+        String uploadImage= "/services/upload/profile";
         //api names
 
     }

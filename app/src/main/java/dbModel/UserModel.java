@@ -22,4 +22,9 @@ public class UserModel {
     public User getUserbyID(Application context,String mobile){
         return GoGagnerRoomDB.getInstance(context).userDao().searchUserById(mobile);
     }
+
+    public void updateUserAccessToken(Application context,String accessToken,String id){
+        GoGagnerRoomDB.getInstance(context).userDao().updateAccessToken(accessToken,id);
+    }
+
 }

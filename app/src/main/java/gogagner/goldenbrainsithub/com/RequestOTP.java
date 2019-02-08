@@ -81,7 +81,7 @@ public class RequestOTP extends Activity implements View.OnClickListener{
 
                                     @Override
                                     public void onFailure(final String err) {
-                                        Helper.showToast(RequestOTP.this, ""+Helper.getServerErroMessage(err));
+                                        Helper.showToast(RequestOTP.this, ""+Helper.getServerMessage(err));
 
                                     }
                                 });

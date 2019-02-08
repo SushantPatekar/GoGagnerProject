@@ -28,7 +28,9 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="gogagner.goldenbrainsithub.com.SignupActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name="gogagner.goldenbrainsithub.com.BuyerSellerDashBoardActivity"
             android:screenOrientation="portrait"

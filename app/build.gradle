@@ -18,6 +18,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    useLibrary 'org.apache.http.legacy'
+
 }
 
 dependencies {
@@ -47,5 +49,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
+    implementation group: 'org.apache.httpcomponents' , name: 'httpclient-android' , version: '4.3.5.1'
+    implementation('org.apache.httpcomponents:httpmime:4.3') {
+        exclude module: "httpclient"
 
+    }
 }

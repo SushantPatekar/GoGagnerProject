@@ -2,17 +2,6 @@ package webAPIModel;
 
 public class RegisterAccountModel {
 
-    	/*"firstName":"Ashu",
-                "lastName":"nair",
-                "email":"ashishnair57@gmail.com",
-                "mobile":"9890447884",
-                "userType":1,
-                "status":1,
-                "password":"ashu@123",
-                "localityId":1,
-                "cityId":1,
-                "stateId":1,
-                "countryId":1*/
 
 	public String getFirstName() {
 		return firstName;
@@ -115,5 +104,43 @@ public class RegisterAccountModel {
     	public int stateId;
     	public int countryId;
 
+    	public String aadhaarCardNo;
+    	public String dob;
+    	public String occupation;
+
+	public String getAadhaarCardNo() {
+		return aadhaarCardNo;
+	}
+
+	public void setAadhaarCardNo(String aadhaarCardNo) {
+		this.aadhaarCardNo = aadhaarCardNo;
+	}
+
+	public String getDob() {
+		return dob;
+	}
+
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
+
+	public String getOccupation() {
+		return occupation;
+	}
+
+	public void setOccupation(String occupation) {
+		this.occupation = occupation;
+	}
+/*firstName":"Ashish",
+			"lastName":"nair",
+			"email":"ashishnair57@gmail.com",
+			"aadhaarCardNo":"0000000000",
+			"dob":"1987-12-09",
+			"occupation":"service",
+			"localityId":2,
+			"cityId":1,
+			"stateId":1,
+			"countryId":1
+*/
 
 }

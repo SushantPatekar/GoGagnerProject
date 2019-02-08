@@ -35,10 +35,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import dbModel.City;
 import dbModel.CityModel;
@@ -46,8 +47,6 @@ import dbModel.Locality;
 import dbModel.LocalityModel;
 import dbModel.State;
 import dbModel.StateModel;
-import dbModel.User;
-import dbModel.UserModel;
 import utility.Constants;
 import utility.Helper;
 import networkcommunication.NetworkCommunicationHelper;
@@ -195,17 +194,30 @@ ImageView imgAvatar;
                             new NetworkCommunicationHelper.OnResponseReceived() {
                                 @Override
                                 public void onSuccess(final String res) {
-                                    Helper.updatedSharedPrefValBoolean(SignupActivity.this,
-                                            Constants.login.isSignupSuccess, true);
-                                    startActivity(new Intent(SignupActivity.this,
-                                            VerifyOTPActivity.class).putExtra(Intent.EXTRA_STREAM,Constants.webAPI.signFlag));
-                                    addUserInDB();
-                                    finish();
+                                    //Save Access TOken for uses
+                                    try {
+                                        String data = Helper.fetchResponseasObject(res);
+                                        JSONObject jsonData = new JSONObject(data);
+                                        String token = jsonData.getString("token");
+                                        Helper.updateSharedPrefValStr(SignupActivity.this,
+                                                Constants.sharedPref.userName, edMobileNumber.getText().toString());
+                                        Helper.updateSharedPrefValStr(SignupActivity.this,
+                                                Constants.login.x_access_token, token);
+                                        startActivity(new Intent(SignupActivity.this,
+                                                VerifyOTPActivity.class).putExtra(Intent.EXTRA_STREAM, Constants.webAPI.signFlag));
+                                        finish();
+                                    } catch (Exception e) {
+
+                                    }
+
+                                    /*Helper.updatedSharedPrefValBoolean(SignupActivity.this,
+                                            Constants.login.isSignupSuccess, true);*/
+
                                 }
 
                                 @Override
                                 public void onFailure(final String err) {
-                                    Helper.showToast(SignupActivity.this, ""+Helper.getServerErroMessage(err));
+                                    Helper.showToast(SignupActivity.this, ""+Helper.getServerMessage(err));
 
                                 }
                             });
@@ -517,27 +529,7 @@ else {
     }
 
 
-    public void addUserInDB(){
-        Helper.updateSharedPrefValStr(getApplication(),Constants.sharedPref.userName,
-                edMobileNumber.getText().toString());
-        User user = new User();
-        user.setId(UUID.randomUUID().toString());
-        user.setCityId(mSelectedCityID);
-        user.setCountryId(1);
-        user.setEmail(edEmail.getText().toString());
-        user.setFirstName(edFirstName.getText().toString());
-        user.setLastName(edLastName.getText().toString());
-        user.setLocalityId(mSelectedLocalityID);
-        user.setMobile(edMobileNumber.getText().toString());
-        user.setStateId(mSelectedStateID);
-        user.setUserType(1);
-        user.setPassword(edPassword.getText().toString());
-        user.setProfileURL(profilePicPath);
-        user.setStatus(1);
-        new UserModel().addUser(getApplication(), user);
 
-
-    }
 
     private void checkWriteExternalPermission() {
         if (!checkEachPermission(WRITE_EXTERNAL_STORAGE)) {
@@ -627,6 +619,31 @@ else {
             if (resultData != null) {
                 uri = resultData.getData();
                 profilePicPath = UriHelper.getPath(this, uri);
+//TODO upload Image
+                        String webAPI = Helper.getSharedPrefValStr(SignupActivity.this, Constants.sharedPref.s_BASE_URL)
+                        .concat(Constants.webAPI.uploadImage);
+                NetworkCommunicationHelper networkCommunicationHelper = new NetworkCommunicationHelper();
+
+                networkCommunicationHelper.uploadImagePostRequest(getApplication(), webAPI,"",
+                        new NetworkCommunicationHelper.OnResponseReceived() {
+                            @Override
+                            public void onSuccess(final String res) {
+                                //Save Access TOken for uses
+                                try {
+
+                                } catch (Exception e) {
+
+                                }
+
+
+                            }
+
+                            @Override
+                            public void onFailure(final String err) {
+                                Helper.showToast(SignupActivity.this, ""+Helper.getServerMessage(err));
+
+                            }
+                        });
 
                 showImage(profilePicPath);
             }

@@ -1,6 +1,9 @@
 package networkcommunication;
 
 import android.app.Application;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -16,10 +19,16 @@ import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.JsonObject;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.SocketException;
 import java.util.Arrays;
@@ -29,9 +38,12 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import dbModel.User;
+import dbModel.UserModel;
 import gogagner.goldenbrainsithub.com.GoGagnerApplication;
 import gogagner.goldenbrainsithub.com.R;
 import utility.Constants;
+import utility.Helper;
 
 public class NetworkCommunicationHelper {
 
@@ -135,9 +147,6 @@ public class NetworkCommunicationHelper {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-              /*  Log.e("error",""+error.networkResponse.statusCode);
-                Log.e("error",""+error.networkResponse.data);
-                responseReceived.onFailure(getServerError(error));*/
               String serverError = null;
                 JSONObject jsonServerError =null;
                 String serverStatus = null;
@@ -146,14 +155,15 @@ public class NetworkCommunicationHelper {
                 serverError =  getServerError(error);
                 jsonServerError = new JSONObject(serverError);
                 serverStatus = jsonServerError.getString("status");
-
-              }
-              catch ( SecurityException e){
                   if (serverStatus.matches(Constants.Session.TOKEN_EXPIRY_CODE)) {
-                      refreshRequest(context, url, SYNC_POST_REQ, reqJson, responseReceived);
+                      refreshRequest(context, url, POST_REQ, reqJson, responseReceived);
                   } else {
                       responseReceived.onFailure(getServerError(error));
                   }
+
+              }
+              catch ( SecurityException e){
+
               } catch (JSONException e) {
                   responseReceived.onFailure(getServerError(error));
                   e.printStackTrace();
@@ -185,7 +195,7 @@ public class NetworkCommunicationHelper {
 
                 header.put(Constants.webAPI.header_content_type, Constants.webAPI.value_content_type);
                 header.put(Constants.webAPI.apitoken, Constants.webAPI.apitoken_val);
-                header.put(Constants.webAPI.header_x_access_token, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI4LCJmaXJzdE5hbWUiOiJBc2h1IiwibGFzdE5hbWUiOiJuYWlyIiwibW9iaWxlIjoiOTg2NzQ0NTU0MSIsInVzZXJUeXBlIjowLCJpYXQiOjE1NDkxMzI5NzUsImV4cCI6MTU0OTEzMzg3NX0.1AYmdT-5vsVu99P_QtGdak10NOb2TjywKGgLOn0da0g");
+                header.put(Constants.webAPI.header_x_access_token, Helper.getX_AccessToken(context));
                 return header;
             }
         };
@@ -273,7 +283,57 @@ public class NetworkCommunicationHelper {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                responseReceived.onSuccess(getSuccessResponseToken(response.toString()));
+                responseReceived.onSuccess(getSuccessResponseToken(response.toString(),context));
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("error",""+error.networkResponse.statusCode);
+                Log.e("error",""+error.networkResponse.data);
+                responseReceived.onFailure(getServerError(error));
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() {
+                try {
+                    return reqJson == null ? null : reqJson.getBytes("utf-8");
+                } catch (UnsupportedEncodingException uee) {
+                    uee.fillInStackTrace();
+                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", reqJson, "utf-8");
+
+                    return null;
+                }
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> header = new HashMap<>();
+
+                header.put(Constants.webAPI.header_content_type, Constants.webAPI.value_content_type);
+                header.put(Constants.webAPI.apitoken, Constants.webAPI.apitoken_val);
+                return header;
+            }
+        };
+
+        mRequestQueue.add(stringRequest);
+
+
+
+    }
+    ///
+
+    /// For Access Token API
+    public void FetchAccessTokenRequest(final Application context, final String url, final String reqJson, final OnResponseReceived responseReceived) {
+        RequestQueue mRequestQueue = ((GoGagnerApplication) context).getRequestQueue();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                responseReceived.onSuccess(response);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -370,7 +430,7 @@ public class NetworkCommunicationHelper {
         return trimmedString;
     }
 
-    public String getSuccessResponseToken(String message){
+    public String getSuccessResponseToken(String message,Application mContext){
         String responseCode= null;
         try{
             JSONObject main,response,data,userDetails;
@@ -379,6 +439,20 @@ public class NetworkCommunicationHelper {
             data = response.getJSONObject("data");
             responseCode = response.getString("status");
             userDetails = data.getJSONObject("userDetails");
+            //Save UserData
+            User mUser = new User();
+            mUser.setAccessToken(data.getString("token"));
+            mUser.setRefreshToken(data.getString("refreshToken"));
+            mUser.setFirstName(userDetails.getString("firstName"));
+            mUser.setLastName(userDetails.getString("lastName"));
+            mUser.setId(userDetails.getString("userId"));
+            mUser.setUserType(userDetails.getInt("userType"));
+            mUser.setMobile(userDetails.getString("mobile"));
+            mUser.setSmallProfileURL(userDetails.getJSONObject("media").getJSONObject("mobile").
+                    getString("small"));
+            mUser.setMediumProfileURL(userDetails.getJSONObject("media").getJSONObject("mobile").
+                    getString("medium"));
+            new UserModel().addUser(mContext,mUser);
 
         }
         catch (Exception e){
@@ -401,7 +475,7 @@ public class NetworkCommunicationHelper {
                         if (type == GET_REQ) {
                             sendGetRequest(context, pendingRequest.getUrl(), pendingRequest.getResponseReceived());
                         } else {
-                            sendPostRequest(context, pendingRequest.getUrl(), (String) pendingRequest.getBody(), pendingRequest.getResponseReceived());
+                            sendUserPostRequest(context, pendingRequest.getUrl(), (String) pendingRequest.getBody(), pendingRequest.getResponseReceived());
                         }
                     } else {
                         responseReceived.onFailure("Pending request null");
@@ -439,48 +513,77 @@ public class NetworkCommunicationHelper {
         }
     }
 
-//TODO
-   /* public void sendTokenReq(final Application context, String url, final Map<String, String> dataMap, final OnResponseReceived responseReceived) {
-        String BaseURL= url;
-        RequestQueue mRequestQueue = ((MainApp) context).getRequestQueue();
+
+    //TODO
+    HttpEntity httpEntity;
+public void uploadImagePostRequest(final Application context, final String url, final String reqJson, final OnResponseReceived responseReceived) {
+    Drawable drawable =context.getResources().getDrawable(R.drawable.ic_launcher);
+    Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+    final byte[] bitmapdata = stream.toByteArray();
+    MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+    builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+
+    if (bitmapdata != null) {
+        ContentType contentType = ContentType.create("image/png");
+        String fileName = "ic_action_home.png";
+        builder.addBinaryBody("file", bitmapdata, contentType, fileName);
+        httpEntity = builder.build();
+
+
+        RequestQueue mRequestQueue = ((GoGagnerApplication) context).getRequestQueue();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                responseReceived.onSuccess(response);
+                responseReceived.onSuccess(response.toString());
             }
         }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError e) {
-                String[] error = parseError(e);
-                if (error != null
-                        && error[2] != null && error[2].contains(Constants.Session.INVALID_GRANT_MSG)
-                        && error[1] != null && error[1].equals(Constants.Session.INVALID_GRANT_CODE)) {
-                    PendingRequest pendingRequest = SessionManager.getPendingRequest();
-                    if (pendingRequest != null) {
-                        accessTokenRequest(context, pendingRequest.getUrl(), pendingRequest.getType(), pendingRequest.getBody(), pendingRequest.getResponseReceived());
-                    }
-                    responseReceived.onFailure("Pending request null");
-                } else {
-                    responseReceived.onFailure(Arrays.toString(parseError(e)));
+            public void onErrorResponse(VolleyError error) {
+                String serverError = null;
+                JSONObject jsonServerError = null;
+                String serverStatus = null;
+                try {
+                    serverError = getServerError(error);
+                    jsonServerError = new JSONObject(serverError);
+                    serverStatus = jsonServerError.getString("status");
+
+                    responseReceived.onFailure(getServerError(error));
+
+                } catch (SecurityException e) {
+
+                } catch (JSONException e) {
+                    responseReceived.onFailure(getServerError(error));
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    responseReceived.onFailure(getServerError(error));
+                    e.printStackTrace();
                 }
             }
         }) {
+
+
             @Override
             public String getBodyContentType() {
-                return "application/x-www-form-urlencoded; charset=UTF-8";
+                return httpEntity.getContentType().getValue();
             }
 
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                return dataMap;
+            public byte[] getBody() throws AuthFailureError {
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                try {
+                    httpEntity.writeTo(bos);
+                } catch (IOException e) {
+                    VolleyLog.e("IOException writing to ByteArrayOutputStream");
+                }
+                return bos.toByteArray();
             }
         };
 
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(TIMEOUT,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
         mRequestQueue.add(stringRequest);
-    }*/
+    }
+}
 
     public interface OnResponseReceived {
         void onSuccess(String res);

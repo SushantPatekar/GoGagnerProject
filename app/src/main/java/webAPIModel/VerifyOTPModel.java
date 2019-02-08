@@ -2,7 +2,7 @@ package webAPIModel;
 
 public class VerifyOTPModel {
 
-    public String mobile;
+ //   public String mobile;
 
     public String getPage() {
         return page;
@@ -14,14 +14,14 @@ public class VerifyOTPModel {
 
     public String page ;
 
-    public String getMobile() {
+  /*  public String getMobile() {
         return mobile;
     }
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
     }
-
+*/
     public String getOtp() {
         return otp;
     }

@@ -5,10 +5,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -28,18 +30,32 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dbModel.City;
 import dbModel.CityModel;
@@ -47,6 +63,7 @@ import dbModel.Locality;
 import dbModel.LocalityModel;
 import dbModel.State;
 import dbModel.StateModel;
+import networkcommunication.VolleyMultipartRequest;
 import utility.Constants;
 import utility.Helper;
 import networkcommunication.NetworkCommunicationHelper;
@@ -67,7 +84,7 @@ ImageView imgAvatar;
     TextView tvIagree;
     TextView tvLogin;
     CheckBox chIagree;
-
+    private RequestQueue rQueue;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -543,6 +560,7 @@ else {
         return ContextCompat.checkSelfPermission(getApplicationContext(), permission) == PackageManager.PERMISSION_GRANTED;
     }
     private void requestContactPermission() {
+
         ActivityCompat.requestPermissions(this, new String[]{WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_PERMISSION_REQUEST_CODE);
     }
 
@@ -602,55 +620,105 @@ else {
 
     }
     private void selectProfileImage() {
-        Intent intent = new Intent();
+        /*Intent intent = new Intent();
         intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Attachment"), PICK_IMAGE);
+        intent.setAction(Intent.ACTION_GET_CONTENT);*/
+
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(Intent.createChooser(galleryIntent, "Select Attachment"), PICK_IMAGE);
     }
 
     public static final int PICK_IMAGE = 6845;
     private static final int WRITE_EXTERNAL_PERMISSION_REQUEST_CODE = 2564;
     private String profilePicPath;
-
+    Bitmap bitmap;
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
         if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
             Uri uri = null;
             if (resultData != null) {
-                uri = resultData.getData();
-                profilePicPath = UriHelper.getPath(this, uri);
+               try
+               {
+                   uri = resultData.getData();
+                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+
+                  // profilePicPath = UriHelper.getPath(this, uri);
 //TODO upload Image
-                        String webAPI = Helper.getSharedPrefValStr(SignupActivity.this, Constants.sharedPref.s_BASE_URL)
-                        .concat(Constants.webAPI.uploadImage);
-                NetworkCommunicationHelper networkCommunicationHelper = new NetworkCommunicationHelper();
+                   String webAPI = Constants.webAPI.IMAGE_UPLOAD_BASE_URL.concat(Constants.webAPI.uploadImage);
 
-                networkCommunicationHelper.uploadImagePostRequest(getApplication(), webAPI,"",
-                        new NetworkCommunicationHelper.OnResponseReceived() {
-                            @Override
-                            public void onSuccess(final String res) {
-                                //Save Access TOken for uses
-                                try {
+                   VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, webAPI,
+                           new Response.Listener<NetworkResponse>() {
+                               @Override
+                               public void onResponse(NetworkResponse response) {
+                                   rQueue.getCache().clear();
+                                   try {
+                                       JSONObject jsonObject = new JSONObject(new String(response.data));
 
-                                } catch (Exception e) {
+                                       Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                       profilePicPath = jsonObject.getJSONObject("images").getJSONObject("mobile").getString("medium");
 
-                                }
+                                       showImage(profilePicPath);
+
+                                   } catch (JSONException e) {
+                                       e.printStackTrace();
+                                   }
+                               }
+                           },
+                           new Response.ErrorListener() {
+                               @Override
+                               public void onErrorResponse(VolleyError error) {
+                                   Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                               }
+                           }) {
+
+                       /*
+                        * If you want to add more parameters with the image
+                        * you can do it here
+                        * here we have only one parameter with the image
+                        * which is tags
+                        * */
+                       @Override
+                       protected Map<String, String> getParams() throws AuthFailureError {
+                           Map<String, String> params = new HashMap<>();
+                           // params.put("tags", "ccccc");  add string parameters
+                           return params;
+                       }
+
+                       /*
+                        *pass files using below method
+                        * */
+                       @Override
+                       protected Map<String, DataPart> getByteData() {
+                           Map<String, DataPart> params = new HashMap<>();
+                           long imagename = System.currentTimeMillis();
+                           params.put("filename", new VolleyMultipartRequest.DataPart(imagename + ".png", getFileDataFromDrawable(bitmap)));
+                           return params;
+                       }
+                   };
 
 
-                            }
+                   volleyMultipartRequest.setRetryPolicy(new DefaultRetryPolicy(
+                           0,
+                           DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                           DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                   rQueue = Volley.newRequestQueue(SignupActivity.this);
+                   rQueue.add(volleyMultipartRequest);
 
-                            @Override
-                            public void onFailure(final String err) {
-                                Helper.showToast(SignupActivity.this, ""+Helper.getServerMessage(err));
 
-                            }
-                        });
+               }
+               catch (Exception e){
 
-                showImage(profilePicPath);
+               }
             }
         }
     }
 
-
+    public byte[] getFileDataFromDrawable(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
+    }
     private void showImage(String imagePath) {
         imgAvatar.setBackground(null);
         Glide.with(this).load(imagePath)

@@ -1,9 +1,11 @@
 package networkcommunication;
 
 import android.app.Application;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.JsonObject;
 
+
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
@@ -28,6 +31,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.SocketException;
@@ -516,14 +520,29 @@ public class NetworkCommunicationHelper {
 
     //TODO
     HttpEntity httpEntity;
+
+    String mimeType;
+    DataOutputStream dos = null;
+    String lineEnd = "\r\n";
+    String boundary = "apiclient-" + System.currentTimeMillis();
+    String twoHyphens = "--";
+    int bytesRead, bytesAvailable, bufferSize;
+    byte[] buffer;
+    int maxBufferSize = 1024 * 1024;
+
 public void uploadImagePostRequest(final Application context, final String url, final String reqJson, final OnResponseReceived responseReceived) {
     Drawable drawable =context.getResources().getDrawable(R.drawable.ic_launcher);
     Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
     ByteArrayOutputStream stream = new ByteArrayOutputStream();
     bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+
     final byte[] bitmapdata = stream.toByteArray();
     MultipartEntityBuilder builder = MultipartEntityBuilder.create();
     builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+
+    byte[] imageBytes = stream.toByteArray();
+    final String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+
 
     if (bitmapdata != null) {
         ContentType contentType = ContentType.create("image/png");
@@ -536,11 +555,13 @@ public void uploadImagePostRequest(final Application context, final String url, 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.i("TAG","Response : "+response);
                 responseReceived.onSuccess(response.toString());
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Log.i("TAG","error : "+error);
                 String serverError = null;
                 JSONObject jsonServerError = null;
                 String serverStatus = null;
@@ -561,8 +582,15 @@ public void uploadImagePostRequest(final Application context, final String url, 
                     e.printStackTrace();
                 }
             }
-        }) {
+        }
+        ) {
 
+           /* @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("image", imageString);
+                return parameters;
+            }*/
 
             @Override
             public String getBodyContentType() {

@@ -21,7 +21,7 @@ public interface Constants {
 
     interface webAPI{
         String BASE_URL= "http://13.234.17.31:3000";
-
+        String IMAGE_UPLOAD_BASE_URL= "http://13.234.17.31:7504";
         String header_content_type= "Content-Type";
         String value_content_type = "application/json";
 

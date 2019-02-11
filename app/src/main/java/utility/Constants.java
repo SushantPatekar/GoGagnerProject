@@ -48,6 +48,7 @@ public interface Constants {
         String refreshToken = "/api/users/token";
         String saveChanges= "/api/users/editProfile";
         String uploadImage= "/services/upload/profile";
+        String getCategory = "/api/category";
         //api names
 
     }

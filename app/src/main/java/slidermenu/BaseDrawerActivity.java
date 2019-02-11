@@ -8,6 +8,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +20,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.List;
 
 import dbModel.Locality;
 import dbModel.LocalityModel;
+import dbModel.State;
+import dbModel.StateModel;
 import dbModel.User;
 import dbModel.UserModel;
 import gogagner.goldenbrainsithub.com.BuyerMyProfileActivity;
@@ -31,6 +39,8 @@ import gogagner.goldenbrainsithub.com.LoginActivity;
 import gogagner.goldenbrainsithub.com.R;
 import gogagner.goldenbrainsithub.com.ResetPasswordActivity;
 import gogagner.goldenbrainsithub.com.SignupActivity;
+import gogagner.goldenbrainsithub.model.MainCategoryModel;
+import networkcommunication.NetworkCommunicationHelper;
 import utility.Constants;
 import utility.Helper;
 
@@ -72,6 +82,9 @@ private EditText medsearch;
         //clear
         configureToolBar();
         //clear
+
+        //fetch Category & Add
+     //   fetchCategoryData();
         setNavigationDrawer();
     }
 
@@ -117,6 +130,7 @@ private EditText medsearch;
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerFragment = (DrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+
         drawerFragment.setUp(R.id.fragment_navigation_drawer, drawerLayout, mToolbar);
         drawerFragment.setDrawerListener(this);
 
@@ -368,6 +382,51 @@ private EditText medsearch;
 
 
             return row;
+        }
+    }
+
+    private void fetchCategoryData(){
+        try{
+
+            String webAPI = Helper.getSharedPrefValStr(BaseDrawerActivity.this, Constants.sharedPref.s_BASE_URL)
+                    .concat(Constants.webAPI.getCategory);
+
+            NetworkCommunicationHelper networkCommunicationHelper = new NetworkCommunicationHelper();
+            networkCommunicationHelper.sendSynchronousGetRequest(getApplication(), webAPI,
+                    new NetworkCommunicationHelper.OnResponseReceived() {
+                        @Override
+                        public void onSuccess(final String res) {
+
+                            try{
+
+                               String responseString = Helper.fetchMainResponseasObject(res);
+                                Gson gson = new GsonBuilder()
+                                        .serializeNulls()
+                                        .create();
+
+                                Type type = new TypeToken<MainCategoryModel>() {
+                                }.getType();
+                                MainCategoryModel mainCategoryModel = gson.fromJson(responseString, type);
+
+                               Log.i(TAG,"This is object "+mainCategoryModel.getStatus());
+
+
+                            }
+                            catch (Exception e){
+                                Log.e(TAG,""+e.getLocalizedMessage());
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onFailure(final String err) {
+                        }
+                    });
+        }
+
+        catch (Exception e){
+
         }
     }
 }

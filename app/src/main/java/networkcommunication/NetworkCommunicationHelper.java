@@ -23,9 +23,9 @@ import com.google.gson.JsonObject;
 
 
 import org.apache.http.HttpEntity;
-import org.apache.http.entity.ContentType;
+/*import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.MultipartEntityBuilder;*/
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -519,99 +519,9 @@ public class NetworkCommunicationHelper {
 
 
     //TODO
-    HttpEntity httpEntity;
-
-    String mimeType;
-    DataOutputStream dos = null;
-    String lineEnd = "\r\n";
-    String boundary = "apiclient-" + System.currentTimeMillis();
-    String twoHyphens = "--";
-    int bytesRead, bytesAvailable, bufferSize;
-    byte[] buffer;
-    int maxBufferSize = 1024 * 1024;
-
-public void uploadImagePostRequest(final Application context, final String url, final String reqJson, final OnResponseReceived responseReceived) {
-    Drawable drawable =context.getResources().getDrawable(R.drawable.ic_launcher);
-    Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-
-    final byte[] bitmapdata = stream.toByteArray();
-    MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-    builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-
-    byte[] imageBytes = stream.toByteArray();
-    final String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
 
 
-    if (bitmapdata != null) {
-        ContentType contentType = ContentType.create("image/png");
-        String fileName = "ic_action_home.png";
-        builder.addBinaryBody("file", bitmapdata, contentType, fileName);
-        httpEntity = builder.build();
 
-
-        RequestQueue mRequestQueue = ((GoGagnerApplication) context).getRequestQueue();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.i("TAG","Response : "+response);
-                responseReceived.onSuccess(response.toString());
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i("TAG","error : "+error);
-                String serverError = null;
-                JSONObject jsonServerError = null;
-                String serverStatus = null;
-                try {
-                    serverError = getServerError(error);
-                    jsonServerError = new JSONObject(serverError);
-                    serverStatus = jsonServerError.getString("status");
-
-                    responseReceived.onFailure(getServerError(error));
-
-                } catch (SecurityException e) {
-
-                } catch (JSONException e) {
-                    responseReceived.onFailure(getServerError(error));
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    responseReceived.onFailure(getServerError(error));
-                    e.printStackTrace();
-                }
-            }
-        }
-        ) {
-
-           /* @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> parameters = new HashMap<String, String>();
-                parameters.put("image", imageString);
-                return parameters;
-            }*/
-
-            @Override
-            public String getBodyContentType() {
-                return httpEntity.getContentType().getValue();
-            }
-
-            @Override
-            public byte[] getBody() throws AuthFailureError {
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                try {
-                    httpEntity.writeTo(bos);
-                } catch (IOException e) {
-                    VolleyLog.e("IOException writing to ByteArrayOutputStream");
-                }
-                return bos.toByteArray();
-            }
-        };
-
-        mRequestQueue.add(stringRequest);
-    }
-}
 
     public interface OnResponseReceived {
         void onSuccess(String res);

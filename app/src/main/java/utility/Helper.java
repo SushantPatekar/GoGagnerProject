@@ -120,6 +120,12 @@ public class Helper {
         JSONObject data = j_response.getJSONObject("data");
         return data.toString();
     }
+
+    public static String fetchMainResponseasObject(String res) throws JSONException {
+        JSONObject main = new JSONObject(res);
+        JSONObject j_response = main.getJSONObject("response");
+        return j_response.toString();
+    }
     public static int getServerErroCode(String res) {
         int statusCode = 0;
         try {

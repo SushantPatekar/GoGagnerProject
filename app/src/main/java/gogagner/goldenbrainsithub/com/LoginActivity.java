@@ -1,6 +1,7 @@
 package gogagner.goldenbrainsithub.com;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -39,6 +40,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     public void initView(){
         try
         {
+            mProgressDialog = new ProgressDialog(getApplication());
             edMobileNumber = (EditText) findViewById(R.id.edMobileNumber);
             edPassword = (EditText) findViewById(R.id.edPassword);
 
@@ -65,6 +67,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 
         }
     }
+    private ProgressDialog mProgressDialog;
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -75,12 +78,13 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                                 .concat(Constants.webAPI.apiLogin);
                         String requestBody = generateLoginBody();
                         NetworkCommunicationHelper networkCommunicationHelper = new NetworkCommunicationHelper();
-
+                        new Helper().showDialog(mProgressDialog,getResources().getString(R.string.popup_messege));
                         //For Access Token
                         networkCommunicationHelper.sendPostAccessTokenRequest(getApplication(), webAPI, requestBody,
                                 new NetworkCommunicationHelper.OnResponseReceived() {
                                     @Override
                                     public void onSuccess(final String res) {
+                                        new Helper().hideDialog(mProgressDialog);
                                         Helper.updatedSharedPrefValBoolean(LoginActivity.this,
                                                 Constants.login.isLoginSuccess, true);
                                         Helper.updateSharedPrefValStr(LoginActivity.this,
@@ -99,7 +103,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                                     @Override
                                     public void onFailure(final String err) {
                                         Helper.showToast(LoginActivity.this, ""+Helper.getServerMessage(err));
-
+                                        new Helper().hideDialog(mProgressDialog);
                                         switch (Helper.getServerErroCode(err)) {
                                             case Constants.serverErroCode.code_406:
                                                 startActivity(new Intent(

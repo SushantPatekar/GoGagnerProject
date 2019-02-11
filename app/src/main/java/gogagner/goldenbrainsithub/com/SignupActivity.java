@@ -1,6 +1,7 @@
 package gogagner.goldenbrainsithub.com;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -99,7 +100,7 @@ ImageView imgAvatar;
 
     public void initView() {
         try {
-
+            mProgressDialog = new ProgressDialog(getApplication());
             edConifirmPass = (EditText) findViewById(R.id.edConfirmPassword);
             edEmail = (EditText) findViewById(R.id.edEmail);
             edFirstName = (EditText) findViewById(R.id.edFirstName);
@@ -203,7 +204,7 @@ ImageView imgAvatar;
                             .concat(Constants.webAPI.apiRegister);
                     String requestBody = generateSignupBody();
                     Log.i(TAG,""+requestBody);
-
+                    new Helper().showDialog(mProgressDialog,getResources().getString(R.string.popup_messege));
 
                     NetworkCommunicationHelper networkCommunicationHelper = new NetworkCommunicationHelper();
 
@@ -213,6 +214,7 @@ ImageView imgAvatar;
                                 public void onSuccess(final String res) {
                                     //Save Access TOken for uses
                                     try {
+                                        new Helper().hideDialog(mProgressDialog);
                                         String data = Helper.fetchResponseasObject(res);
                                         JSONObject jsonData = new JSONObject(data);
                                         String token = jsonData.getString("token");
@@ -235,7 +237,7 @@ ImageView imgAvatar;
                                 @Override
                                 public void onFailure(final String err) {
                                     Helper.showToast(SignupActivity.this, ""+Helper.getServerMessage(err));
-
+                                    new Helper().hideDialog(mProgressDialog);
                                 }
                             });
 
@@ -633,6 +635,7 @@ else {
     private static final int WRITE_EXTERNAL_PERMISSION_REQUEST_CODE = 2564;
     private String profilePicPath;
     Bitmap bitmap;
+    ProgressDialog mProgressDialog;
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
         if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
@@ -646,7 +649,7 @@ else {
                   // profilePicPath = UriHelper.getPath(this, uri);
 //TODO upload Image
                    String webAPI = Constants.webAPI.IMAGE_UPLOAD_BASE_URL.concat(Constants.webAPI.uploadImage);
-
+                   new Helper().showDialog(mProgressDialog,getResources().getString(R.string.popup_messege));
                    VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, webAPI,
                            new Response.Listener<NetworkResponse>() {
                                @Override
@@ -657,7 +660,7 @@ else {
 
                                        Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                                        profilePicPath = jsonObject.getJSONObject("images").getJSONObject("mobile").getString("medium");
-
+                                       new Helper().hideDialog(mProgressDialog);
                                        showImage(profilePicPath);
 
                                    } catch (JSONException e) {
@@ -668,6 +671,7 @@ else {
                            new Response.ErrorListener() {
                                @Override
                                public void onErrorResponse(VolleyError error) {
+                                   new Helper().hideDialog(mProgressDialog);
                                    Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                                }
                            }) {

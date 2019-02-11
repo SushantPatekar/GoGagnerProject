@@ -97,7 +97,7 @@
                     android:layout_marginLeft="@dimen/size_20"
                     android:layout_marginTop="100dp"
                     android:layout_marginRight="@dimen/size_20"
-                    android:background="@drawable/bg_white_edittext"
+                    android:background="@drawable/ed_bg_white_bakground"
                     android:drawableLeft="@drawable/black_password"
                     android:drawablePadding="@dimen/size_20"
                     android:inputType="textPassword"
@@ -116,7 +116,7 @@
                     android:layout_marginLeft="@dimen/size_20"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="@dimen/size_20"
-                    android:background="@drawable/bg_white_edittext"
+                    android:background="@drawable/ed_bg_white_bakground"
                     android:drawableLeft="@drawable/black_password"
                     android:drawablePadding="20dp"
                     android:hint="@string/lbl_first_name"
@@ -137,7 +137,7 @@
                     android:layout_marginLeft="@dimen/size_20"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="@dimen/size_20"
-                    android:background="@drawable/bg_white_edittext"
+                    android:background="@drawable/ed_bg_white_bakground"
                     android:drawableLeft="@drawable/black_password"
                     android:drawablePadding="@dimen/size_20"
                     android:inputType="textPassword"
@@ -160,7 +160,6 @@
                     android:background="@drawable/custom_bg_login"
                     android:text="@string/lbl_ChangePwd"
                     android:textAllCaps="true"
-
                     android:textColor="@color/white_txt"
                     android:textSize="@dimen/text_size_12" />
 
@@ -177,11 +176,11 @@
 
             <RelativeLayout
 
-                android:layout_width="240dp"
-                android:layout_height="240dp"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:elevation="@dimen/text_size_12"
                 android:layout_centerInParent="true"
-                android:background="@drawable/coin_background"
-                android:elevation="@dimen/size_40">
+                android:background="@drawable/profie_change_bg_two">
 
                 <ImageView
                     android:id="@+id/imgAvatar"
@@ -251,15 +250,15 @@
                         android:layout_marginLeft="@dimen/size_30"
                         android:layout_marginTop="@dimen/size_20"
                         android:layout_marginRight="@dimen/size_30"
-                        android:background="@drawable/bg_edittext_icon"
-                        android:drawableLeft="@drawable/first_last_name"
+                        android:background="@drawable/ed_bg_white_bakground"
+                        android:drawableLeft="@drawable/black_name"
                         android:drawablePadding="@dimen/size_20"
                         android:inputType="textCapCharacters"
                         android:maxLines="1"
                         android:padding="12dp"
                         android:textAllCaps="true"
-                        android:textColor="@color/white_txt"
-                        android:textColorHint="@color/white_txt"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
                         android:textSize="@dimen/text_size_12" />
 
                     <custom.customEditTextView
@@ -270,20 +269,20 @@
                         android:layout_marginLeft="@dimen/size_30"
                         android:layout_marginTop="@dimen/size_3"
                         android:layout_marginRight="@dimen/size_30"
-                        android:background="@drawable/bg_edittext_icon"
-                        android:drawableLeft="@drawable/first_last_name"
+                        android:background="@drawable/ed_bg_white_bakground"
+                        android:drawableLeft="@drawable/black_name"
                         android:drawablePadding="@dimen/size_20"
                         android:inputType="textCapCharacters"
                         android:maxLines="1"
                         android:padding="12dp"
                         android:textAllCaps="true"
-                        android:textColor="@color/white_txt"
-                        android:textColorHint="@color/white_txt"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
                         android:textSize="@dimen/text_size_12" />
 
                     <Spinner
                         android:id="@+id/spState"
-                        style="@style/SpinnerTheme"
+                        style="@style/SpinnerWhiteTheme"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_below="@id/edLastName"
@@ -293,7 +292,7 @@
                         android:maxLines="1"
 
                         android:paddingLeft="@dimen/size_40"
-                        android:popupTheme="@style/customSpinnerStyle"
+
                         android:spinnerMode="dialog"
                         android:textAllCaps="true"
                         android:textColor="@color/white_txt"
@@ -302,7 +301,7 @@
 
                     <Spinner
                         android:id="@+id/spCity"
-                        style="@style/SpinnerTheme"
+                        style="@style/SpinnerWhiteTheme"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_below="@id/spState"
@@ -312,16 +311,16 @@
                         android:drawablePadding="@dimen/size_20"
                         android:maxLines="1"
                         android:paddingLeft="@dimen/size_40"
-                        android:popupTheme="@style/customSpinnerStyle"
+
                         android:spinnerMode="dialog"
                         android:textAllCaps="true"
-                        android:textColor="@color/white_txt"
-                        android:textColorHint="@color/white_txt"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
                         android:textSize="@dimen/text_size_12" />
 
                     <Spinner
                         android:id="@+id/spCityArea"
-                        style="@style/SpinnerTheme"
+                        style="@style/SpinnerWhiteLocationTheme"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_below="@id/spCity"
@@ -331,7 +330,7 @@
                         android:drawablePadding="@dimen/size_20"
                         android:maxLines="1"
                         android:paddingLeft="@dimen/size_40"
-                        android:popupTheme="@style/customSpinnerStyle"
+
                         android:spinnerMode="dialog"
                         android:text="@string/locality"
                         android:textAllCaps="true"
@@ -347,15 +346,15 @@
                         android:layout_marginLeft="@dimen/size_30"
                         android:layout_marginTop="@dimen/size_3"
                         android:layout_marginRight="@dimen/size_30"
-                        android:background="@drawable/bg_edittext_icon"
-                        android:drawableLeft="@drawable/email"
+                        android:background="@drawable/ed_bg_white_bakground"
+                        android:drawableLeft="@drawable/black_email"
                         android:drawablePadding="@dimen/size_20"
                         android:inputType="textCapCharacters"
                         android:maxLines="1"
                         android:padding="12dp"
                         android:textAllCaps="true"
                         android:textColor="@color/white_txt"
-                        android:textColorHint="@color/white_txt"
+                        android:textColorHint="@color/black"
                         android:textSize="@dimen/text_size_12" />
 
                     <custom.customEditTextView
@@ -366,16 +365,16 @@
                         android:layout_marginLeft="@dimen/size_30"
                         android:layout_marginTop="@dimen/size_3"
                         android:layout_marginRight="@dimen/size_30"
-                        android:background="@drawable/bg_edittext_icon"
-                        android:drawableLeft="@drawable/mobile"
+                        android:background="@drawable/ed_bg_white_bakground"
+                        android:drawableLeft="@drawable/black_username"
                         android:drawablePadding="@dimen/size_20"
                         android:inputType="number"
                         android:maxLength="10"
                         android:maxLines="1"
                         android:padding="12dp"
                         android:textAllCaps="true"
-                        android:textColor="@color/white_txt"
-                        android:textColorHint="@color/white_txt"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
                         android:textSize="@dimen/text_size_12" />
 
                     <custom.customEditTextView
@@ -386,21 +385,21 @@
                         android:layout_marginLeft="@dimen/size_30"
                         android:layout_marginTop="@dimen/size_3"
                         android:layout_marginRight="@dimen/size_30"
-                        android:background="@drawable/bg_edittext_icon"
-                        android:drawableLeft="@drawable/password"
+                        android:background="@drawable/ed_bg_white_bakground"
+                        android:drawableLeft="@drawable/black_dob"
                         android:drawablePadding="@dimen/size_20"
                         android:maxLines="1"
                         android:padding="12dp"
                         android:focusable="false"
                         android:inputType="none"
                         android:textAllCaps="true"
-                        android:textColor="@color/white_txt"
-                        android:textColorHint="@color/white_txt"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
                         android:textSize="@dimen/text_size_12" />
 
                     <Spinner
                         android:id="@+id/spOccupation"
-                        style="@style/SpinnerTheme"
+                        style="@style/SpinnerWhiteOccupationTheme"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_below="@id/edDOB"
@@ -410,12 +409,11 @@
                         android:drawablePadding="@dimen/size_20"
                         android:maxLines="1"
                         android:paddingLeft="@dimen/size_40"
-                        android:popupTheme="@style/customSpinnerStyle"
                         android:spinnerMode="dialog"
                         android:text="@string/locality"
                         android:textAllCaps="true"
-                        android:textColor="@color/white_txt"
-                        android:textColorHint="@color/white_txt"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
                         android:textSize="@dimen/text_size_12" />
 
                     <custom.customEditTextView
@@ -426,15 +424,15 @@
                         android:layout_marginLeft="@dimen/size_30"
                         android:layout_marginTop="@dimen/size_3"
                         android:layout_marginRight="@dimen/size_30"
-                        android:background="@drawable/bg_edittext_icon"
-                        android:drawableLeft="@drawable/password"
+                        android:background="@drawable/ed_bg_white_bakground"
+                        android:drawableLeft="@drawable/black_adhar"
                         android:drawablePadding="@dimen/size_20"
                         android:inputType="textPassword"
                         android:maxLines="1"
                         android:padding="12dp"
                         android:textAllCaps="true"
-                        android:textColor="@color/white_txt"
-                        android:textColorHint="@color/white_txt"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
                         android:textSize="@dimen/text_size_12" />
 
                     <custom.customButton

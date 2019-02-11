@@ -3,6 +3,7 @@ package utility;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -272,6 +273,24 @@ else {
 
         }
         return userJson.toString();
+    }
+
+    public void showDialog(ProgressDialog mProgressDialog, String message) {
+        try {
+            mProgressDialog.setMessage(message);
+            mProgressDialog.setCanceledOnTouchOutside(false);
+            mProgressDialog.show();
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void hideDialog(ProgressDialog mProgressDialog) {
+        try {
+            mProgressDialog.hide();
+        } catch (Exception e) {
+
+        }
     }
 }
    /* private boolean isValidMobile(String phone) {

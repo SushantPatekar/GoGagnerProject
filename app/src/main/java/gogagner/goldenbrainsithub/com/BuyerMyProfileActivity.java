@@ -110,27 +110,27 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
     private void initView() {
         mProgressDialog = new ProgressDialog(getApplicationContext());
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        editProfileChangePwd = (RelativeLayout) findViewById(R.id.editProfileChangePwd);
-        editProfilChangeImg = (RelativeLayout) findViewById(R.id.editProfilChangeImg);
-        editProfileDetails = (RelativeLayout) findViewById(R.id.editProfileDetails);
+        editProfileChangePwd = findViewById(R.id.editProfileChangePwd);
+        editProfilChangeImg = findViewById(R.id.editProfilChangeImg);
+        editProfileDetails = findViewById(R.id.editProfileDetails);
 
         editProfilChangeImg.setVisibility(View.VISIBLE);
         editProfileChangePwd.setVisibility(View.GONE);
-        edOldPWD = (EditText) findViewById(R.id.edOldPassword);
-        edNewPWD = (EditText) findViewById(R.id.edNewPassword);
-        edCOnfirmPWD = (EditText) findViewById(R.id.edConfirmPassword);
+        edOldPWD = findViewById(R.id.edOldPassword);
+        edNewPWD = findViewById(R.id.edNewPassword);
+        edCOnfirmPWD = findViewById(R.id.edConfirmPassword);
 
         edCOnfirmPWD.setHint(getResources().getString(R.string.lbl_cofirm_password).toUpperCase());
         edNewPWD.setHint(getResources().getString(R.string.lbl_new_password).toUpperCase());
         edOldPWD.setHint(getResources().getString(R.string.lbl_oldPwd).toUpperCase());
 
-        imvPannel_one = (ImageView) findViewById(R.id.imvPannel_one);
-        imvPannel_two = (ImageView) findViewById(R.id.imvPannel_two);
-        imvPannel_three = (ImageView) findViewById(R.id.imvPannel_three);
+        imvPannel_one = findViewById(R.id.imvPannel_one);
+        imvPannel_two = findViewById(R.id.imvPannel_two);
+        imvPannel_three = findViewById(R.id.imvPannel_three);
 
-        imline_one = (ImageView) findViewById(R.id.imline_one);
-        imline_two = (ImageView) findViewById(R.id.imvline_two);
-        imline_three = (ImageView) findViewById(R.id.imvline_three);
+        imline_one = findViewById(R.id.imline_one);
+        imline_two = findViewById(R.id.imvline_two);
+        imline_three = findViewById(R.id.imvline_three);
 
         imline_one.setVisibility(View.INVISIBLE);
         imline_two.setVisibility(View.VISIBLE);
@@ -155,17 +155,17 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
         imvPannel_three.setOnClickListener(this);
 
         //Event related
-        btnResetPwd = (Button) findViewById(R.id.btnResetPwd);
+        btnResetPwd = findViewById(R.id.btnResetPwd);
         btnResetPwd.setOnClickListener(this);
-        btnSaveChanges = (Button) findViewById(R.id.btnSaveChanges);
+        btnSaveChanges = findViewById(R.id.btnSaveChanges);
         btnSaveChanges.setOnClickListener(this);
 
-        edAdharNumber = (EditText) findViewById(R.id.edAdharCard);
-        edEmail = (EditText) findViewById(R.id.edEmail);
-        edFirstName = (EditText) findViewById(R.id.edFirstName);
-        edLastName = (EditText) findViewById(R.id.edLastName);
-        edMobileNumber = (EditText) findViewById(R.id.edMobileNumber);
-        edDOB = (EditText) findViewById(R.id.edDOB);
+        edAdharNumber = findViewById(R.id.edAdharCard);
+        edEmail = findViewById(R.id.edEmail);
+        edFirstName = findViewById(R.id.edFirstName);
+        edLastName = findViewById(R.id.edLastName);
+        edMobileNumber = findViewById(R.id.edMobileNumber);
+        edDOB = findViewById(R.id.edDOB);
 
         edAdharNumber.setHint(getResources().getString(R.string.lbl_aadhar_number).toUpperCase());
         edEmail.setHint(getResources().getString(R.string.lbl_email).toUpperCase());
@@ -176,10 +176,10 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
         edDOB.setOnClickListener(this);
 
 
-        spCity = (Spinner) findViewById(R.id.spCity);
-        spLocality = (Spinner) findViewById(R.id.spCityArea);
-        spState = (Spinner) findViewById(R.id.spState);
-        spOccupation = (Spinner)findViewById(R.id.spOccupation);
+        spCity = findViewById(R.id.spCity);
+        spLocality = findViewById(R.id.spCityArea);
+        spState = findViewById(R.id.spState);
+        spOccupation = findViewById(R.id.spOccupation);
 
         states = new ArrayList<>();
 
@@ -192,9 +192,9 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
         spCity.setOnItemSelectedListener(city_listener);
         spLocality.setOnItemSelectedListener(localCity_listener);
 
-        btnChangeProfile = (Button) findViewById(R.id.btnChangePhoto);
-        btnremovePhoto = (Button) findViewById(R.id.btnRemovePhoto);
-        imgAvatar = (ImageView) findViewById(R.id.imgAvatar);
+        btnChangeProfile = findViewById(R.id.btnChangePhoto);
+        btnremovePhoto = findViewById(R.id.btnRemovePhoto);
+        imgAvatar = findViewById(R.id.imgAvatar);
 
         imgAvatar.setOnClickListener(this);
         btnChangeProfile.setOnClickListener(this);
@@ -467,6 +467,7 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
         registerAccountModel.setOccupation("service");
         registerAccountModel.setStateId(mSelectedStateID);
         registerAccountModel.setCountryId(1);
+        registerAccountModel.setMobile(edMobileNumber.getText().toString());
         Gson gson = new GsonBuilder()
                 .serializeNulls()
                 .create();
@@ -600,7 +601,7 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
 
             LayoutInflater inflater=getLayoutInflater();
             View row=inflater.inflate(R.layout.simple_spinner_white_dropdown, parent, false);
-            TextView label=(TextView)row.findViewById(R.id.idText);
+            TextView label= row.findViewById(R.id.idText);
             label.setText(""+mList.get(position).getName());
 
 
@@ -640,7 +641,7 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
 
             LayoutInflater inflater=getLayoutInflater();
             View row=inflater.inflate(R.layout.simple_spinner_white_dropdown, parent, false);
-            TextView label=(TextView)row.findViewById(R.id.idText);
+            TextView label= row.findViewById(R.id.idText);
             label.setText(""+mList.get(position).getName());
 
 
@@ -685,7 +686,7 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
 
             LayoutInflater inflater=getLayoutInflater();
             View row=inflater.inflate(R.layout.simple_spinner_white_dropdown, parent, false);
-            TextView label=(TextView)row.findViewById(R.id.idText);
+            TextView label= row.findViewById(R.id.idText);
             label.setText(""+mList.get(position).getName());
 
 

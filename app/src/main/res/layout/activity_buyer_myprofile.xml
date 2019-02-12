@@ -353,7 +353,7 @@
                         android:maxLines="1"
                         android:padding="12dp"
                         android:textAllCaps="true"
-                        android:textColor="@color/white_txt"
+                        android:textColor="@color/black"
                         android:textColorHint="@color/black"
                         android:textSize="@dimen/text_size_12" />
 
@@ -427,7 +427,7 @@
                         android:background="@drawable/ed_bg_white_bakground"
                         android:drawableLeft="@drawable/black_adhar"
                         android:drawablePadding="@dimen/size_20"
-                        android:inputType="textPassword"
+
                         android:maxLines="1"
                         android:padding="12dp"
                         android:textAllCaps="true"

@@ -659,6 +659,7 @@ else {
 
                   // profilePicPath = UriHelper.getPath(this, uri);
 //TODO upload Image
+
                    String webAPI = Constants.webAPI.IMAGE_UPLOAD_BASE_URL.concat(Constants.webAPI.uploadImage);
                    new Helper().showDialog(mProgressDialog,getResources().getString(R.string.popup_messege));
                    VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, webAPI,

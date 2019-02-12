@@ -4,6 +4,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 import gogagner.goldenbrainsithub.com.SignupActivity;
@@ -12,8 +14,11 @@ import gogagner.goldenbrainsithub.com.SignupActivity;
 public class State implements Serializable {
     @PrimaryKey
     @NonNull
+    @SerializedName("id")
     private int id;
+    @SerializedName("name")
     private String name;
+    @SerializedName("slug")
     private String slug;
 
 

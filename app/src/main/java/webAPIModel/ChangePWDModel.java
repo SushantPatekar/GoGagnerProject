@@ -1,7 +1,11 @@
 package webAPIModel;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ChangePWDModel {
+    @SerializedName("oldPassword")
     private String oldPassword;
+    @SerializedName("password")
     private String password;
 
     public String getOldPassword() {

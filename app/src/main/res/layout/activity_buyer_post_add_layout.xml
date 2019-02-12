@@ -53,7 +53,7 @@
                 android:layout_below="@id/spAddMaster"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/size_5"
-                android:src="@drawable/black_password"
+                android:src="@drawable/iv_ad_demo_buyer_home"
                 android:visibility="gone" />
 
             <custom.customButton

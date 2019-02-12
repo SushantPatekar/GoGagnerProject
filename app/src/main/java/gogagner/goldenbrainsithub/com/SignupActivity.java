@@ -70,6 +70,8 @@ import utility.Helper;
 import networkcommunication.NetworkCommunicationHelper;
 import utility.UriHelper;
 import webAPIModel.RegisterAccountModel;
+import webAPIModel.SignupMedia;
+import webAPIModel.SignupMobile;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
@@ -229,8 +231,8 @@ ImageView imgAvatar;
 
                                     }
 
-                                    /*Helper.updatedSharedPrefValBoolean(SignupActivity.this,
-                                            Constants.login.isSignupSuccess, true);*/
+                                    Helper.updatedSharedPrefValBoolean(SignupActivity.this,
+                                            Constants.login.isSignupSuccess, true);
 
                                 }
 
@@ -257,17 +259,26 @@ ImageView imgAvatar;
 
     public String generateSignupBody() {
         RegisterAccountModel registerAccountModel = new RegisterAccountModel();
-        registerAccountModel.setCityId(mSelectedCityID);
+        registerAccountModel.setCityId(1);
         registerAccountModel.setCountryId(1);
         registerAccountModel.setEmail(edEmail.getText().toString());
         registerAccountModel.setFirstName(edFirstName.getText().toString());
         registerAccountModel.setLastName(edLastName.getText().toString());
-        registerAccountModel.setLocalityId(mSelectedLocalityID);
+        registerAccountModel.setLocalityId(1);
         registerAccountModel.setMobile(edMobileNumber.getText().toString());
         registerAccountModel.setStateId(mSelectedStateID);
         registerAccountModel.setUserType(1);
         registerAccountModel.setPassword(edPassword.getText().toString());
         registerAccountModel.setStatus(1);
+
+        SignupMobile signupMobile = new SignupMobile();
+        signupMobile.setMedium(profilePicMediumPath);
+        signupMobile.setSmall(profilePicSmallPath);
+
+        SignupMedia signupMedia = new SignupMedia();
+        signupMedia.setSignupMobile(signupMobile);
+
+        registerAccountModel.setMediaModel(signupMedia);
 
         Gson gson = new GsonBuilder()
                 .serializeNulls()
@@ -633,7 +644,7 @@ else {
 
     public static final int PICK_IMAGE = 6845;
     private static final int WRITE_EXTERNAL_PERMISSION_REQUEST_CODE = 2564;
-    private String profilePicPath;
+    private String profilePicMediumPath,profilePicSmallPath;
     Bitmap bitmap;
     ProgressDialog mProgressDialog;
     @Override
@@ -659,9 +670,10 @@ else {
                                        JSONObject jsonObject = new JSONObject(new String(response.data));
 
                                        Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                                       profilePicPath = jsonObject.getJSONObject("images").getJSONObject("mobile").getString("medium");
+                                       profilePicMediumPath = jsonObject.getJSONObject("images").getJSONObject("mobile").getString("medium");
+                                       profilePicSmallPath = jsonObject.getJSONObject("images").getJSONObject("mobile").getString("small");
                                        new Helper().hideDialog(mProgressDialog);
-                                       showImage(profilePicPath);
+                                       showImage(profilePicMediumPath);
 
                                    } catch (JSONException e) {
                                        e.printStackTrace();

@@ -20,6 +20,7 @@ public interface Constants {
     }
 
     interface webAPI{
+        //Test for gitlab commit
         String BASE_URL= "http://13.234.17.31:3000";
         String IMAGE_UPLOAD_BASE_URL= "http://13.234.17.31:7504";
         String header_content_type= "Content-Type";

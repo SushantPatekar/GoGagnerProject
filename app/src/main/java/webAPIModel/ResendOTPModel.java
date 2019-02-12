@@ -1,5 +1,7 @@
 package webAPIModel;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ResendOTPModel {
     public String getMobile() {
         return mobile;
@@ -17,7 +19,7 @@ public class ResendOTPModel {
     public void setUsername(String username) {
         this.username = username;
     }
-
+    @SerializedName("username")
     public String username;
 
 

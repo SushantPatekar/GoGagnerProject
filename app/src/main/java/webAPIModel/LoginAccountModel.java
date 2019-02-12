@@ -1,11 +1,15 @@
 package webAPIModel;
 
+import com.google.gson.annotations.SerializedName;
+
 public class LoginAccountModel {
     /*
     This class is body of login querry
      */
 // TODO
+    @SerializedName("username")
     public String username;
+    @SerializedName("password")
     public String password;
 
     public String getUsername() {

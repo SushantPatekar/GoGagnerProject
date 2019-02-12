@@ -9,7 +9,7 @@
             <item>
                 <shape>
                     <solid android:color="#B1B1B1" />
-                    <padding android:bottom="@dimen/size_2" android:left="@dimen/size_2" android:right="@dimen/size_2" android:top="@dimen/size_2" />
+                    <padding android:bottom="@dimen/size_05" android:left="@dimen/size_05" android:right="@dimen/size_05" android:top="@dimen/size_05" />
 
 
                 </shape>

@@ -1,10 +1,19 @@
 package gogagner.goldenbrainsithub.com;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,14 +31,30 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dbModel.City;
 import dbModel.CityModel;
@@ -37,12 +62,15 @@ import dbModel.Locality;
 import dbModel.LocalityModel;
 import dbModel.State;
 import dbModel.StateModel;
+import networkcommunication.VolleyMultipartRequest;
 import slidermenu.BaseDrawerActivity;
 import utility.Constants;
 import utility.Helper;
 import networkcommunication.NetworkCommunicationHelper;
 import webAPIModel.ChangePWDModel;
 import webAPIModel.RegisterAccountModel;
+
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.OnClickListener {
 
@@ -69,6 +97,9 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
 
     String mSelectedLocalityName;
     int mSelectedLocalityID;
+
+    Button btnChangeProfile,btnremovePhoto;
+    ImageView imgAvatar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +108,8 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
     }
 
     private void initView() {
+        mProgressDialog = new ProgressDialog(getApplicationContext());
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         editProfileChangePwd = (RelativeLayout) findViewById(R.id.editProfileChangePwd);
         editProfilChangeImg = (RelativeLayout) findViewById(R.id.editProfilChangeImg);
         editProfileDetails = (RelativeLayout) findViewById(R.id.editProfileDetails);
@@ -158,6 +191,15 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
         spState.setOnItemSelectedListener(state_listener);
         spCity.setOnItemSelectedListener(city_listener);
         spLocality.setOnItemSelectedListener(localCity_listener);
+
+        btnChangeProfile = (Button) findViewById(R.id.btnChangePhoto);
+        btnremovePhoto = (Button) findViewById(R.id.btnRemovePhoto);
+        imgAvatar = (ImageView) findViewById(R.id.imgAvatar);
+
+        imgAvatar.setOnClickListener(this);
+        btnChangeProfile.setOnClickListener(this);
+        btnremovePhoto.setOnClickListener(this);
+
     }
 
     private int getDpAsPixels(int sizeInDp) {
@@ -197,6 +239,20 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
             case R.id.edDOB:
                 edDOB.setInputType(InputType.TYPE_NULL);
                 setDateFromCalender();
+                break;
+
+            case R.id.imgAvatar:
+                checkWriteExternalPermission();
+                break;
+
+            case R.id.btnChangePhoto:
+                if(bitmap!=null)
+                uploadProfileImage();
+                else
+                    Helper.showToast(getApplicationContext(),getResources().getString(R.string.imagePickeError));
+                break;
+            case R.id.btnRemovePhoto:
+                removePhoto();
                 break;
         }
     }
@@ -866,5 +922,142 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
 
 
     }
+    private void checkWriteExternalPermission() {
+        if (!checkEachPermission(WRITE_EXTERNAL_STORAGE)) {
+            requestContactPermission();
+        }else {
+            selectProfileImage();
+        }
+    }
 
+    private boolean checkEachPermission(String permission) {
+        return ContextCompat.checkSelfPermission(getApplicationContext(), permission) == PackageManager.PERMISSION_GRANTED;
+    }
+    private void requestContactPermission() {
+
+        ActivityCompat.requestPermissions(this, new String[]{WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_PERMISSION_REQUEST_CODE);
+    }
+
+    private void selectProfileImage() {
+        /*Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);*/
+
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(Intent.createChooser(galleryIntent, "Select Attachment"), PICK_IMAGE);
+    }
+
+
+
+    public static final int PICK_IMAGE = 6845;
+    private static final int WRITE_EXTERNAL_PERMISSION_REQUEST_CODE = 2564;
+    private String profilePicPath;
+    Bitmap bitmap;
+    ProgressDialog mProgressDialog;
+    private RequestQueue rQueue;
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+        if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
+            Uri uri = null;
+            if (resultData != null) {
+                try
+                {
+                    uri = resultData.getData();
+                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+
+                    Glide.with(this).load(bitmap).apply(RequestOptions.circleCropTransform())
+                            .into(imgAvatar);
+                    // profilePicPath = UriHelper.getPath(this, uri);
+//TODO upload Image
+
+
+
+                }
+                catch (Exception e){
+
+                }
+            }
+        }
+    }
+
+    private void uploadProfileImage() {
+        String webAPI = Constants.webAPI.IMAGE_UPLOAD_BASE_URL.concat(Constants.webAPI.uploadImage);
+        new Helper().showDialog(mProgressDialog,getResources().getString(R.string.popup_messege));
+        VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, webAPI,
+                new Response.Listener<NetworkResponse>() {
+                    @Override
+                    public void onResponse(NetworkResponse response) {
+                        rQueue.getCache().clear();
+                        try {
+                            JSONObject jsonObject = new JSONObject(new String(response.data));
+
+                            Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            profilePicPath = jsonObject.getJSONObject("images").getJSONObject("mobile").getString("medium");
+                            new Helper().hideDialog(mProgressDialog);
+                            showImage(profilePicPath);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        new Helper().hideDialog(mProgressDialog);
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+
+            /*
+             * If you want to add more parameters with the image
+             * you can do it here
+             * here we have only one parameter with the image
+             * which is tags
+             * */
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                // params.put("tags", "ccccc");  add string parameters
+                return params;
+            }
+
+            /*
+             *pass files using below method
+             * */
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> params = new HashMap<>();
+                long imagename = System.currentTimeMillis();
+                params.put("filename", new DataPart(imagename + ".png", getFileDataFromDrawable(bitmap)));
+                return params;
+            }
+        };
+
+
+        volleyMultipartRequest.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        rQueue = Volley.newRequestQueue(BuyerMyProfileActivity.this);
+        rQueue.add(volleyMultipartRequest);
+    }
+
+    public byte[] getFileDataFromDrawable(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
+    }
+    private void showImage(String imagePath) {
+        imgAvatar.setBackground(null);
+        Glide.with(this).load(imagePath)
+                .apply(RequestOptions.circleCropTransform())
+                .into(imgAvatar);
+    }
+
+    private void removePhoto(){
+        Glide.with(this).load(R.drawable.img_add_avatar).apply(RequestOptions.circleCropTransform())
+                .into(imgAvatar);
+    }
 }

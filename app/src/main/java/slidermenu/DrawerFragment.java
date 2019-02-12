@@ -189,7 +189,7 @@ public class DrawerFragment extends Fragment implements View.OnClickListener {
 
 //if(position!=2)
                 drawerListener.onGroupItemSelected(view,position);
-                //drawerListener.onDrawerItemSelected(view, position);
+                drawerListener.onDrawerItemSelected(view, position);
                // mDrawerLayout.closeDrawer(containerView);
             }
 

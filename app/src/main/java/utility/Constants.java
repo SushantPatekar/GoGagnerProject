@@ -28,7 +28,6 @@ public interface Constants {
 
         String apitoken = "apitoken";
         String apitoken_val = "dde4f4c184c845fab2dbc6e65820814c";
-
         String header_x_access_token= "x-access-token";
         String value_x_access_token = "application/json";
 
@@ -49,7 +48,8 @@ public interface Constants {
         String changePassword ="/api/users/changePassword";
         String refreshToken = "/api/users/token";
         String saveChanges= "/api/users/editProfile";
-        String uploadImage= "/services/upload/profile";
+       // String uploadImage= "/services/upload/profile";
+        String uploadImage = "/services/upload/profile";
         String getCategory = "/api/category";
         //api names
 

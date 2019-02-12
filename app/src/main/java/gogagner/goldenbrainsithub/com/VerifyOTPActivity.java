@@ -349,7 +349,7 @@ int size = 1;
                 Constants.sharedPref.userName);
         VerifyOTPModel verifyOTPModel = new VerifyOTPModel();
         String username = Helper.getSharedPrefValStr(this, Constants.sharedPref.userName);
-       // verifyOTPModel.setMobile(mobileNumber);
+        verifyOTPModel.setMobile(mobileNumber);
 
         // verifyOTPModel.setMobile("7506938193");
         //getSavedNumberfromUserDATA

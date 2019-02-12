@@ -4,12 +4,17 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.google.gson.annotations.SerializedName;
+
 @Entity
 public class Locality {
     @PrimaryKey
     @NonNull
+    @SerializedName("id")
     private int id;
+    @SerializedName("name")
     private String name;
+    @SerializedName("slug")
     private String slug;
 
     public String getCityId() {

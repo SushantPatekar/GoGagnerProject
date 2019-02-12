@@ -259,12 +259,12 @@ ImageView imgAvatar;
 
     public String generateSignupBody() {
         RegisterAccountModel registerAccountModel = new RegisterAccountModel();
-        registerAccountModel.setCityId(1);
+        registerAccountModel.setCityId(mSelectedCityID);
         registerAccountModel.setCountryId(1);
         registerAccountModel.setEmail(edEmail.getText().toString());
         registerAccountModel.setFirstName(edFirstName.getText().toString());
         registerAccountModel.setLastName(edLastName.getText().toString());
-        registerAccountModel.setLocalityId(1);
+        registerAccountModel.setLocalityId(mSelectedLocalityID);
         registerAccountModel.setMobile(edMobileNumber.getText().toString());
         registerAccountModel.setStateId(mSelectedStateID);
         registerAccountModel.setUserType(1);

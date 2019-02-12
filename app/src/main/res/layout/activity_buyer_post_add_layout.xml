@@ -1,51 +1,219 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:background="@color/white"
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <custom.customTextView
         android:id="@+id/tvPostaddlbl_one"
         android:layout_width="wrap_content"
-        android:textColor="@color/darkGray"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_30"
         android:layout_marginTop="@dimen/size_30"
+        android:layout_marginRight="@dimen/size_30"
         android:gravity="center"
-
         android:text="@string/post_add_lbl_select_location"
-        android:textSize="@dimen/text_size_12"
-        android:layout_height="wrap_content" />
-
-    <Spinner
-        android:id="@+id/spAddMaster"
-        style="@style/SpinnerWhiteLocationTheme"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-
-        android:layout_below="@id/tvPostaddlbl_one"
-        android:layout_marginLeft="@dimen/size_30"
-        android:layout_marginTop="@dimen/size_10"
-        android:layout_marginRight="@dimen/size_30"
-        android:maxLines="1"
-
-        android:paddingLeft="@dimen/size_40"
-
-        android:spinnerMode="dialog"
-        android:textAllCaps="true"
-        android:textColor="@color/white_txt"
-        android:textColorHint="@color/white_txt"
+        android:textColor="@color/darkGray"
         android:textSize="@dimen/text_size_12" />
-    <custom.customButton
-        android:id="@+id/btnSaveNext_one"
+
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:layout_below="@id/spAddMaster"
-        android:layout_marginLeft="@dimen/size_30"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="@dimen/size_30"
-        android:layout_marginRight="@dimen/size_30"
-        android:background="@drawable/custom_bg_login"
-        android:text="@string/btn_next"
-        android:textAllCaps="true"
-        android:textColor="@color/white_txt"
-        android:textSize="@dimen/text_size_12" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/tvPostaddlbl_one">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout_first"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
+            <Spinner
+                android:id="@+id/spAddMaster"
+                style="@style/SpinnerWhiteTheme"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="@dimen/size_30"
+                android:layout_marginTop="@dimen/size_10"
+                android:layout_marginRight="@dimen/size_30"
+                android:maxLines="1"
+
+                android:paddingLeft="@dimen/size_40"
+
+                android:spinnerMode="dialog"
+                android:textAllCaps="true"
+                android:textColor="@color/white_txt"
+                android:textColorHint="@color/white_txt"
+                android:textSize="@dimen/text_size_12" />
+
+            <ImageView
+                android:id="@+id/imgAddBanner_one"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_below="@id/spAddMaster"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/size_5"
+                android:src="@drawable/black_password"
+                android:visibility="gone" />
+
+            <custom.customButton
+                android:id="@+id/btnSaveNext_one"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_below="@id/imgAddBanner_one"
+                android:layout_marginLeft="@dimen/size_30"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="@dimen/size_30"
+                android:layout_marginBottom="@dimen/size_30"
+                android:background="@drawable/custom_bg_login"
+                android:text="@string/btn_next"
+                android:textAllCaps="true"
+                android:textColor="@color/white_txt"
+                android:textSize="@dimen/text_size_12" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout_second"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <Spinner
+                android:id="@+id/spBuisnessAd"
+                style="@style/SpinnerWhiteOccupationTheme"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="@dimen/size_30"
+                android:layout_marginTop="@dimen/size_10"
+                android:layout_marginRight="@dimen/size_30"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/size_40"
+                android:spinnerMode="dialog"
+                android:textAllCaps="true"
+                android:textColor="@color/white_txt"
+                android:textColorHint="@color/white_txt"
+                android:textSize="@dimen/text_size_12" />
+
+            <Spinner
+                android:id="@+id/spBuisnessCat"
+                style="@style/SpinnerWhiteOccupationTheme"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/spBuisnessAd"
+                android:layout_marginLeft="@dimen/size_30"
+                android:layout_marginTop="@dimen/size_10"
+                android:layout_marginRight="@dimen/size_30"
+                android:maxLines="1"
+                android:visibility="gone"
+                android:paddingLeft="@dimen/size_40"
+                android:spinnerMode="dialog"
+                android:textAllCaps="true"
+                android:textColor="@color/white_txt"
+                android:textColorHint="@color/white_txt"
+                android:textSize="@dimen/text_size_12" />
+
+            <Spinner
+                android:id="@+id/spBuisnessSubCat"
+                style="@style/SpinnerWhiteOccupationTheme"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:visibility="gone"
+                android:layout_below="@id/spBuisnessCat"
+                android:layout_marginLeft="@dimen/size_30"
+                android:layout_marginTop="@dimen/size_10"
+                android:layout_marginRight="@dimen/size_30"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/size_40"
+                android:spinnerMode="dialog"
+                android:textAllCaps="true"
+                android:textColor="@color/white_txt"
+                android:textColorHint="@color/white_txt"
+                android:textSize="@dimen/text_size_12" />
+
+            <custom.customButton
+                android:id="@+id/btnSaveNext_two"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_below="@id/spBuisnessSubCat"
+                android:layout_marginLeft="@dimen/size_30"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="@dimen/size_30"
+                android:layout_marginBottom="@dimen/size_30"
+                android:background="@drawable/custom_bg_login"
+                android:text="@string/btn_next"
+                android:textAllCaps="true"
+                android:textColor="@color/white_txt"
+                android:textSize="@dimen/text_size_12" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout_three"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <custom.customEditTextView
+                android:id="@+id/edDOB"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="@dimen/size_30"
+                android:layout_marginTop="@dimen/size_3"
+                android:layout_marginRight="@dimen/size_30"
+                android:background="@drawable/ed_bg_white_bakground"
+                android:drawableLeft="@drawable/black_dob"
+                android:drawablePadding="@dimen/size_20"
+                android:focusable="false"
+                android:inputType="none"
+                android:maxLines="1"
+                android:padding="12dp"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="@dimen/text_size_12" />
+
+            <custom.customBoldTextView
+                android:id="@+id/tvCoinLbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edDOB"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/size_30"
+                android:layout_marginTop="@dimen/size_5"
+                android:layout_marginRight="@dimen/size_30"
+                android:textColor="@color/darkGray"
+                android:textSize="@dimen/text_size_12"
+                android:visibility="gone" />
+
+            <custom.customButton
+
+                android:id="@+id/btnSaveNext_three"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_below="@id/tvCoinLbl"
+                android:layout_marginLeft="@dimen/size_30"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="@dimen/size_30"
+                android:layout_marginBottom="@dimen/size_30"
+                android:background="@drawable/custom_bg_login"
+                android:text="@string/post_add"
+                android:textAllCaps="true"
+                android:textColor="@color/white_txt"
+                android:textSize="@dimen/text_size_12" />
+
+            <custom.customTextView
+                android:id="@+id/tvCoinBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btnSaveNext_three"
+                android:layout_marginLeft="@dimen/size_30"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/size_30"
+                android:gravity="right"
+                android:visibility="gone"
+                android:drawableLeft="@drawable/front_coin_png"
+                android:text="Balance 250"
+                android:textColor="@color/darkGray"
+                android:textSize="@dimen/text_size_12" />
+        </RelativeLayout>
+    </FrameLayout>
 </RelativeLayout>

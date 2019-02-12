@@ -123,6 +123,8 @@
     <string name="popup_messege">Please wait.</string>
     <string name="imagePickeError">Please Select Image</string>
     <string name="post_add_lbl_select_location">Please select the location where you would like to display your Advertisement and check
-    below where and how it will be displayed.</string>\
+    below where and how it will be displayed.</string>
     <string name="btn_next">Next</string>
+    <string name="post_add">Post Add</string>
+    <string name="post_add_date">Schedule a date</string>
 </resources>

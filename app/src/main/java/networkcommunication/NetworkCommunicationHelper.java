@@ -35,6 +35,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.SocketException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -98,7 +99,7 @@ public class NetworkCommunicationHelper {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                responseReceived.onSuccess(response.toString());
+                responseReceived.onSuccess(response);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -115,14 +116,7 @@ public class NetworkCommunicationHelper {
 
             @Override
             public byte[] getBody() {
-                try {
-                    return reqJson == null ? null : reqJson.getBytes("utf-8");
-                } catch (UnsupportedEncodingException uee) {
-                    uee.fillInStackTrace();
-                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", reqJson, "utf-8");
-
-                    return null;
-                }
+                return reqJson == null ? null : reqJson.getBytes(StandardCharsets.UTF_8);
             }
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
@@ -146,7 +140,7 @@ public class NetworkCommunicationHelper {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                responseReceived.onSuccess(response.toString());
+                responseReceived.onSuccess(response);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -184,14 +178,7 @@ public class NetworkCommunicationHelper {
 
             @Override
             public byte[] getBody() {
-                try {
-                    return reqJson == null ? null : reqJson.getBytes("utf-8");
-                } catch (UnsupportedEncodingException uee) {
-                    uee.fillInStackTrace();
-                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", reqJson, "utf-8");
-
-                    return null;
-                }
+                return reqJson == null ? null : reqJson.getBytes(StandardCharsets.UTF_8);
             }
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
@@ -240,12 +227,7 @@ public class NetworkCommunicationHelper {
 
             @Override
             public byte[] getBody() {
-                try {
-                    return requestBody == null ? null : requestBody.getBytes("utf-8");
-                } catch (UnsupportedEncodingException uee) {
-                    uee.fillInStackTrace();
-                    return null;
-                }
+                return requestBody == null ? null : requestBody.getBytes(StandardCharsets.UTF_8);
             }
 
             @Override
@@ -287,7 +269,8 @@ public class NetworkCommunicationHelper {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                responseReceived.onSuccess(getSuccessResponseToken(response.toString(),context));
+                Log.i("response",""+response);
+                responseReceived.onSuccess(getSuccessResponseToken(response,context));
             }
         }, new Response.ErrorListener() {
             @Override
@@ -304,14 +287,7 @@ public class NetworkCommunicationHelper {
 
             @Override
             public byte[] getBody() {
-                try {
-                    return reqJson == null ? null : reqJson.getBytes("utf-8");
-                } catch (UnsupportedEncodingException uee) {
-                    uee.fillInStackTrace();
-                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", reqJson, "utf-8");
-
-                    return null;
-                }
+                return reqJson == null ? null : reqJson.getBytes(StandardCharsets.UTF_8);
             }
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
@@ -354,14 +330,7 @@ public class NetworkCommunicationHelper {
 
             @Override
             public byte[] getBody() {
-                try {
-                    return reqJson == null ? null : reqJson.getBytes("utf-8");
-                } catch (UnsupportedEncodingException uee) {
-                    uee.fillInStackTrace();
-                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", reqJson, "utf-8");
-
-                    return null;
-                }
+                return reqJson == null ? null : reqJson.getBytes(StandardCharsets.UTF_8);
             }
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
@@ -452,11 +421,13 @@ public class NetworkCommunicationHelper {
             mUser.setId(userDetails.getString("userId"));
             mUser.setUserType(userDetails.getInt("userType"));
             mUser.setMobile(userDetails.getString("mobile"));
-            mUser.setSmallProfileURL(userDetails.getJSONObject("media").getJSONObject("mobile").
+            /*mUser.setSmallProfileURL(userDetails.getJSONObject("media").getJSONObject("mobile").
                     getString("small"));
             mUser.setMediumProfileURL(userDetails.getJSONObject("media").getJSONObject("mobile").
-                    getString("medium"));
+                    getString("medium"));*/
             new UserModel().addUser(mContext,mUser);
+
+            Log.i("response",""+new UserModel().getUserbyID(mContext,userDetails.getString("mobile")).getAccessToken());
 
         }
         catch (Exception e){

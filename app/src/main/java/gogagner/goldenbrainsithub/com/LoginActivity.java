@@ -41,26 +41,26 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         try
         {
             mProgressDialog = new ProgressDialog(getApplication());
-            edMobileNumber = (EditText) findViewById(R.id.edMobileNumber);
-            edPassword = (EditText) findViewById(R.id.edPassword);
+            edMobileNumber = findViewById(R.id.edMobileNumber);
+            edPassword = findViewById(R.id.edPassword);
 
             edMobileNumber.setHint(getResources().getString(R.string.lbl_mobile_number).toUpperCase());
             edPassword.setHint(getResources().getString(R.string.lbl_password).toUpperCase());
 
-            btnLogin = (Button) findViewById(R.id.btnLogin);
+            btnLogin = findViewById(R.id.btnLogin);
 
             edMobileNumber.setText("9867445541");
             edPassword.setText("ashu@123");
             btnLogin.setOnClickListener(this);
 
-            tvCreateAccount = (TextView) findViewById(R.id.tvCreateAccount);
+            tvCreateAccount = findViewById(R.id.tvCreateAccount);
             String first = "Don't have an account with GoGagner ? ";
             String next = " <font color='#EE0000'>Create Account</font>";
             tvCreateAccount.setText(Html.fromHtml(first + next));
 
             tvCreateAccount.setOnClickListener(this);
 
-            tvForgotPassword = (TextView) findViewById(R.id.tvForgotPwd);
+            tvForgotPassword = findViewById(R.id.tvForgotPwd);
             tvForgotPassword.setOnClickListener(this);
         }
         catch (Exception e){
@@ -68,6 +68,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         }
     }
     private ProgressDialog mProgressDialog;
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -78,13 +79,13 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                                 .concat(Constants.webAPI.apiLogin);
                         String requestBody = generateLoginBody();
                         NetworkCommunicationHelper networkCommunicationHelper = new NetworkCommunicationHelper();
-                        new Helper().showDialog(mProgressDialog,getResources().getString(R.string.popup_messege));
+                        //new Helper().showDialog(mProgressDialog,getResources().getString(R.string.popup_messege));
                         //For Access Token
                         networkCommunicationHelper.sendPostAccessTokenRequest(getApplication(), webAPI, requestBody,
                                 new NetworkCommunicationHelper.OnResponseReceived() {
                                     @Override
                                     public void onSuccess(final String res) {
-                                        new Helper().hideDialog(mProgressDialog);
+                                       // new Helper().hideDialog(mProgressDialog);
                                         Helper.updatedSharedPrefValBoolean(LoginActivity.this,
                                                 Constants.login.isLoginSuccess, true);
                                         Helper.updateSharedPrefValStr(LoginActivity.this,
@@ -103,7 +104,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                                     @Override
                                     public void onFailure(final String err) {
                                         Helper.showToast(LoginActivity.this, ""+Helper.getServerMessage(err));
-                                        new Helper().hideDialog(mProgressDialog);
+                                      //  new Helper().hideDialog(mProgressDialog);
                                         switch (Helper.getServerErroCode(err)) {
                                             case Constants.serverErroCode.code_406:
                                                 startActivity(new Intent(

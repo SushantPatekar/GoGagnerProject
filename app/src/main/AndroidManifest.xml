@@ -41,7 +41,12 @@
             android:windowSoftInputMode="adjustNothing">
 
         </activity>
+        <activity
+            android:name="gogagner.goldenbrainsithub.com.BuyerPostAddActitivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing">
 
+        </activity>
         <activity
             android:name="gogagner.goldenbrainsithub.com.BuyerSellerCategoryActivity"
             android:screenOrientation="portrait"

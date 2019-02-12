@@ -34,6 +34,7 @@ import dbModel.StateModel;
 import dbModel.User;
 import dbModel.UserModel;
 import gogagner.goldenbrainsithub.com.BuyerMyProfileActivity;
+import gogagner.goldenbrainsithub.com.BuyerPostAddActitivity;
 import gogagner.goldenbrainsithub.com.BuyerSellerDashBoardActivity;
 import gogagner.goldenbrainsithub.com.LoginActivity;
 import gogagner.goldenbrainsithub.com.R;
@@ -60,6 +61,7 @@ public abstract class BaseDrawerActivity extends AppCompatActivity implements Dr
 
     private final int BUYER_HOME = 0;
     private final int BUYER_MY_PROFILE = 5;
+    private final int BUYER_POST_ADD = 7;
     private final int LOG_OUT = 16;
     private final int E_PURSE = 2;
     private final int HELP = 3;
@@ -179,6 +181,12 @@ private EditText medsearch;
                 startActivity(new Intent(this, BuyerSellerDashBoardActivity.class));
                 finish();
                 break;
+
+            case BUYER_POST_ADD:
+                startActivity(new Intent(this, BuyerPostAddActitivity.class));
+                finish();
+                break;
+
                 default:
                     break;
         }

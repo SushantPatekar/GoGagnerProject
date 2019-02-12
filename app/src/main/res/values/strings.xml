@@ -121,4 +121,5 @@
     <string name="dob_error">Please enter Date of Birth.</string>
     <string name="adhar_error">Please enter Aadhar Card.</string>
     <string name="popup_messege">Please wait.</string>
+    <string name="imagePickeError">Please Select Image</string>
 </resources>

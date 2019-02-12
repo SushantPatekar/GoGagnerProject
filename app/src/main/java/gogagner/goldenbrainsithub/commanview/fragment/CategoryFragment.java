@@ -2,6 +2,7 @@ package gogagner.goldenbrainsithub.commanview.fragment;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,11 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import gogagner.goldenbrainsithub.adapter.CategoryAdapter;
+import gogagner.goldenbrainsithub.adapter.RecyclerTouchListener;
 import gogagner.goldenbrainsithub.adapter.SpacesItemDecoration;
+import gogagner.goldenbrainsithub.com.BuyerSellerCategoryActivity;
 import gogagner.goldenbrainsithub.com.R;
 import gogagner.goldenbrainsithub.model.CategoryModel;
 
@@ -48,16 +52,33 @@ public class CategoryFragment extends Fragment {
            // "http://api.learn2crack.com/android/images/marshmallow.png"
             " R.drawable.ic_img_avatar"
     };
-
+    ArrayList<CategoryModel> categoryModelArrayList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.layout_category_fragment, container, false);
         RecyclerView rv = (RecyclerView) rootView.findViewById(R.id.recycler_category_fragment);
         rv.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        ArrayList<CategoryModel> categoryModelArrayList = prepareData();
+        categoryModelArrayList= prepareData();
         CategoryAdapter adapter = new CategoryAdapter(getActivity(), categoryModelArrayList);
         rv.setAdapter(adapter);
+
+
+        rv.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rv, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                CategoryModel movie = categoryModelArrayList.get(position);
+
+                getActivity().startActivity(new Intent(getActivity(),
+                        BuyerSellerCategoryActivity.class));
+                //Toast.makeText(getActivity(), movie.getCategory_name() + " is selected!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
         return rootView;
 
 

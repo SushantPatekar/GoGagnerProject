@@ -26,7 +26,6 @@ public class BuyerSellerDashBoardActivity extends BaseDrawerActivity implements 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buyer_seller_dashboard_layout);
         initView();
-        fetchCategoryData();
     }
 
 
@@ -55,48 +54,5 @@ public class BuyerSellerDashBoardActivity extends BaseDrawerActivity implements 
     }
 
 
-    private void fetchCategoryData(){
-        try{
 
-            String webAPI = Helper.getSharedPrefValStr(getApplicationContext(), Constants.sharedPref.s_BASE_URL)
-                    .concat(Constants.webAPI.getCategory);
-
-            NetworkCommunicationHelper networkCommunicationHelper = new NetworkCommunicationHelper();
-            networkCommunicationHelper.sendSynchronousGetRequest(getApplication(), webAPI,
-                    new NetworkCommunicationHelper.OnResponseReceived() {
-                        @Override
-                        public void onSuccess(final String res) {
-
-                            try{
-
-                                String responseString = Helper.fetchMainResponseasObject(res);
-                                /*Gson gson = new GsonBuilder()
-                                        .serializeNulls()
-                                        .create();
-
-                                Type type = new TypeToken<MainCategoryModel>() {
-                                }.getType();
-                                MainCategoryModel mainCategoryModel = gson.fromJson(responseString, type);
-
-                                Log.i(TAG,"This is object "+mainCategoryModel.getStatus());*/
-
-
-                            }
-                            catch (Exception e){
-                                Log.e(TAG,""+e.getLocalizedMessage());
-                            }
-
-
-                        }
-
-                        @Override
-                        public void onFailure(final String err) {
-                        }
-                    });
-        }
-
-        catch (Exception e){
-
-        }
-    }
 }

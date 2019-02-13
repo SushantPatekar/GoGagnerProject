@@ -49,8 +49,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 
             btnLogin = findViewById(R.id.btnLogin);
 
-           /* edMobileNumber.setText("9867445541");
-            edPassword.setText("ashu@123");*/
+            edMobileNumber.setText("9867445541");
+            edPassword.setText("ashu@123");
 
             btnLogin.setOnClickListener(this);
 

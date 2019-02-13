@@ -1,13 +1,18 @@
 package gogagner.goldenbrainsithub.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 
 public class MainCategoryModel implements Serializable {
 
+    @SerializedName("status")
     public String status ;
+    @SerializedName("messages")
     public String messages ;
 
+    @SerializedName("data")
     List <ChildCategoryModel> childCategoryModel;
 
     public String getStatus() {

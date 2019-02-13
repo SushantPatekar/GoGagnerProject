@@ -13,14 +13,13 @@ android {
         versionName "1.0.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-   /* buildTypes {
+    buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-*/
-    buildTypes {
+    /*buildTypes {
         release {
             debuggable false
             minifyEnabled true
@@ -34,7 +33,7 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
+    }*/
 
     useLibrary 'org.apache.http.legacy'
 

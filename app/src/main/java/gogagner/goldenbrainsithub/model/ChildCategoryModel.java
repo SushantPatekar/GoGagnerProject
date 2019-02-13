@@ -1,22 +1,34 @@
 package gogagner.goldenbrainsithub.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 
 public class ChildCategoryModel implements Serializable {
+    @SerializedName("id")
+    private String id;
+    @SerializedName("name")
+    private String name;
+    @SerializedName("title")
+    private String title;
+    @SerializedName("subTitle")
+    private String subTitle;
+    @SerializedName("metaTitle")
+    private String metaTitle;
+    @SerializedName("metaDescription")
+    private String metaDescription;
+    @SerializedName("metaKeywords")
+    private String metaKeywords;
+    @SerializedName("offerText")
+    private String offerText;
+    @SerializedName("description")
+    private String description;
+    @SerializedName("shareUrl")
+    private String shareUrl;
 
-private String id;
-private String name;
-private String title;
-private String subTitle;
-private String metaTitle;
-private String metaDescription;
-private String metaKeywords;
-private String offerText;
-private String description;
-private String shareUrl;
-
-private List<MediaModel> mediaModels;
+    @SerializedName("Media")
+    private List<MediaModel> mediaModels;
 
     public String getId() {
         return id;

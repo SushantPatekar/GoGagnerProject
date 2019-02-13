@@ -1,10 +1,12 @@
 package gogagner.goldenbrainsithub.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 
 public class MediaModel implements Serializable {
-
+    @SerializedName("id")
     private String id;
 
     public String getId() {
@@ -23,6 +25,7 @@ public class MediaModel implements Serializable {
         this.mediaUrl = mediaUrl;
     }
 
+    @SerializedName("mediaUrl")
     private mediaUrl mediaUrl;
 
 }

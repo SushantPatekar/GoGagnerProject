@@ -40,6 +40,7 @@ import gogagner.goldenbrainsithub.com.LoginActivity;
 import gogagner.goldenbrainsithub.com.R;
 import gogagner.goldenbrainsithub.com.ResetPasswordActivity;
 import gogagner.goldenbrainsithub.com.SignupActivity;
+import gogagner.goldenbrainsithub.model.ChildCategoryModel;
 import gogagner.goldenbrainsithub.model.MainCategoryModel;
 import networkcommunication.NetworkCommunicationHelper;
 import utility.Constants;
@@ -86,7 +87,7 @@ private EditText medsearch;
         //clear
 
         //fetch Category & Add
-     //   fetchCategoryData();
+        fetchCategoryData();
         setNavigationDrawer();
     }
 
@@ -412,11 +413,12 @@ private EditText medsearch;
                                         .serializeNulls()
                                         .create();
 
+                                String categoryResponse = Helper.fetchResponse(res);
+
                                 Type type = new TypeToken<MainCategoryModel>() {
                                 }.getType();
                                 MainCategoryModel mainCategoryModel = gson.fromJson(responseString, type);
 
-                               Log.i(TAG,"This is object "+mainCategoryModel.getStatus());
 
 
                             }

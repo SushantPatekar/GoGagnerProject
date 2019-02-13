@@ -1,10 +1,13 @@
 package gogagner.goldenbrainsithub.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class mobileModel implements Serializable {
-private String medium;
-private String small;
+    @SerializedName("medium")
+    private String medium;
+    private String small;
 
     public String getMedium() {
         return medium;

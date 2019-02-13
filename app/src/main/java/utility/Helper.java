@@ -11,6 +11,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -191,8 +192,17 @@ public class Helper {
         alertbox.setCancelable(false);
         }
 
+    public static boolean isNumber(String s)
+    {
+        Log.i("TAG",""+s);
+        for (int i = 0; i < s.length(); i++)
+            if (Character.isDigit(s.charAt(i))
+                    == false)
+                return false;
 
-        public static boolean isMobileOREmail(String input,Activity mAct){
+        return true;
+    }
+       /* public static boolean isMobileOREmail(String input,Activity mAct){
         boolean isMobile=false;
 
         if(!isMobile(input, isMobile,mAct)){
@@ -204,7 +214,7 @@ else {
     isMobile = true;
         }
 
-       /* else if(!input.matches(Constants.UserDetails.EMAIL_REGEX)){
+       *//* else if(!input.matches(Constants.UserDetails.EMAIL_REGEX)){
 
             showToast((Context) mAct,mAct.getResources().getString(R.string.enter_valid_email));
             isMobile= false;
@@ -212,14 +222,14 @@ else {
         else {
             isMobile = true;
 
-        }*/
+        }*//*
             return isMobile;
         //isMobile = isMobile(input, isMobile);
 
             //return isMobile;
-        }
+        }*/
 
-    private static  boolean isMobile(String input, boolean isMobile,Activity mAct) {
+   /* private static  boolean isMobile(String input, boolean isMobile,Activity mAct) {
         try{
             int yourNumber = Integer.parseInt(input);
 
@@ -249,7 +259,7 @@ else {
            // isMobile = false;
         }
         return isMobile;
-    }
+    }*/
 
     public static String getX_AccessToken(Application mContext){
         String XAccessToken = null;
@@ -299,32 +309,7 @@ else {
         }
     }
 }
-   /* private boolean isValidMobile(String phone) {
-        boolean check = false;
-        if (!Pattern.matches("[a-zA-Z]+", phone)) {
-            //if(phone.length() < 6 || phone.length() > 10) {
-            if (phone.length() != 10) {
-                check = false;
-            }
-            return check;
-        }
 
-        return check;
-    }*/
-
-
-   /* public static boolean checkValidation(String data)
-    {
-       // String input = yourEditText.getText().toString();
-        if(data.contains("@"))
-        {
-            return android.util.Patterns.EMAIL_ADDRESS.matcher(data).matches();
-        }
-        else
-        {
-            return android.util.Patterns.PHONE.matcher(data).matches();
-        }
-    }*/
 
 
 

@@ -74,6 +74,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnLogin:
+                boolean val =Helper.isNumber("sushant");
                 if (validateUserPWD()) {
                     if (new Helper().isNetworkAvailable(getApplication())) {
                         String webAPI = Helper.getSharedPrefValStr(LoginActivity.this, Constants.sharedPref.s_BASE_URL)
@@ -118,7 +119,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                                                 break;
 
                                         }
-                                       /* */
                                     }
                                 });
                     } else
@@ -167,20 +167,14 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             return false;
         } else if (TextUtils.isEmpty(edPassword.getText().toString().trim())){
             Helper.showToast(this, getString(R.string.enter_valid_pwd));
+
             return false;
         }
         else
+
             return true;
 
-       /* if (edMobileNumber.getText().toString().matches("") ) {
-            Helper.showToast(this, getString(R.string.enter_valid_email_mobilenumber));
-            return false;
-        } else if (edPassword.getText().toString().matches("")){
-            Helper.showToast(this, getString(R.string.enter_valid_pwd));
-            return false;
-        } else {
-            return true;
-        }*/
+
 
 
     }

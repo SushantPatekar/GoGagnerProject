@@ -346,7 +346,12 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
         } else if (edAdharNumber.getText().toString().trim().matches("")) {
             Helper.showToast(this, getString(R.string.adhar_error));
 
-        } else {
+        } else if (edAdharNumber.getText().toString().trim().length() > 12 ||
+                edAdharNumber.getText().toString().trim().length() < 12) {
+            Helper.showToast(this, getString(R.string.adhar_error));
+        }
+
+        else {
             isFormFilledUp = true;
         }
         return isFormFilledUp;

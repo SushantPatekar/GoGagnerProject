@@ -119,7 +119,7 @@
     <string name="lbl_dob">Date Of Birth </string>
     <string name="lbl_aadhar_number">Aadhar Number </string>
     <string name="dob_error">Please enter Date of Birth.</string>
-    <string name="adhar_error">Please enter Aadhar Card.</string>
+    <string name="adhar_error">Please enter valid Aadhar Card.</string>
     <string name="popup_messege">Please wait.</string>
     <string name="imagePickeError">Please Select Image</string>
     <string name="post_add_lbl_select_location">Please select the location where you would like to display your Advertisement and check

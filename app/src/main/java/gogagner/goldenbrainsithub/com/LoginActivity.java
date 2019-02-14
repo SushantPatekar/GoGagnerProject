@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -34,7 +35,10 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         Helper.setFullScreen(LoginActivity.this);
         setContentView(R.layout.activity_login_layout);
+
+
         initView();
+
     }
 
     public void initView(){
@@ -74,7 +78,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnLogin:
-                boolean val =Helper.isNumber("sushant");
+
                 if (validateUserPWD()) {
                     if (new Helper().isNetworkAvailable(getApplication())) {
                         String webAPI = Helper.getSharedPrefValStr(LoginActivity.this, Constants.sharedPref.s_BASE_URL)

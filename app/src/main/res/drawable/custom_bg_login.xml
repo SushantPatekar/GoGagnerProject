@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<ripple
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/colorAccent">
+    <!--<item>
+        <shape
+            android:shape="rectangle">
+            <solid android:color="#4CAF50" />
+        </shape>
+    </item>-->
     <item>
         <shape android:shape="rectangle"
 
             >
-            <!--make a gradient background-->
             <gradient
                 android:type="linear"
                 android:startColor="@color/outer_red"
@@ -12,11 +19,9 @@
                 android:centerColor="@color/inner_red"
                 android:angle="270" />
 
-            <!--apply a border around button-->
             <stroke   android:color="@color/outer_red" android:width="3dp" />
-            <!-- make the button corners rounded-->
             <corners android:radius="3dp"
                 />
         </shape>
     </item>
-</selector>
+</ripple>

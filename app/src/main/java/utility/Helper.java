@@ -192,74 +192,31 @@ public class Helper {
         alertbox.setCancelable(false);
         }
 
-    public static boolean isNumber(String s)
-    {
-        Log.i("TAG",""+s);
+    public static boolean isNumber(Activity mAct, String s) {
+        boolean isValid = false;
+        String errorMessage = null;
         for (int i = 0; i < s.length(); i++)
-            if (Character.isDigit(s.charAt(i))
-                    == false)
-                return false;
 
-        return true;
+            if (!Character.isDigit(s.charAt(i))) {
+                if (!s.trim().matches(Constants.UserDetails.EMAIL_REGEX)) {
+                    errorMessage = mAct.getResources().getString(R.string.enter_valid_email);
+                    isValid = false;
+                } else {
+                    isValid = true;
+                }
+
+            } else {
+                if (s.trim().length() > 10 || s.trim().length() < 10) {
+                    errorMessage = mAct.getResources().getString(R.string.enter_mob_no);
+                    isValid = false;
+                } else
+                    isValid = true;
+            }
+        if (!isValid)
+            showToast(mAct, errorMessage);
+        return isValid;
     }
-       /* public static boolean isMobileOREmail(String input,Activity mAct){
-        boolean isMobile=false;
 
-        if(!isMobile(input, isMobile,mAct)){
-
-            //showToast((Context) mAct,mAct.getResources().getString(R.string.enter_mob_no));
-            isMobile =false;
-        }
-else {
-    isMobile = true;
-        }
-
-       *//* else if(!input.matches(Constants.UserDetails.EMAIL_REGEX)){
-
-            showToast((Context) mAct,mAct.getResources().getString(R.string.enter_valid_email));
-            isMobile= false;
-        }
-        else {
-            isMobile = true;
-
-        }*//*
-            return isMobile;
-        //isMobile = isMobile(input, isMobile);
-
-            //return isMobile;
-        }*/
-
-   /* private static  boolean isMobile(String input, boolean isMobile,Activity mAct) {
-        try{
-            int yourNumber = Integer.parseInt(input);
-
-            if(input.trim().length()>10 ||input.trim().length()<10){
-                showToast((Context) mAct,mAct.getResources().getString(R.string.enter_mob_no));
-                isMobile = false;
-                return isMobile ;
-
-            }
-            isMobile = true;
-        }catch (NumberFormatException ex) {
-            //handle exception here
-            if(input.trim().length()>10){
-                showToast((Context) mAct,mAct.getResources().getString(R.string.enter_mob_no));
-                isMobile = false;
-                return isMobile ;
-
-            }
-                  else  if(!input.matches(Constants.UserDetails.EMAIL_REGEX)){
-
-                       showToast((Context) mAct,mAct.getResources().getString(R.string.enter_valid_email));
-                       isMobile = false;
-                   }
-                   else {
-                       isMobile = true;
-                   }
-           // isMobile = false;
-        }
-        return isMobile;
-    }*/
 
     public static String getX_AccessToken(Application mContext){
         String XAccessToken = null;

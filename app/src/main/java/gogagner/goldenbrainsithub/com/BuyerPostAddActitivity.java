@@ -20,7 +20,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -29,7 +35,14 @@ import dbModel.CityModel;
 import dbModel.Locality;
 import dbModel.LocalityModel;
 import dbModel.StateModel;
+import gogagner.goldenbrainsithub.model.mobileModel;
+import networkcommunication.NetworkCommunicationHelper;
 import slidermenu.BaseDrawerActivity;
+import utility.Constants;
+import utility.Helper;
+import webAPIModel.ChangePWDModel;
+import webAPIModel.PostAddMedia;
+import webAPIModel.PostAddModel;
 
 public class BuyerPostAddActitivity  extends BaseDrawerActivity implements View.OnClickListener {
     public static String TAG = BuyerSellerDashBoardActivity.class.getSimpleName();
@@ -123,6 +136,8 @@ switch (view.getId()){
 
     public void viewFourContainer(){
 
+
+    postAddApi();
     }
     @Override
     public void onDrawerProfileClick(View view) {
@@ -395,4 +410,60 @@ switch (view.getId()){
     };
 
 
+    public void postAddApi(){
+        try{
+            if (new Helper().isNetworkAvailable(getApplication())) {
+
+                String webAPI = Helper.getSharedPrefValStr(BuyerPostAddActitivity.this, Constants.sharedPref.s_BASE_URL)
+                        .concat(Constants.webAPI.postAdd);
+                String requestBody = createPostAdModel();
+                NetworkCommunicationHelper networkCommunicationHelper = new NetworkCommunicationHelper();
+
+                networkCommunicationHelper.sendUserPostRequest(getApplication(), webAPI, requestBody,
+                        new NetworkCommunicationHelper.OnResponseReceived() {
+                            @Override
+                            public void onSuccess(final String res) {
+                                try {
+                                    Toast.makeText(getApplicationContext(), "" + Helper.getServerSuccessMessage(res), Toast.LENGTH_SHORT).show();
+                                } catch (Exception e) {
+
+                                }
+
+                            }
+
+                            @Override
+                            public void onFailure(final String err) {
+                                Helper.showToast(BuyerPostAddActitivity.this, "" + Helper.getServerMessage(err));
+                            }
+
+
+                        });
+            } else {
+                Helper.showToast(BuyerPostAddActitivity.this, getResources().getString(R.string.lbl_no_internet));
+            }
+        }
+        catch (Exception e){
+
+        }
+    }
+
+    public String createPostAdModel() {
+        PostAddModel postAddModel = new PostAddModel();
+        PostAddMedia postAddMedia = new PostAddMedia();
+        mobileModel mobileModel = new mobileModel();
+              mobileModel.setSmall("https://gogagnerbucket.s3.ap-south-1.amazonaws.com/images/profile/mobile/small/12X.jpe");
+              mobileModel.setMedium("https://gogagnerbucket.s3.ap-south-1.amazonaws.com/images/profile/mobile/medium/12X.jpeg");
+        postAddMedia.setMobileModel(mobileModel);
+        postAddModel.setBusinessId("2");
+        postAddModel.setLocationId("1");
+        postAddModel.setPublishDate("1987-12-09");
+        postAddModel.setSourceId("1");
+        postAddModel.setPostAddMedia(postAddMedia);
+        Gson gson = new GsonBuilder()
+                .serializeNulls()
+                .create();
+        Type type = new TypeToken<PostAddModel>() {
+        }.getType();
+        return gson.toJson(postAddModel, type);
+    }
 }

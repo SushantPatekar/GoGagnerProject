@@ -51,6 +51,7 @@ public interface Constants {
        // String uploadImage= "/services/upload/profile";
         String uploadImage = "/services/upload/profile";
         String getCategory = "/api/category";
+        String postAdd = "/api/ads/postAds";
         //api names
 
     }
@@ -63,7 +64,7 @@ public interface Constants {
         String IS_REFRESHING = "IS_REFRESHING";
         String EXPIRES_IN = "expires_in";
         String INVALID_GRANT_CODE = "400";
-        String INVALID_GRANT_MSG = "invalid_grant";
+        String INVALID_GRANT_MSG = "inva lid_grant";
     }
     interface DB{
         String NAME = "Gogagner.db";

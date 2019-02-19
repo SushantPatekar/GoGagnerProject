@@ -28,4 +28,6 @@ public class MediaModel implements Serializable {
     @SerializedName("mediaUrl")
     private mediaUrl mediaUrl;
 
+    //This is teat 
+
 }

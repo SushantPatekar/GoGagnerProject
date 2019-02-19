@@ -59,9 +59,7 @@ public class RequestOTP extends Activity implements View.OnClickListener{
 
 
                 if(new Helper().isNetworkAvailable(getApplication())){
-                    if((!TextUtils.isEmpty(edRegisterOTP.getText().toString().trim()))){
-
-                   // if(Helper.isMobileOREmail(edRegisterOTP.getText().toString().trim(),RequestOTP.this)){
+                        if((Helper.isNumber(RequestOTP.this,edRegisterOTP.getText().toString().trim()))){
                         String webAPI = Helper.getSharedPrefValStr(RequestOTP.this, Constants.sharedPref.s_BASE_URL)
                                 .concat(Constants.webAPI.forgotPassword);
                         String requestBody =  generateForgotPwdBody();
@@ -86,9 +84,8 @@ public class RequestOTP extends Activity implements View.OnClickListener{
                                     }
                                 });
                     }
-                    else {
-                        Helper.showToast(getApplication(),getResources().getString(R.string.enter_valid_email_mobilenumber));
-                    }
+
+
                 }else
                     Helper.showToast(getApplication(),getResources().getString(R.string.lbl_no_internet));
 

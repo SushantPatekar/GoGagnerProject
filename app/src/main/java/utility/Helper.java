@@ -250,17 +250,21 @@ public class Helper {
         return userJson.toString();
     }
 
-    public void showDialog(ProgressDialog mProgressDialog, String message) {
+    public static  void showDialog(ProgressDialog mProgressDialog, String message) {
         try {
+
             mProgressDialog.setMessage(message);
-            mProgressDialog.setCanceledOnTouchOutside(false);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             mProgressDialog.show();
+
+
         } catch (Exception e) {
 
         }
     }
 
-    public void hideDialog(ProgressDialog mProgressDialog) {
+    public static void hideDialog(ProgressDialog mProgressDialog) {
         try {
             mProgressDialog.hide();
         } catch (Exception e) {

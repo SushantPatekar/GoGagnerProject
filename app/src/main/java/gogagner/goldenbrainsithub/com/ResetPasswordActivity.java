@@ -1,6 +1,7 @@
 package gogagner.goldenbrainsithub.com;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ public class ResetPasswordActivity  extends Activity implements View.OnClickList
     public static String TAG = ResetPasswordActivity.class.getSimpleName();
     Button btnResetPassword;
     EditText edConfirmPassword,edNewPassword;
+    ProgressDialog mProgressDialog;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +58,9 @@ public class ResetPasswordActivity  extends Activity implements View.OnClickList
                 if(validate()){
                 if(new Helper().isNetworkAvailable(getApplication()))   {
 
+                    mProgressDialog = new ProgressDialog(ResetPasswordActivity.this);
+                    Helper.showDialog(mProgressDialog,getResources().getString(R.string.popup_messege));
+
                     String webAPI = Helper.getSharedPrefValStr(ResetPasswordActivity.this, Constants.sharedPref.s_BASE_URL)
                             .concat(Constants.webAPI.apiResetPWD);
                     String requestBody = resetPWDBody();
@@ -66,6 +71,7 @@ public class ResetPasswordActivity  extends Activity implements View.OnClickList
                                 @Override
                                 public void onSuccess(final String res) {
 
+                                    Helper.hideDialog(mProgressDialog);
                                     startActivity(new Intent(
                                             getApplication(),
                                             LoginActivity.class
@@ -89,6 +95,7 @@ public class ResetPasswordActivity  extends Activity implements View.OnClickList
 
                                 @Override
                                 public void onFailure(final String err) {
+                                    Helper.hideDialog(mProgressDialog);
                                     Helper.showToast(ResetPasswordActivity.this, ""+Helper.getServerMessage(err));
                                 }
 

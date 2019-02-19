@@ -208,6 +208,9 @@ ImageView imgAvatar;
         else {
 
             //TODO register api integration
+            mProgressDialog = new ProgressDialog(SignupActivity.this);
+            Helper.showDialog(mProgressDialog,getResources().getString(R.string.popup_messege));
+
             if (new Helper().isNetworkAvailable(getApplication())) {
                 if(chIagree.isChecked()){
                     String webAPI = Helper.getSharedPrefValStr(SignupActivity.this, Constants.sharedPref.s_BASE_URL)
@@ -667,7 +670,9 @@ else {
 
                   // profilePicPath = UriHelper.getPath(this, uri);
 //TODO upload Image
-
+                   mProgressDialog = new ProgressDialog(SignupActivity.this);
+                   Helper.showDialog(mProgressDialog,getResources().getString(R.string.popup_messege));
+                   
                    String webAPI = Constants.webAPI.IMAGE_UPLOAD_BASE_URL.concat(Constants.webAPI.uploadImage);
                    new Helper().showDialog(mProgressDialog,getResources().getString(R.string.popup_messege));
                    VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, webAPI,

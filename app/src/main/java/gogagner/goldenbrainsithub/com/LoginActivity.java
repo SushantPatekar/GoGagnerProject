@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Html;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +16,8 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+
+import org.apache.commons.logging.Log;
 
 import java.lang.reflect.Type;
 
@@ -30,6 +31,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     Button btnLogin;
     EditText edMobileNumber,edPassword;
     TextView tvCreateAccount,tvForgotPassword;
+
+    private ProgressDialog mDialog;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     public void initView(){
         try
         {
+
             mProgressDialog = new ProgressDialog(getApplication());
             edMobileNumber = findViewById(R.id.edMobileNumber);
             edPassword = findViewById(R.id.edPassword);
@@ -78,7 +82,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnLogin:
-
+                mProgressDialog = new ProgressDialog(LoginActivity.this);
+                Helper.showDialog(mProgressDialog,getResources().getString(R.string.popup_messege));
 
                 if (validateUserPWD()) {
                     if (new Helper().isNetworkAvailable(getApplication())) {
@@ -92,7 +97,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                                 new NetworkCommunicationHelper.OnResponseReceived() {
                                     @Override
                                     public void onSuccess(final String res) {
-                                       // new Helper().hideDialog(mProgressDialog);
+                                        new Helper().hideDialog(mProgressDialog);
                                         Helper.updatedSharedPrefValBoolean(LoginActivity.this,
                                                 Constants.login.isLoginSuccess, true);
                                         Helper.updateSharedPrefValStr(LoginActivity.this,
@@ -111,7 +116,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                                     @Override
                                     public void onFailure(final String err) {
                                         Helper.showToast(LoginActivity.this, ""+Helper.getServerMessage(err));
-                                      //  new Helper().hideDialog(mProgressDialog);
+                                        new Helper().hideDialog(mProgressDialog);
                                         switch (Helper.getServerErroCode(err)) {
                                             case Constants.serverErroCode.code_406:
                                                 startActivity(new Intent(

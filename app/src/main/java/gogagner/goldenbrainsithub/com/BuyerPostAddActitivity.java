@@ -1,6 +1,7 @@
 package gogagner.goldenbrainsithub.com;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.media.Image;
 import android.os.Bundle;
@@ -74,7 +75,7 @@ Spinner spBuisnessAd,spBuisnessCat,spBuisnessSubCat;
         btnNext_three= findViewById(R.id.btnSaveNext_three);
         iv_addBaner_one = findViewById(R.id.imgAddBanner_one);
         edDOB = findViewById(R.id.edDOB);
-        edDOB.setHint(getResources().getString(R.string.lbl_dob).toUpperCase());
+        edDOB.setHint(getResources().getString(R.string.post_add_date).toUpperCase());
         edDOB.setOnClickListener(this);
         setOccupation(1);
         setbuisness(1);
@@ -408,12 +409,13 @@ switch (view.getId()){
 
         }
     };
-
+    ProgressDialog mProgressDialog;
 
     public void postAddApi(){
         try{
             if (new Helper().isNetworkAvailable(getApplication())) {
-
+                mProgressDialog = new ProgressDialog(BuyerPostAddActitivity.this);
+                Helper.showDialog(mProgressDialog,getResources().getString(R.string.popup_messege));
                 String webAPI = Helper.getSharedPrefValStr(BuyerPostAddActitivity.this, Constants.sharedPref.s_BASE_URL)
                         .concat(Constants.webAPI.postAdd);
                 String requestBody = createPostAdModel();
@@ -424,6 +426,7 @@ switch (view.getId()){
                             @Override
                             public void onSuccess(final String res) {
                                 try {
+                                    new Helper().hideDialog(mProgressDialog);
                                     Toast.makeText(getApplicationContext(), "" + Helper.getServerSuccessMessage(res), Toast.LENGTH_SHORT).show();
                                 } catch (Exception e) {
 
@@ -433,6 +436,7 @@ switch (view.getId()){
 
                             @Override
                             public void onFailure(final String err) {
+                                new Helper().hideDialog(mProgressDialog);
                                 Helper.showToast(BuyerPostAddActitivity.this, "" + Helper.getServerMessage(err));
                             }
 

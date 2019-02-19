@@ -1,6 +1,7 @@
 package gogagner.goldenbrainsithub.com;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -33,7 +34,8 @@ public class VerifyOTPActivity extends Activity implements View.OnClickListener 
     Button btnSubmitOTP;
 
     private EditText otp_a, otp_b, otp_c, otp_d, otp_e, otp_f;
-int size = 1;
+    int size = 1;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,14 +71,14 @@ int size = 1;
     private void autoScrollonOTP() {
         otp_a.addTextChangedListener(new TextWatcher() {
 
-            public void onTextChanged(CharSequence s, int start,int before, int count)
-            {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // TODO Auto-generated method stub
-                if(otp_a.getText().toString().length()==size)     //size as per your requirement
+                if (otp_a.getText().toString().length() == size)     //size as per your requirement
                 {
                     otp_b.requestFocus();
                 }
             }
+
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
                 // TODO Auto-generated method stub
@@ -91,14 +93,14 @@ int size = 1;
 
         otp_b.addTextChangedListener(new TextWatcher() {
 
-            public void onTextChanged(CharSequence s, int start,int before, int count)
-            {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // TODO Auto-generated method stub
-                if(otp_b.getText().toString().length()==size)     //size as per your requirement
+                if (otp_b.getText().toString().length() == size)     //size as per your requirement
                 {
                     otp_c.requestFocus();
                 }
             }
+
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
                 // TODO Auto-generated method stub
@@ -113,14 +115,14 @@ int size = 1;
 
         otp_c.addTextChangedListener(new TextWatcher() {
 
-            public void onTextChanged(CharSequence s, int start,int before, int count)
-            {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // TODO Auto-generated method stub
-                if(otp_c.getText().toString().length()==size)     //size as per your requirement
+                if (otp_c.getText().toString().length() == size)     //size as per your requirement
                 {
                     otp_d.requestFocus();
                 }
             }
+
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
                 // TODO Auto-generated method stub
@@ -135,14 +137,14 @@ int size = 1;
 
         otp_d.addTextChangedListener(new TextWatcher() {
 
-            public void onTextChanged(CharSequence s, int start,int before, int count)
-            {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // TODO Auto-generated method stub
-                if(otp_d.getText().toString().length()==size)     //size as per your requirement
+                if (otp_d.getText().toString().length() == size)     //size as per your requirement
                 {
                     otp_e.requestFocus();
                 }
             }
+
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
                 // TODO Auto-generated method stub
@@ -157,14 +159,14 @@ int size = 1;
 
         otp_e.addTextChangedListener(new TextWatcher() {
 
-            public void onTextChanged(CharSequence s, int start,int before, int count)
-            {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // TODO Auto-generated method stub
-                if(otp_e.getText().toString().length()==size)     //size as per your requirement
+                if (otp_e.getText().toString().length() == size)     //size as per your requirement
                 {
                     otp_f.requestFocus();
                 }
             }
+
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
                 // TODO Auto-generated method stub
@@ -179,14 +181,14 @@ int size = 1;
 
         otp_f.addTextChangedListener(new TextWatcher() {
 
-            public void onTextChanged(CharSequence s, int start,int before, int count)
-            {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // TODO Auto-generated method stub
-                if(otp_b.getText().toString().length()==size)     //size as per your requirement
+                if (otp_b.getText().toString().length() == size)     //size as per your requirement
                 {
                     Helper.hideKeyboard(VerifyOTPActivity.this);
                 }
             }
+
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
                 // TODO Auto-generated method stub
@@ -205,9 +207,9 @@ int size = 1;
         new CountDownTimer(120000, 1000) {
             public void onTick(long millisUntilFinished) {
 
-               // tvOtpTimer.setText(getResources().getString(R.string.lbl_otp_reminder) + " " + millisUntilFinished / 1000);
-                tvOtpTimer.setText(getResources().getString(R.string.lbl_otp_reminder) + " " + ""+String.format("%d:%d ",
-                        TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
+                // tvOtpTimer.setText(getResources().getString(R.string.lbl_otp_reminder) + " " + millisUntilFinished / 1000);
+                tvOtpTimer.setText(getResources().getString(R.string.lbl_otp_reminder) + " " + "" + String.format("%d:%d ",
+                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
                         TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
                                 TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
 
@@ -224,95 +226,65 @@ int size = 1;
         }.start();
     }
 
+    ProgressDialog mProgressDialog;
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSubmitOTP:
 
-              if(new Helper().isNetworkAvailable(getApplication())){
-                  if (isvalidateOTPEmpty()) {
-                      Helper.showToast(VerifyOTPActivity.this, getResources().getString(R.string.lbl_enter_valid_otp));
-                  } else {
-                      String webAPI = Helper.getSharedPrefValStr(VerifyOTPActivity.this, Constants.sharedPref.s_BASE_URL)
-                              .concat(Constants.webAPI.verifyOTP);
-                      String requestBody = generateVerifyOTPBody();
-                      NetworkCommunicationHelper networkCommunicationHelper = new NetworkCommunicationHelper();
-
-                      //user Post API
-                      networkCommunicationHelper.sendUserPostRequest(getApplication(), webAPI, requestBody,
-                              new NetworkCommunicationHelper.OnResponseReceived() {
-                                  @Override
-                                  public void onSuccess(final String res) {
-
-                                      //TODO check for correct OTP
-                                     /* Helper.updatedSharedPrefValBoolean(VerifyOTPActivity.this,
-                                              Constants.login.isLoginSuccess, true);*/
-                                      //userDetails
-                                      try {
-                                          JSONObject main = new JSONObject(res);
-                                          JSONObject j_response = main.getJSONObject("response");
-                                          String messages = j_response.getString("messages");
-                                          if(j_response.has("userDetails")){
-                                         // if(messages.matches("OTP verified sucessfully.")){
-                                              startActivity(new Intent(
-                                                      VerifyOTPActivity.this,
-                                                      LoginActivity.class
-                                              ));
-                                          }
-                                          else {
-                                              startActivity(new Intent(
-                                                      VerifyOTPActivity.this,
-                                                      ResetPasswordActivity.class
-                                              ));
-                                          }
-
-                                      }
-                                      catch (Exception e){
-
-                                      }
-
-
-                                      finish();
-
-                                  }
-
-                                  @Override
-                                  public void onFailure(final String err) {
-                                      Helper.showToast(VerifyOTPActivity.this, ""+Helper.getServerMessage(err));
-
-                                  }
-
-
-                              });
-
-
-                  }
-              }
-              else
-                  Helper.showToast(VerifyOTPActivity.this,getResources().getString(R.string.lbl_no_internet));
-                break;
-
-            case R.id.tvResendOtp:
-
-                if(new Helper().isNetworkAvailable(getApplication())){
-
+                if (new Helper().isNetworkAvailable(getApplication())) {
+                    if (isvalidateOTPEmpty()) {
+                        Helper.showToast(VerifyOTPActivity.this, getResources().getString(R.string.lbl_enter_valid_otp));
+                    } else {
+                        mProgressDialog = new ProgressDialog(VerifyOTPActivity.this);
+                        Helper.showDialog(mProgressDialog, getResources().getString(R.string.popup_messege));
                         String webAPI = Helper.getSharedPrefValStr(VerifyOTPActivity.this, Constants.sharedPref.s_BASE_URL)
-                                .concat(Constants.webAPI.resendOTP);
-                        String requestBody = resendOTPBody();
+                                .concat(Constants.webAPI.verifyOTP);
+                        String requestBody = generateVerifyOTPBody();
                         NetworkCommunicationHelper networkCommunicationHelper = new NetworkCommunicationHelper();
 
-                        networkCommunicationHelper.sendPostRequest(getApplication(), webAPI, requestBody,
+                        //user Post API
+                        networkCommunicationHelper.sendUserPostRequest(getApplication(), webAPI, requestBody,
                                 new NetworkCommunicationHelper.OnResponseReceived() {
                                     @Override
                                     public void onSuccess(final String res) {
+                                        Helper.hideDialog(mProgressDialog);
+                                        //TODO check for correct OTP
+                                     /* Helper.updatedSharedPrefValBoolean(VerifyOTPActivity.this,
+                                              Constants.login.isLoginSuccess, true);*/
+                                        //userDetails
+                                        try {
+                                            JSONObject main = new JSONObject(res);
+                                            JSONObject j_response = main.getJSONObject("response");
+                                            String messages = j_response.getString("messages");
+                                            if (j_response.has("userDetails")) {
+                                                // if(messages.matches("OTP verified sucessfully.")){
+                                                startActivity(new Intent(
+                                                        VerifyOTPActivity.this,
+                                                        LoginActivity.class
+                                                ));
+                                            } else {
+                                                startActivity(new Intent(
+                                                        VerifyOTPActivity.this,
+                                                        ResetPasswordActivity.class
+                                                ));
+                                            }
+
+                                        } catch (Exception e) {
+
+                                        }
 
 
+                                        finish();
 
                                     }
 
                                     @Override
                                     public void onFailure(final String err) {
-                                        Helper.showToast(VerifyOTPActivity.this, ""+Helper.getServerMessage(err));
+                                        Helper.hideDialog(mProgressDialog);
+                                        Helper.showToast(VerifyOTPActivity.this, "" + Helper.getServerMessage(err));
+
                                     }
 
 
@@ -320,9 +292,42 @@ int size = 1;
 
 
                     }
+                } else
+                    Helper.showToast(VerifyOTPActivity.this, getResources().getString(R.string.lbl_no_internet));
+                break;
 
-                else
-                    Helper.showToast(VerifyOTPActivity.this,getResources().getString(R.string.lbl_no_internet));
+            case R.id.tvResendOtp:
+
+                if (new Helper().isNetworkAvailable(getApplication())) {
+                    mProgressDialog = new ProgressDialog(VerifyOTPActivity.this);
+                    Helper.showDialog(mProgressDialog, getResources().getString(R.string.popup_messege));
+
+                    String webAPI = Helper.getSharedPrefValStr(VerifyOTPActivity.this, Constants.sharedPref.s_BASE_URL)
+                            .concat(Constants.webAPI.resendOTP);
+                    String requestBody = resendOTPBody();
+                    NetworkCommunicationHelper networkCommunicationHelper = new NetworkCommunicationHelper();
+
+                    networkCommunicationHelper.sendPostRequest(getApplication(), webAPI, requestBody,
+                            new NetworkCommunicationHelper.OnResponseReceived() {
+                                @Override
+                                public void onSuccess(final String res) {
+                                    Helper.hideDialog(mProgressDialog);
+
+
+                                }
+
+                                @Override
+                                public void onFailure(final String err) {
+                                    Helper.hideDialog(mProgressDialog);
+                                    Helper.showToast(VerifyOTPActivity.this, "" + Helper.getServerMessage(err));
+                                }
+
+
+                            });
+
+
+                } else
+                    Helper.showToast(VerifyOTPActivity.this, getResources().getString(R.string.lbl_no_internet));
                 break;
         }
     }
@@ -334,7 +339,7 @@ int size = 1;
         VerifyOTPModel verifyOTPModel = new VerifyOTPModel();
         verifyOTPModel.setOtp(getOTP());
         verifyOTPModel.setPage(getIntent().getStringExtra(Intent.EXTRA_STREAM));
-       // verifyOTPModel.setMobile(mobileNumber);
+        // verifyOTPModel.setMobile(mobileNumber);
 
         Gson gson = new GsonBuilder()
                 .serializeNulls()
@@ -369,7 +374,7 @@ int size = 1;
         String otp = null;
         otp = otp_a.getText().toString() + otp_b.getText().toString() +
                 otp_c.getText().toString() + otp_d.getText().toString() +
-                otp_e.getText().toString()+otp_f.getText().toString();
+                otp_e.getText().toString() + otp_f.getText().toString();
 
         return otp;
     }
@@ -388,8 +393,8 @@ int size = 1;
         }
     }
 
-    public void SubMitOTP(String Message){
-Helper.showToast(VerifyOTPActivity.this,""+Message);
+    public void SubMitOTP(String Message) {
+        Helper.showToast(VerifyOTPActivity.this, "" + Message);
     }
 
     @Override

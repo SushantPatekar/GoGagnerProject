@@ -1,6 +1,7 @@
 package gogagner.goldenbrainsithub.com;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,7 +27,7 @@ public class RequestOTP extends Activity implements View.OnClickListener{
     Button btnRegisterOTP;
     EditText edRegisterOTP;
     TextView tvRegisterOTP;
-
+    ProgressDialog mProgressDialog;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +61,10 @@ public class RequestOTP extends Activity implements View.OnClickListener{
 
                 if(new Helper().isNetworkAvailable(getApplication())){
                         if((Helper.isNumber(RequestOTP.this,edRegisterOTP.getText().toString().trim()))){
+
+                            mProgressDialog = new ProgressDialog(RequestOTP.this);
+                            Helper.showDialog(mProgressDialog,getResources().getString(R.string.popup_messege));
+
                         String webAPI = Helper.getSharedPrefValStr(RequestOTP.this, Constants.sharedPref.s_BASE_URL)
                                 .concat(Constants.webAPI.forgotPassword);
                         String requestBody =  generateForgotPwdBody();
@@ -69,6 +74,7 @@ public class RequestOTP extends Activity implements View.OnClickListener{
                                 new NetworkCommunicationHelper.OnResponseReceived() {
                                     @Override
                                     public void onSuccess(final String res) {
+                                        new Helper().hideDialog(mProgressDialog);
                                         startActivity(new Intent(
                                                 RequestOTP.this,
                                                 VerifyOTPActivity.class
@@ -79,6 +85,7 @@ public class RequestOTP extends Activity implements View.OnClickListener{
 
                                     @Override
                                     public void onFailure(final String err) {
+                                        new Helper().hideDialog(mProgressDialog);
                                         Helper.showToast(RequestOTP.this, ""+Helper.getServerMessage(err));
 
                                     }

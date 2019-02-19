@@ -62,6 +62,8 @@ import dbModel.Locality;
 import dbModel.LocalityModel;
 import dbModel.State;
 import dbModel.StateModel;
+import dbModel.User;
+import dbModel.UserModel;
 import networkcommunication.VolleyMultipartRequest;
 import slidermenu.BaseDrawerActivity;
 import utility.Constants;
@@ -200,8 +202,25 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
         btnChangeProfile.setOnClickListener(this);
         btnremovePhoto.setOnClickListener(this);
 
+        initData();
+
     }
 
+    private void initData(){
+        try{
+            User user;
+            String mUsrname =Helper.getSharedPrefValStr(getApplication(),Constants.sharedPref.userName);
+            user = new UserModel().getUserbyID(getApplication(),mUsrname);
+            edFirstName.setText(user.getFirstName());
+            edLastName.setText(user.getLastName());
+            edEmail.setText(user.getEmail());
+            edMobileNumber.setText(user.getMobile());
+
+        }
+        catch (Exception e){
+
+        }
+    }
     private int getDpAsPixels(int sizeInDp) {
         float scale = getResources().getDisplayMetrics().density;
         return (int) (sizeInDp * scale + 0.5f);
@@ -386,7 +405,8 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
 
     private void fun_webAPIforChangePWD() {
         if (new Helper().isNetworkAvailable(getApplication())) {
-
+            mProgressDialog = new ProgressDialog(BuyerMyProfileActivity.this);
+            Helper.showDialog(mProgressDialog,getResources().getString(R.string.popup_messege));
             String webAPI = Helper.getSharedPrefValStr(BuyerMyProfileActivity.this, Constants.sharedPref.s_BASE_URL)
                     .concat(Constants.webAPI.changePassword);
             String requestBody = resetPWDBody();
@@ -397,6 +417,7 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
                         @Override
                         public void onSuccess(final String res) {
                             try {
+                                new Helper().hideDialog(mProgressDialog);
                                 Toast.makeText(getApplicationContext(), "" + Helper.getServerSuccessMessage(res), Toast.LENGTH_SHORT).show();
                             } catch (Exception e) {
 
@@ -406,6 +427,7 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
 
                         @Override
                         public void onFailure(final String err) {
+                            new Helper().hideDialog(mProgressDialog);
                             Helper.showToast(BuyerMyProfileActivity.this, "" + Helper.getServerMessage(err));
                         }
 
@@ -430,7 +452,8 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
 
     private void fun_webAPIforSaveChanes() {
         if (new Helper().isNetworkAvailable(getApplication())) {
-
+            mProgressDialog = new ProgressDialog(BuyerMyProfileActivity.this);
+            Helper.showDialog(mProgressDialog,getResources().getString(R.string.popup_messege));
             String webAPI = Helper.getSharedPrefValStr(BuyerMyProfileActivity.this, Constants.sharedPref.s_BASE_URL)
                     .concat(Constants.webAPI.saveChanges);
             String requestBody = saveChangesBody();
@@ -441,6 +464,7 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
                         @Override
                         public void onSuccess(final String res) {
                             try {
+                                Helper.hideDialog(mProgressDialog);
                                 Toast.makeText(getApplicationContext(), "" + Helper.getServerSuccessMessage(res), Toast.LENGTH_SHORT).show();
                             } catch (Exception e) {
 
@@ -450,6 +474,7 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
 
                         @Override
                         public void onFailure(final String err) {
+                            Helper.hideDialog(mProgressDialog);
                             Helper.showToast(BuyerMyProfileActivity.this, "" + Helper.getServerMessage(err));
                         }
 
@@ -988,6 +1013,9 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
     }
 
     private void uploadProfileImage() {
+        mProgressDialog = new ProgressDialog(BuyerMyProfileActivity.this);
+        Helper.showDialog(mProgressDialog,getResources().getString(R.string.popup_messege));
+
         String webAPI = Constants.webAPI.IMAGE_UPLOAD_BASE_URL.concat(Constants.webAPI.uploadImage);
         new Helper().showDialog(mProgressDialog,getResources().getString(R.string.popup_messege));
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, webAPI,
@@ -996,6 +1024,7 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
                     public void onResponse(NetworkResponse response) {
                         rQueue.getCache().clear();
                         try {
+                            Helper.hideDialog(mProgressDialog);
                             JSONObject jsonObject = new JSONObject(new String(response.data));
 
                             Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();

@@ -187,6 +187,14 @@ ImageView imgAvatar;
         else if (edPassword.getText().toString().matches("")) {
             Helper.showToast(this, getString(R.string.signup_pwd_error));
         }
+        else  if(!Helper.isPasswordPolicy(edPassword)){
+            Helper.showToast(this, getString(R.string.pwd_policy_error));
+
+        }
+        else  if(!Helper.isPasswordPolicy(edConifirmPass)){
+            Helper.showToast(this, getString(R.string.pwd_policy_error));
+
+        }
         else if (edConifirmPass.getText().toString().matches("")) {
             Helper.showToast(this, getString(R.string.signup_pwd_error));
         }

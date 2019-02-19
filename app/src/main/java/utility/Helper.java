@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -25,6 +26,7 @@ import java.util.regex.Pattern;
 
 import dbModel.User;
 import dbModel.UserModel;
+import gogagner.goldenbrainsithub.com.LoginActivity;
 import gogagner.goldenbrainsithub.com.R;
 
 public class Helper {
@@ -264,6 +266,15 @@ public class Helper {
         } catch (Exception e) {
 
         }
+    }
+    public static boolean isPasswordPolicy(EditText edPassword){
+        boolean isTrue = false;
+
+        String regex = "((?=.*\\d)(?=.*[a-zA-Z])(?=.*[~'!@#$%?\\\\/&*\\]|\\[=()}\"{+_:;,.><'-])).{6,}";
+        edPassword.setText(edPassword.getText().toString().replaceAll(" ",""));
+         isTrue= edPassword.getText().toString().matches(regex);
+        return isTrue;
+
     }
 }
 

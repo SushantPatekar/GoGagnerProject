@@ -79,6 +79,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         switch (v.getId()){
             case R.id.btnLogin:
 
+
                 if (validateUserPWD()) {
                     if (new Helper().isNetworkAvailable(getApplication())) {
                         String webAPI = Helper.getSharedPrefValStr(LoginActivity.this, Constants.sharedPref.s_BASE_URL)
@@ -173,6 +174,10 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             Helper.showToast(this, getString(R.string.enter_valid_pwd));
 
             return false;
+        }
+        else  if(!Helper.isPasswordPolicy(edPassword)){
+            Helper.showToast(this, getString(R.string.pwd_policy_error));
+            return  false;
         }
         else
 

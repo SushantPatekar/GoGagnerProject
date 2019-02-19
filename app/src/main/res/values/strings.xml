@@ -55,6 +55,8 @@
     <string name="signup_first_error">Please enter first name.</string>
     <string name="signup_last_error">Please enter last name.</string>
     <string name="signup_pwd_error">Please enter valid password.</string>
+    <string name="pwd_policy_error">"Note:\n* Password should be At-least 6 characters, must have alphabets and numbers.\n* At-least one capital alphabet and special character."</string>
+
 
     <string name="search_hint">Search Product/Buisness/Category</string>
     <string name="state">STATE</string>

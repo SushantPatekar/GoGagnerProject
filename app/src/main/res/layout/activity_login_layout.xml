@@ -43,7 +43,6 @@
         android:background="@drawable/bg_edittext_icon"
         android:drawableLeft="@drawable/password"
         android:drawablePadding="20dp"
-        android:hint="@string/lbl_first_name"
         android:inputType="textPassword"
         android:maxLines="1"
         android:padding="12dp"

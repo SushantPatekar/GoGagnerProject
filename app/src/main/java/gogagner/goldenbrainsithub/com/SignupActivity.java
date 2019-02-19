@@ -126,7 +126,7 @@ ImageView imgAvatar;
             tvLogin = (TextView) findViewById(R.id.tvLogin);
 
             tvLogin.setOnClickListener(this);
-            String first = "Already have an account with GoGaner ? ";
+            String first = "Already have an account with GoGagner ? ";
             String next = "<font color='#EE0000'>Log In</font>";
             tvLogin.setText(Html.fromHtml(first + next));
 

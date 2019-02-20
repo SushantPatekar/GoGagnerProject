@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
-
-    android:id="@+id/idText"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
-    android:height="40dp"
-    android:singleLine="true"
-android:gravity="center_vertical"
-    android:textAllCaps="true"
-    android:textColor="@android:color/white"
-    android:textSize="@dimen/text_size_12"
-     />
+    android:layout_height="match_parent">
+
+    <CheckedTextView
+
+        android:id="@+id/idText"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:height="40dp"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:textAllCaps="true"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_12" />
+
+    <ImageView
+        android:layout_below="@id/idText"
+        android:id="@+id/Divider1"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/darkGray"></ImageView>
+</RelativeLayout>
+
+
 

@@ -64,7 +64,6 @@
 
     </style>
 
-    ed_bg_white_bakground
 
     <style name="custom_no_border_SpinnerStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
         <item name="android:textColor">@color/white</item>

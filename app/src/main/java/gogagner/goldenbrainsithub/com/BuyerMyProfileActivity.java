@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -201,6 +202,9 @@ public class BuyerMyProfileActivity extends BaseDrawerActivity implements View.O
         imgAvatar.setOnClickListener(this);
         btnChangeProfile.setOnClickListener(this);
         btnremovePhoto.setOnClickListener(this);
+
+        edFirstName.setFilters(new InputFilter[]{new Helper().avoidNumbersInputListener()});
+        edLastName.setFilters(new InputFilter[]{new Helper().avoidNumbersInputListener()});
 
         initData();
 

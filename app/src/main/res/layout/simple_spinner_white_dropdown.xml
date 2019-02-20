@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<custom.customTextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-
-    android:id="@+id/idText"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
-    android:height="40dp"
-    android:singleLine="true"
-    android:gravity="center_vertical"
-    android:padding="8dp"
-    android:textAllCaps="true"
-    android:textColor="@color/black"
-    android:textColorHint="@color/black"
-    android:textSize="@dimen/text_size_12"
-    />
+    android:layout_height="match_parent">
+
+    <custom.customTextView
+
+
+        android:id="@+id/idText"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:height="40dp"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:singleLine="true"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="@dimen/text_size_12" />
+
+    <ImageView
+        android:id="@+id/Divider1"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_below="@id/idText"
+        android:background="@color/darkGray"/>
+</RelativeLayout>
+
+
 

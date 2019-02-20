@@ -11,6 +11,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
@@ -279,6 +281,21 @@ public class Helper {
          isTrue= edPassword.getText().toString().matches(regex);
         return isTrue;
 
+    }
+
+    public InputFilter avoidNumbersInputListener(){
+        InputFilter filtertxt = new InputFilter() {
+            public CharSequence filter(CharSequence source, int start, int end,
+                                       Spanned dest, int dstart, int dend) {
+                for (int i = start; i < end; i++) {
+                    if (!Character.isLetter(source.charAt(i))) {
+                        return "";
+                    }
+                }
+                return null;
+            }
+        };
+        return filtertxt;
     }
 }
 

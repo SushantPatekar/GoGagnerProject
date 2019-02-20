@@ -174,14 +174,16 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     public boolean validateUserPWD(){
         if (TextUtils.isEmpty(edMobileNumber.getText().toString().trim())) {
             Helper.showToast(this, getString(R.string.enter_valid_email_mobilenumber));
+            new Helper().hideDialog(mProgressDialog);
             return false;
         } else if (TextUtils.isEmpty(edPassword.getText().toString().trim())){
             Helper.showToast(this, getString(R.string.enter_valid_pwd));
-
+            new Helper().hideDialog(mProgressDialog);
             return false;
         }
         else  if(!Helper.isPasswordPolicy(edPassword)){
             Helper.showToast(this, getString(R.string.pwd_policy_error));
+            new Helper().hideDialog(mProgressDialog);
             return  false;
         }
         else

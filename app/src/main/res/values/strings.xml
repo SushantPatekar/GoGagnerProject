@@ -49,7 +49,7 @@
     <string name="enter_valid_email">Please enter valid email id</string>
     <string name="enter_valid_pwd">Please enter valid pasword</string>
     <string name="enter_valid_pwd_mismatch">Password mismatch.</string>
-    <string name="enter_valid_email_mobilenumber">Please Enter Valid Mobile Number Or Email Id</string>
+    <string name="enter_valid_email_mobilenumber">Please Enter Valid Mobile Number or Email Id</string>
     <string name="i_agree_error">You must agree to the terms and conditions before registering</string>
     <string name="enter_valid_confirm_pwd">Password is missmatch</string>
     <string name="signup_first_error">Please enter first name.</string>

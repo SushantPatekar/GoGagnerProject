@@ -370,6 +370,7 @@ switch (view.getId()){
                                           int monthOfYear, int dayOfMonth) {
 
                         edDOB.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                        publishDate = edDOB.getText().toString().trim();
                         btnNext_three.setText("Post Add For 50 Coins");
                         tvCoinLbl.setVisibility(View.VISIBLE);
                         tvCoinBalance.setVisibility(View.VISIBLE);
@@ -384,6 +385,7 @@ switch (view.getId()){
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             if (position > 0) {
                 spBuisnessCat.setVisibility(View.VISIBLE);
+                mSelectedBuisnessId = position ;
             }
 
 
@@ -458,10 +460,10 @@ switch (view.getId()){
               mobileModel.setSmall("https://gogagnerbucket.s3.ap-south-1.amazonaws.com/images/profile/mobile/small/12X.jpe");
               mobileModel.setMedium("https://gogagnerbucket.s3.ap-south-1.amazonaws.com/images/profile/mobile/medium/12X.jpeg");
         postAddMedia.setMobileModel(mobileModel);
-        postAddModel.setBusinessId("2");
-        postAddModel.setLocationId("1");
-        postAddModel.setPublishDate("1987-12-09");
-        postAddModel.setSourceId("1");
+        postAddModel.setBusinessId(""+mSelectedBuisnessId);
+        postAddModel.setLocationId(""+mSelectedLocationId);
+        postAddModel.setPublishDate(""+publishDate);
+        postAddModel.setSourceId(""+mSourceId);
         postAddModel.setPostAddMedia(postAddMedia);
         Gson gson = new GsonBuilder()
                 .serializeNulls()

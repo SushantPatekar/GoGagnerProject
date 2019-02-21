@@ -82,6 +82,8 @@ Spinner spBuisnessAd,spBuisnessCat,spBuisnessSubCat;
         setCategory(1);
         setSubCategory(1);
         spAddMaster.setOnItemSelectedListener(onLocationListener);
+       // spBuisnessCat.setOnItemSelectedListener(buissness_add);
+       // spBuisnessSubCat.setOnItemSelectedListener(buissness_category);
         btnNext_one.setOnClickListener(this);
         btnNext_two.setOnClickListener(this);
         btnNext_three.setOnClickListener(this);
@@ -101,19 +103,66 @@ Spinner spBuisnessAd,spBuisnessCat,spBuisnessSubCat;
     public void onClick(View view) {
 switch (view.getId()){
     case R.id.btnSaveNext_one:
-         viewSecondContainer();
+        if(spAddMaster.getSelectedItemPosition()>0){
+            viewSecondContainer();
+        }
+         else {
+             Helper.showToast(BuyerPostAddActitivity.this,getResources().getString(R.string.post_add_buisness_location_validation));
+        }
         break;
 
     case R.id.btnSaveNext_two:
-        viewThirdContainer();
+        if(spBuisnessAd.getSelectedItemPosition()>0
+               ){
+            if(spBuisnessCat.getSelectedItemPosition()>0){
+
+                if(spBuisnessSubCat.getSelectedItemPosition()>0){
+                    viewThirdContainer();
+                }
+                else {
+                    Helper.showToast(BuyerPostAddActitivity.this, getResources().getString(R.
+                            string.post_add_buisness_buisness_sub_category_validation));
+                }
+
+
+            }
+            else {
+                // Select Buisenss
+                Helper.showToast(BuyerPostAddActitivity.this, getResources().getString(R.
+                        string.post_add_buisness_buisness_category_validation));
+            }
+
+          /*  if(spBuisnessCat.getSelectedItemPosition()==0){
+                spBuisnessSubCat.setVisibility(View.GONE);
+            }
+            else
+                spBuisnessSubCat.setVisibility(View.VISIBLE);*/
+        } else {
+            Helper.showToast(BuyerPostAddActitivity.this, getResources().getString(R.string.post_add_buisness_buisness_validation));
+        }
         break;
 
     case R.id.btnSaveNext_three:
-        viewFourContainer();
+
+            if(!edDOB.getText().toString().trim().isEmpty()){
+            viewFourContainer();
+        }
+        else {
+            Helper.showToast(BuyerPostAddActitivity.this, getResources().getString(R.string.post_add_buisness_buisness_date_validation));
+
+        }
+
         break;
     case R.id.edDOB:
-        edDOB.setInputType(InputType.TYPE_NULL);
-        setDateFromCalender();
+        //if(!edDOB.getText().toString().trim().isEmpty()){
+            edDOB.setInputType(InputType.TYPE_NULL);
+            setDateFromCalender();
+        /*}
+        else {
+            Helper.showToast(BuyerPostAddActitivity.this, getResources().getString(R.string.post_add_buisness_buisness_date_validation));
+
+        }*/
+
         break;
 }
     }
@@ -197,13 +246,13 @@ switch (view.getId()){
             mcityList.add(firstLocality);
             firstLocality = new dbModel.Locality();
             firstLocality.setId(2);
-            firstLocality.setName("Category Screen");
+            firstLocality.setName("Buisness One");
             firstLocality.setSlug(getResources().getString(R.string.locality));
             mcityList.add(firstLocality);
 
             firstLocality = new dbModel.Locality();
             firstLocality.setId(3);
-            firstLocality.setName("Product Screen");
+            firstLocality.setName("Buisness two");
             firstLocality.setSlug(getResources().getString(R.string.locality));
             mcityList.add(firstLocality);
 
@@ -230,18 +279,18 @@ switch (view.getId()){
 
             firstLocality = new dbModel.Locality();
             firstLocality.setId(1);
-            firstLocality.setName("Home Screen");
+            firstLocality.setName("Category One");
             firstLocality.setSlug(getResources().getString(R.string.locality));
             mcityList.add(firstLocality);
             firstLocality = new dbModel.Locality();
             firstLocality.setId(2);
-            firstLocality.setName("Category Screen");
+            firstLocality.setName("Category two");
             firstLocality.setSlug(getResources().getString(R.string.locality));
             mcityList.add(firstLocality);
 
             firstLocality = new dbModel.Locality();
             firstLocality.setId(3);
-            firstLocality.setName("Product Screen");
+            firstLocality.setName("Category three");
             firstLocality.setSlug(getResources().getString(R.string.locality));
             mcityList.add(firstLocality);
 
@@ -268,18 +317,18 @@ switch (view.getId()){
 
             firstLocality = new dbModel.Locality();
             firstLocality.setId(1);
-            firstLocality.setName("Home Screen");
+            firstLocality.setName("SubCateogry one");
             firstLocality.setSlug(getResources().getString(R.string.locality));
             mcityList.add(firstLocality);
             firstLocality = new dbModel.Locality();
             firstLocality.setId(2);
-            firstLocality.setName("Category Screen");
+            firstLocality.setName("SubCateogry two");
             firstLocality.setSlug(getResources().getString(R.string.locality));
             mcityList.add(firstLocality);
 
             firstLocality = new dbModel.Locality();
             firstLocality.setId(3);
-            firstLocality.setName("Product Screen");
+            firstLocality.setName("SubCateogry three");
             firstLocality.setSlug(getResources().getString(R.string.locality));
             mcityList.add(firstLocality);
 
@@ -387,6 +436,8 @@ switch (view.getId()){
                 spBuisnessCat.setVisibility(View.VISIBLE);
                 mSelectedBuisnessId = position ;
             }
+           /* Helper.showToast(BuyerPostAddActitivity.this,
+                    getResources().getString(R.string.post_add_buisness_buisness_category_validation));*/
 
 
         }
@@ -428,6 +479,7 @@ switch (view.getId()){
                             @Override
                             public void onSuccess(final String res) {
                                 try {
+                                    edDOB.setText("");
                                     new Helper().hideDialog(mProgressDialog);
                                     Toast.makeText(getApplicationContext(), "" + Helper.getServerSuccessMessage(res), Toast.LENGTH_SHORT).show();
                                 } catch (Exception e) {

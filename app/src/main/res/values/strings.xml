@@ -129,4 +129,10 @@
     <string name="btn_next">Next</string>
     <string name="post_add">Post Add</string>
     <string name="post_add_date">Schedule a date</string>
+
+    <string name="post_add_buisness_location_validation">Please Select Advertise Location</string>
+    <string name="post_add_buisness_buisness_validation">Please Select Buisness</string>
+    <string name="post_add_buisness_buisness_category_validation">Please Select Buisness Category.</string>
+    <string name="post_add_buisness_buisness_sub_category_validation">Please Select Buisness Subcategory.</string>
+    <string name="post_add_buisness_buisness_date_validation">Please Select Schedule Date</string>
 </resources>
